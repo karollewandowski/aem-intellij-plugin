@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.completion.provider;
 
-import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExpressionOptionBracketsInsertHandler;
-import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExpressionOptionQuotesInsertHandler;
+import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionBracketsInsertHandler;
+import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionQuotesInsertHandler;
 import co.nums.intellij.aem.htl.icons.HtlIcons;
 import co.nums.intellij.aem.htl.psi.HtlTokenTypes;
 import com.google.common.collect.Sets;
@@ -14,10 +14,12 @@ import java.util.Set;
 /**
  * Provides HTL built-in expression options.
  */
-public class HtlExpressionOptionsCompletionProvider extends UniqueIdentifiersProviderBase {
+public class HtlExprOptionsCompletionProvider extends UniqueIdentifiersProviderBase {
 
-	private static final HtlExpressionOptionQuotesInsertHandler QUOTES_HANDLER = HtlExpressionOptionQuotesInsertHandler.INSTANCE;
-	private static final HtlExpressionOptionBracketsInsertHandler BRACKETS_HANDLER = HtlExpressionOptionBracketsInsertHandler.INSTANCE;
+	private static final HtlExprOptionQuotesInsertHandler QUOTES_HANDLER = new HtlExprOptionQuotesInsertHandler();
+	private static final HtlExprOptionQuotesInsertHandler AUTO_POPUP_QUOTES_HANDLER =
+			new HtlExprOptionQuotesInsertHandler(true);
+	private static final HtlExprOptionBracketsInsertHandler BRACKETS_HANDLER = new HtlExprOptionBracketsInsertHandler();
 
 	private static final Set<LookupElement> EXPRESSION_OPTIONS_ELEMENTS = Sets.newHashSet(
 			expressionOption("i18n"),
@@ -25,7 +27,7 @@ public class HtlExpressionOptionsCompletionProvider extends UniqueIdentifiersPro
 			expressionOption("scheme").withInsertHandler(QUOTES_HANDLER),
 			expressionOption("domain").withInsertHandler(QUOTES_HANDLER),
 			expressionOption("locale").withInsertHandler(QUOTES_HANDLER),
-			expressionOption("context").withInsertHandler(QUOTES_HANDLER),
+			expressionOption("context").withInsertHandler(AUTO_POPUP_QUOTES_HANDLER),
 			expressionOption("hint").withInsertHandler(QUOTES_HANDLER),
 			expressionOption("join").withInsertHandler(QUOTES_HANDLER),
 			expressionOption("path").withInsertHandler(QUOTES_HANDLER),

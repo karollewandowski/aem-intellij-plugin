@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.completion.contributor;
 
 import co.nums.intellij.aem.htl.completion.provider.HtlDisplayContextsProvider;
-import co.nums.intellij.aem.htl.completion.provider.HtlExpressionOptionsCompletionProvider;
+import co.nums.intellij.aem.htl.completion.provider.HtlExprOptionsCompletionProvider;
 import co.nums.intellij.aem.htl.psi.HtlTokenTypes;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionType;
@@ -12,13 +12,13 @@ import com.intellij.psi.TokenType;
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 import static com.intellij.patterns.StandardPatterns.or;
 
-public class HtlExpressionOptionsCompletionContributor extends CompletionContributor {
+public class HtlExprOptionsCompletionContributor extends CompletionContributor {
 
-	public HtlExpressionOptionsCompletionContributor() {
+	public HtlExprOptionsCompletionContributor() {
 		extend(
 				CompletionType.BASIC,
 				optionIdentifier(),
-				new HtlExpressionOptionsCompletionProvider()
+				new HtlExprOptionsCompletionProvider()
 		);
 		extend(
 				CompletionType.BASIC,

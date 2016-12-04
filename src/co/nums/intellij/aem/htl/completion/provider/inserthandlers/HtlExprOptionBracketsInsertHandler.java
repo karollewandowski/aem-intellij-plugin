@@ -8,9 +8,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.ScrollType;
 import com.intellij.util.text.CharArrayUtil;
 
-public class HtlExpressionOptionBracketsInsertHandler implements InsertHandler<LookupElement> {
-
-	public static final HtlExpressionOptionBracketsInsertHandler INSTANCE = new HtlExpressionOptionBracketsInsertHandler();
+public class HtlExprOptionBracketsInsertHandler implements InsertHandler<LookupElement> {
 
 	@Override
 	public void handleInsert(InsertionContext context, LookupElement item) {
@@ -29,8 +27,6 @@ public class HtlExpressionOptionBracketsInsertHandler implements InsertHandler<L
 	}
 
 	private static void insertBrackets(InsertionContext context, Document document, int caretOffset) {
-		// check if HTL works when expression contains the same type of quote
-		// as attribute value delimiter if not, then handle it here
 		document.insertString(caretOffset, "=[]");
 		if (context.getCompletionChar() == '=') {
 			context.setAddCompletionChar(false); // IDEA-19449

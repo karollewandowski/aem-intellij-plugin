@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider;
 
-import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExpressionBlockInsertHandler;
+import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprBlockInsertHandler;
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlSimpleBlockInsertHandler;
 import co.nums.intellij.aem.htl.icons.HtlIcons;
 import com.google.common.collect.Sets;
@@ -16,8 +16,8 @@ import java.util.Set;
  */
 public class HtlBlocksCompletionProvider extends UniqueIdentifiersProviderBase {
 
-	private static final HtlSimpleBlockInsertHandler SIMPLE_QUOTES_HANDLER = HtlSimpleBlockInsertHandler.INSTANCE;
-	private static final HtlExpressionBlockInsertHandler EXPRESSION_HANDLER = HtlExpressionBlockInsertHandler.INSTANCE;
+	private static final HtlSimpleBlockInsertHandler SIMPLE_QUOTES_HANDLER = new HtlSimpleBlockInsertHandler();
+	private static final HtlExprBlockInsertHandler EXPRESSION_HANDLER = new HtlExprBlockInsertHandler();
 
 	private static final Set<LookupElement> BLOCKS_ELEMENTS = Sets.newHashSet(
 			block("data-sly-attribute").withInsertHandler(EXPRESSION_HANDLER),
