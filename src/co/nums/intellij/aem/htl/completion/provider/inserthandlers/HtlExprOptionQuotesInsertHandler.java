@@ -11,7 +11,6 @@ import com.intellij.openapi.editor.ScrollType;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.text.CharArrayUtil;
-import org.jetbrains.annotations.NotNull;
 
 public class HtlExprOptionQuotesInsertHandler implements InsertHandler<LookupElement> {
 
@@ -48,19 +47,18 @@ public class HtlExprOptionQuotesInsertHandler implements InsertHandler<LookupEle
 	}
 
 	private static void insertQuotes(InsertionContext context, Document document, int caretOffset) {
-		String insertedQuote = getQuoteToInsert(context, caretOffset);
+		char insertedQuote = getQuoteToInsert(context, caretOffset);
 		document.insertString(caretOffset, "=" + insertedQuote + insertedQuote);
 	}
 
-	@NotNull
-	private static String getQuoteToInsert(InsertionContext context, int caretOffset) {
+	private static char getQuoteToInsert(InsertionContext context, int caretOffset) {
 		FileViewProvider viewProvider = context.getFile().getViewProvider();
 		PsiElement currentElement = viewProvider.findElementAt(caretOffset);
-		String enclosingQuote = HtlPsiUtil.getEnclosingHtmlAttributeQuote(currentElement);
-		if ("'".equals(enclosingQuote)) {
-			return  "\"";
+		Character enclosingQuote = HtlPsiUtil.getEnclosingHtmlAttributeQuote(currentElement);
+		if (enclosingQuote != null && enclosingQuote == '\'') {
+			return  '"';
 		}
-		return "'";
+		return '\'';
 	}
 
 	private static void moveCaretIntoQuotes(Editor editor, int caretOffset) {

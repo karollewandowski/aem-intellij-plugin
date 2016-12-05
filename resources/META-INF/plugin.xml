@@ -61,6 +61,10 @@
 		<typedHandler implementation="co.nums.intellij.aem.htl.editor.actions.HtlTypedHandler"/>
 		<quoteHandler fileType="HTL" className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
 		<lang.braceMatcher language="HTL" implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
+
+		<annotator
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
 	</extensions>
 
 </idea-plugin>

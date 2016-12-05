@@ -8,22 +8,32 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlAttributeValue;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public final class HtlPsiUtil {
 
 	private HtlPsiUtil() {
 		// no instances
 	}
 
+	/**
+	 * Returns enclosing HTML attribute quote if HTL expression is enclosed by
+	 * attribute.
+	 *
+	 * @param element
+	 * 		element from expression to check
+	 * @return enclosing HTML attribute quote or {@code null} if element is not
+	 * enclosed by attribute
+	 */
 	@Nullable
-	public static String getEnclosingHtmlAttributeQuote(PsiElement element) {
-		HtlExpression expression = PsiTreeUtil.getParentOfType(element, HtlExpression.class);
-		if (expression != null) {
-			XmlAttributeValue xmlAttributeValue = getEnclosingXmlAttributeValue(expression);
-			if (xmlAttributeValue != null) {
-				return Character.toString(xmlAttributeValue.getText().charAt(0));
-			}
-		}
-		return null;
+	public static Character getEnclosingHtmlAttributeQuote(PsiElement element) {
+		return Optional.ofNullable(element)
+				.map(el -> PsiTreeUtil.getParentOfType(el, HtlExpression.class))
+				.map(HtlPsiUtil::getEnclosingXmlAttributeValue)
+				.map(XmlAttributeValue::getText)
+				.filter(text -> text.length() > 0)
+				.map(xmlAttributeText -> xmlAttributeText.charAt(0))
+				.orElse(null);
 	}
 
 	@Nullable
