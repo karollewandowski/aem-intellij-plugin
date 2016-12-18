@@ -33,7 +33,7 @@
 		<fileTypeFactory implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
 		<html.scriptContentProvider
 				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.HtlScriptContentProvider"/>
+				implementationClass="com.intellij.lang.HtmlScriptContentProvider.Empty"/>
 		<lang.parserDefinition
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.parsing.HtlParserDefinition"/>

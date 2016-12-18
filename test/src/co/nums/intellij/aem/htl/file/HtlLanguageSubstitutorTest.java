@@ -107,7 +107,7 @@ public class HtlLanguageSubstitutorTest {
 		assertThat(language).isNull();
 	}
 
-	private void prepareFileDirectoryPath(VirtualFile file, String... path) {
+	private static void prepareFileDirectoryPath(VirtualFile file, String... path) {
 		VirtualFile currentFile = file;
 		for (int i = path.length - 1; i >= 0; i--) {
 			VirtualFile parentDirectory = directoryWithName(path[i]);
