@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.editor.actions
 
+import co.nums.intellij.aem.extensions.isHtl
 import co.nums.intellij.aem.extensions.moveCaret
-import co.nums.intellij.aem.htl.HtlLanguage
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileTypes.FileType
@@ -38,7 +38,5 @@ class HtlTypedHandler : TypedHandlerDelegate() {
         }
         return TypedHandlerDelegate.Result.CONTINUE
     }
-
-    private fun PsiFile.isHtl() = this.viewProvider.baseLanguage.isKindOf(HtlLanguage)
 
 }

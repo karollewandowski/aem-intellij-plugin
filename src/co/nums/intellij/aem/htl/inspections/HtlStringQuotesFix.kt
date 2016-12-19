@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.inspections
 
-import co.nums.intellij.aem.htl.psi.HtlTokenTypes
+import co.nums.intellij.aem.extensions.isHtlString
 import com.intellij.codeInsight.FileModificationService
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
@@ -8,7 +8,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 
 private const val NAME = "Fix quotes"
 private const val SINGLE_QUOTE = '\''
@@ -28,11 +27,6 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
             fixQuotes(project, file, currentElement)
         }
     }
-
-    private fun PsiElement.isHtlString() =
-            this is LeafPsiElement
-                    && (this.elementType === HtlTokenTypes.SINGLE_QUOTED_STRING
-                    || this.elementType === HtlTokenTypes.DOUBLE_QUOTED_STRING)
 
     private fun PsiElement.canBeEdited() =
             this.isValid && FileModificationService.getInstance().prepareFileForWrite(this.containingFile)
