@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider.inserthandlers
 
-import co.nums.intellij.aem.extensions.hasText
+import co.nums.intellij.aem.extensions.hasQuotesAt
 import co.nums.intellij.aem.extensions.moveCaret
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import com.intellij.codeInsight.AutoPopupController
@@ -20,8 +20,6 @@ object HtlExprOptionQuotesInsertHandler : InsertHandler<LookupElement> {
             handleQuotes(document, offset, context)
         }
     }
-
-    private fun Document.hasQuotesAt(offset: Int) = this.hasText(offset, "=\"") || this.hasText(offset, "='")
 
     private fun handleQuotes(document: Document, offset: Int, context: InsertionContext) {
         document.insertQuotes(offset, context)
