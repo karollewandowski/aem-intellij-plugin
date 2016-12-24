@@ -11,11 +11,11 @@ public class HtlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitBinaryOp(@NotNull HtlBinaryOp o) {
+  public void visitBinaryOperation(@NotNull HtlBinaryOperation o) {
     visitPsiElement(o);
   }
 
-  public void visitComparisonOp(@NotNull HtlComparisonOp o) {
+  public void visitComparisonOperator(@NotNull HtlComparisonOperator o) {
     visitPsiElement(o);
   }
 
@@ -35,11 +35,7 @@ public class HtlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitField(@NotNull HtlField o) {
-    visitPsiElement(o);
-  }
-
-  public void visitOperator(@NotNull HtlOperator o) {
+  public void visitLogicalOperator(@NotNull HtlLogicalOperator o) {
     visitPsiElement(o);
   }
 
@@ -48,10 +44,6 @@ public class HtlVisitor extends PsiElementVisitor {
   }
 
   public void visitOptionList(@NotNull HtlOptionList o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSimple(@NotNull HtlSimple o) {
     visitPsiElement(o);
   }
 

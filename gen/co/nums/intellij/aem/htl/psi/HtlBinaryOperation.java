@@ -2,16 +2,15 @@
 package co.nums.intellij.aem.htl.psi;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface HtlBinaryOp extends PsiElement {
+public interface HtlBinaryOperation extends PsiElement {
 
   @NotNull
   List<HtlComparisonTerm> getComparisonTermList();
 
   @NotNull
-  List<HtlOperator> getOperatorList();
+  List<HtlLogicalOperator> getLogicalOperatorList();
 
 }

@@ -60,22 +60,30 @@ interpolation ::= (expression | text_fragment)*
 
 private text_fragment ::= HTML_FRAGMENT+ | ESC_EXPR+
 
-expression ::= '${' expr_node? ['@' option_list] '}'
+expression ::= '${' expr_node? ['@' option_list] '}' {
+  pin=1
+  recoverWhile=expression_recover
+}
+private expression_recover ::= !('${' | text_fragment)
 
 option_list ::= option (',' option)*
 
-option ::= IDENTIFIER ['=' expr_node]
+option ::= IDENTIFIER ['=' expr_node] {
+  pin=1
+  recoverWhile=option_recover
+}
+private option_recover ::= !(',' | '}')
 
-expr_node ::= binary_op [TERNARY_QUESTION_OP binary_op TERNARY_BRANCHES_OP binary_op]
+expr_node ::= binary_operation [TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation]
 
-binary_op ::= comparison_term (operator comparison_term)*
+binary_operation ::= comparison_term (logical_operator comparison_term)*
 
-comparison_term ::= factor [comparison_op factor]
+comparison_term ::= factor [comparison_operator factor]
 
-operator ::= '&&'
+logical_operator ::= '&&'
            | '||'
 
-comparison_op ::= '>'
+comparison_operator ::= '>'
                | '<'
                | '>='
                | '<='
@@ -87,14 +95,18 @@ factor ::= term
 
 term ::= simple ('[' expr_node ']' | '.' field)*
 
-field ::= IDENTIFIER
+private field ::= IDENTIFIER
 
-simple ::= atom
+private simple ::= atom
          | '(' expr_node ')'
          | '[' value_list ']'
          | '[' ']'
 
-value_list ::= expr_node (',' expr_node)*
+value_list ::= expr_node (',' expr_node)* {
+  pin=1
+  recoverWhile=value_list_recover
+}
+private value_list_recover ::= !(']' | '}' | text_fragment)
 
 atom ::= IDENTIFIER
      | INTEGER_NUMBER

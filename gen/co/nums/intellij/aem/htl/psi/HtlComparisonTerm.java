@@ -2,14 +2,13 @@
 package co.nums.intellij.aem.htl.psi;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
 public interface HtlComparisonTerm extends PsiElement {
 
   @Nullable
-  HtlComparisonOp getComparisonOp();
+  HtlComparisonOperator getComparisonOperator();
 
   @NotNull
   List<HtlFactor> getFactorList();

@@ -2,19 +2,18 @@
 package co.nums.intellij.aem.htl.psi;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
 public interface HtlTerm extends PsiElement {
 
+  @Nullable
+  HtlAtom getAtom();
+
   @NotNull
   List<HtlExprNode> getExprNodeList();
 
-  @NotNull
-  List<HtlField> getFieldList();
-
-  @NotNull
-  HtlSimple getSimple();
+  @Nullable
+  HtlValueList getValueList();
 
 }
