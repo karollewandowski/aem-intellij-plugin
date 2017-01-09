@@ -68,11 +68,7 @@ private expression_recover ::= !('${' | text_fragment)
 
 option_list ::= option (',' option)*
 
-option ::= IDENTIFIER ['=' expr_node] {
-  pin=1
-  recoverWhile=option_recover
-}
-private option_recover ::= !(',' | '}')
+option ::= IDENTIFIER ['=' expr_node]
 
 expr_node ::= binary_operation [TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation]
 
@@ -81,14 +77,14 @@ binary_operation ::= comparison_term (logical_operator comparison_term)*
 comparison_term ::= factor [comparison_operator factor]
 
 logical_operator ::= '&&'
-           | '||'
+                   | '||'
 
 comparison_operator ::= '>'
-               | '<'
-               | '>='
-               | '<='
-               | '=='
-               | '!='
+                      | '<'
+                      | '>='
+                      | '<='
+                      | '=='
+                      | '!='
 
 factor ::= term
          | '!' term
@@ -98,21 +94,17 @@ term ::= simple ('[' expr_node ']' | '.' field)*
 private field ::= IDENTIFIER
 
 private simple ::= atom
-         | '(' expr_node ')'
-         | '[' value_list ']'
-         | '[' ']'
+                 | '(' expr_node ')'
+                 | '[' value_list ']'
+                 | '[' ']'
 
-value_list ::= expr_node (',' expr_node)* {
-  pin=1
-  recoverWhile=value_list_recover
-}
-private value_list_recover ::= !(']' | '}' | text_fragment)
+value_list ::= expr_node (',' expr_node)*
 
 atom ::= IDENTIFIER
-     | INTEGER_NUMBER
-     | FLOAT_NUMBER
-     | string_literal
-     | boolean_constant
+       | INTEGER_NUMBER
+       | FLOAT_NUMBER
+       | string_literal
+       | boolean_constant
 
 string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING
 

@@ -74,10 +74,10 @@ public class HtlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // IDENTIFIER
-  //      | INTEGER_NUMBER
-  //      | FLOAT_NUMBER
-  //      | string_literal
-  //      | boolean_constant
+  //        | INTEGER_NUMBER
+  //        | FLOAT_NUMBER
+  //        | string_literal
+  //        | boolean_constant
   public static boolean atom(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "atom")) return false;
     boolean r;
@@ -141,11 +141,11 @@ public class HtlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // '>'
-  //                | '<'
-  //                | '>='
-  //                | '<='
-  //                | '=='
-  //                | '!='
+  //                       | '<'
+  //                       | '>='
+  //                       | '<='
+  //                       | '=='
+  //                       | '!='
   public static boolean comparison_operator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comparison_operator")) return false;
     boolean r;
@@ -340,7 +340,7 @@ public class HtlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // '&&'
-  //            | '||'
+  //                    | '||'
   public static boolean logical_operator(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "logical_operator")) return false;
     if (!nextTokenIs(b, "<logical operator>", AND, OR)) return false;
@@ -356,13 +356,13 @@ public class HtlParser implements PsiParser, LightPsiParser {
   // IDENTIFIER ['=' expr_node]
   public static boolean option(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "option")) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, OPTION, "<option>");
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
-    p = r; // pin = 1
     r = r && option_1(b, l + 1);
-    exit_section_(b, l, m, r, p, option_recover_parser_);
-    return r || p;
+    exit_section_(b, m, OPTION, r);
+    return r;
   }
 
   // ['=' expr_node]
@@ -420,32 +420,10 @@ public class HtlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !(',' | '}')
-  static boolean option_recover(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "option_recover")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NOT_);
-    r = !option_recover_0(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // ',' | '}'
-  private static boolean option_recover_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "option_recover_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, COMMA);
-    if (!r) r = consumeToken(b, EXPR_END);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // atom
-  //          | '(' expr_node ')'
-  //          | '[' value_list ']'
-  //          | '[' ']'
+  //                  | '(' expr_node ')'
+  //                  | '[' value_list ']'
+  //                  | '[' ']'
   static boolean simple(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "simple")) return false;
     boolean r;
@@ -602,13 +580,12 @@ public class HtlParser implements PsiParser, LightPsiParser {
   // expr_node (',' expr_node)*
   public static boolean value_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "value_list")) return false;
-    boolean r, p;
+    boolean r;
     Marker m = enter_section_(b, l, _NONE_, VALUE_LIST, "<value list>");
     r = expr_node(b, l + 1);
-    p = r; // pin = 1
     r = r && value_list_1(b, l + 1);
-    exit_section_(b, l, m, r, p, value_list_recover_parser_);
-    return r || p;
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   // (',' expr_node)*
@@ -634,42 +611,9 @@ public class HtlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  /* ********************************************************** */
-  // !(']' | '}' | text_fragment)
-  static boolean value_list_recover(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "value_list_recover")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NOT_);
-    r = !value_list_recover_0(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // ']' | '}' | text_fragment
-  private static boolean value_list_recover_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "value_list_recover_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, RIGHT_BRACKET);
-    if (!r) r = consumeToken(b, EXPR_END);
-    if (!r) r = text_fragment(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
   final static Parser expression_recover_parser_ = new Parser() {
     public boolean parse(PsiBuilder b, int l) {
       return expression_recover(b, l + 1);
-    }
-  };
-  final static Parser option_recover_parser_ = new Parser() {
-    public boolean parse(PsiBuilder b, int l) {
-      return option_recover(b, l + 1);
-    }
-  };
-  final static Parser value_list_recover_parser_ = new Parser() {
-    public boolean parse(PsiBuilder b, int l) {
-      return value_list_recover(b, l + 1);
     }
   };
 }
