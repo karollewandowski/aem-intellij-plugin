@@ -1,6 +1,7 @@
 package co.nums.intellij.aem.htl.file
 
 import co.nums.intellij.aem.htl.HtlLanguage
+import co.nums.intellij.aem.htl.psi.HtlElementType
 import co.nums.intellij.aem.htl.psi.HtlTokenTypes
 import com.intellij.lang.Language
 import com.intellij.lang.LanguageParserDefinitions
@@ -56,6 +57,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: V
     }
 
     companion object {
+        private val HTL_FRAGMENT = HtlElementType("HTL_FRAGMENT")
         private val TEMPLATE_DATA_TO_LANG = ContainerUtil.newConcurrentMap<String, TemplateDataElementType>()
 
         private fun getTemplateDataLanguage(manager: PsiManager, file: VirtualFile): Language {
@@ -76,7 +78,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: V
             if (result != null) {
                 return result
             }
-            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlTokenTypes.HTML_FRAGMENT, HtlTokenTypes.HTL_FRAGMENT)
+            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlTokenTypes.HTML_FRAGMENT, HTL_FRAGMENT)
             val prevValue = TEMPLATE_DATA_TO_LANG.putIfAbsent(lang.id, created)
 
             return prevValue ?: created

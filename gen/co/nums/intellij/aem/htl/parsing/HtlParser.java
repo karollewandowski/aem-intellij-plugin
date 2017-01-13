@@ -191,7 +191,7 @@ public class HtlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // binary_operation [TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation]
+  // binary_operation [' ? ' binary_operation ' : ' binary_operation]
   public static boolean expr_node(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_node")) return false;
     boolean r;
@@ -202,14 +202,14 @@ public class HtlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation]
+  // [' ? ' binary_operation ' : ' binary_operation]
   private static boolean expr_node_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_node_1")) return false;
     expr_node_1_0(b, l + 1);
     return true;
   }
 
-  // TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation
+  // ' ? ' binary_operation ' : ' binary_operation
   private static boolean expr_node_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_node_1_0")) return false;
     boolean r;
