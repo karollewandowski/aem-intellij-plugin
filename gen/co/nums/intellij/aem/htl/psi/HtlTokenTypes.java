@@ -36,7 +36,6 @@ public interface HtlTokenTypes {
   IElementType FLOAT_NUMBER = new HtlTokenType("FLOAT_NUMBER");
   IElementType GEQ = new HtlTokenType(">=");
   IElementType GT = new HtlTokenType(">");
-  IElementType HTL_FRAGMENT = new HtlTokenType("HTL_FRAGMENT");
   IElementType HTML_FRAGMENT = new HtlTokenType("HTML_FRAGMENT");
   IElementType IDENTIFIER = new HtlTokenType("IDENTIFIER");
   IElementType INTEGER_NUMBER = new HtlTokenType("INTEGER_NUMBER");

@@ -13,7 +13,6 @@
   tokenTypeClass="co.nums.intellij.aem.htl.psi.HtlTokenType"
 
   tokens = [
-    HTL_FRAGMENT='HTL_FRAGMENT'
     HTML_FRAGMENT='regexp:(?:(?!\$\{).)*'
     ESC_EXPR='regexp:\\\$\{.*}'
 
