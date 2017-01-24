@@ -13,7 +13,6 @@
   tokenTypeClass="co.nums.intellij.aem.htl.psi.HtlTokenType"
 
   tokens = [
-    HTL_FRAGMENT='HTL_FRAGMENT'
     HTML_FRAGMENT='regexp:(?:(?!\$\{).)*'
     ESC_EXPR='regexp:\\\$\{.*}'
 
@@ -70,7 +69,7 @@ option_list ::= option (',' option)*
 
 option ::= IDENTIFIER ['=' expr_node]
 
-expr_node ::= binary_operation [TERNARY_QUESTION_OP binary_operation TERNARY_BRANCHES_OP binary_operation]
+expr_node ::= binary_operation [' ? ' binary_operation ' : ' binary_operation]
 
 binary_operation ::= comparison_term (logical_operator comparison_term)*
 
