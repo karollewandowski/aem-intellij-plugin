@@ -22,9 +22,9 @@ tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
 sourceSets {
   main {
-    java.srcDirs = ['src', 'gen']
-    kotlin.srcDirs = ['src']
-    resources.srcDirs = ['resources']
+    java.srcDirs += 'src/main/gen'
+    kotlin.srcDirs += 'src/main/kotlin'
+    resources.srcDirs += 'src/resources'
   }
 
   test.java.srcDirs += 'test/src'
@@ -69,4 +69,49 @@ dependencies {
   testCompile 'org.mockito:mockito-core:2.2.21'
   testCompile 'org.assertj:assertj-core:3.6.0'
   testCompile 'com.tngtech.java:junit-dataprovider:1.12.0'
+}
+
+lexerGenerationTask(project)
+parserGenerationTask(project)
+
+def lexerGenerationTask(project) {
+  return codeGenerationTask(project, tasks.create("generateLexer", JavaExec) {
+    def src = "$project.projectDir/src/main/grammars/htl.flex"
+    def dst = "$project.projectDir/src/main/gen/co/nums/intellij/aem/htl/lexer/"
+
+    main = 'jflex.Main'
+    classpath = files('lib/jflex-1.7.0-SNAPSHOT.jar')
+
+    args = ['--skel', 'lib/idea-flex.skeleton',
+            '-d', dst,
+            src
+    ]
+
+    inputs.file file(src)
+    outputs.dir file("$dst/HtlLexer.java")
+  })
+}
+
+def parserGenerationTask(project) {
+  return codeGenerationTask(project, tasks.create("generateParser", JavaExec) {
+    def src = "$project.projectDir/src/main/grammars/htl.bnf"
+    def dst = "$project.projectDir/src/main/gen/co/nums/intellij/aem/htl/parser/"
+    doFirst {
+      delete file(dst)
+    }
+
+    main = 'org.intellij.grammar.Main'
+    classpath(configurations.compile + files('lib/grammar-kit-1.5.0.jar'))
+
+    args = ["$project.projectDir/src/main/gen", file(src)]
+
+    inputs.file file(src)
+    outputs.dir dst
+  })
+}
+
+static codeGenerationTask(project, task) {
+  project.compileKotlin.dependsOn task
+  project.compileTestKotlin.dependsOn task
+  return task
 }

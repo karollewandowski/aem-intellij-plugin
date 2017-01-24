@@ -19,3 +19,6 @@ gradle-app.setting
 .gradletasknamecache
 
 .DS_Store
+
+#Generated sources
+src/main/gen
