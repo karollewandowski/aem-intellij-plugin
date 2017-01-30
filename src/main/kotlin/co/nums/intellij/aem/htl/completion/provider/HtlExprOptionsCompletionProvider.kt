@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.completion.provider
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionBracketsInsertHandler
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionQuotesInsertHandler
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import co.nums.intellij.aem.htl.psi.HtlTokenTypes
+import co.nums.intellij.aem.htl.psi.HtlElementTypes
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.tree.IElementType
@@ -43,8 +43,8 @@ object HtlExprOptionsCompletionProvider : UniqueIdentifiersProviderBase() {
                     .withIcon(HtlIcons.HTL_EXPRESSION_OPTION)
                     .withTypeText("HTL expression option", true)
 
-    override val identifiersContainerElementType: IElementType = HtlTokenTypes.OPTION_LIST
+    override val identifiersContainerElementType: IElementType = HtlElementTypes.OPTION_LIST
 
-    override val identifiedElementType: IElementType = HtlTokenTypes.OPTION
+    override val identifiedElementType: IElementType = HtlElementTypes.OPTION
 
 }

@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.lexer;
 
-import co.nums.intellij.aem.htl.psi.HtlTokenTypes;
+import co.nums.intellij.aem.htl.psi.HtlElementTypes;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
@@ -33,56 +33,56 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ~"${"                       {
                                 if (yylength() >= 3 && yytext().toString().substring(yylength() - 3, yylength()).equals("\\${")) {
                                   // escaped expression
-                                  return HtlTokenTypes.HTML_FRAGMENT;
+                                  return HtlElementTypes.HTML_FRAGMENT;
                                 } else {
                                   // matched expression
                                   yypushback(2); // get back before ${
                                   yybegin(EXPRESSION);
                                   if (yylength() > 0) {
-                                    return HtlTokenTypes.HTML_FRAGMENT;
+                                    return HtlElementTypes.HTML_FRAGMENT;
                                   }
                                 }
                               }
-  !([^]*"${"[^]*)             { return HtlTokenTypes.HTML_FRAGMENT; }
+  !([^]*"${"[^]*)             { return HtlElementTypes.HTML_FRAGMENT; }
 }
 
 <EXPRESSION> {
-  "${"                        { return HtlTokenTypes.EXPR_START; }
-  "}"                         { yybegin(YYINITIAL); return HtlTokenTypes.EXPR_END; }
+  "${"                        { return HtlElementTypes.EXPR_START; }
+  "}"                         { yybegin(YYINITIAL); return HtlElementTypes.EXPR_END; }
 
   {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
 
-  "true"                      { return HtlTokenTypes.BOOLEAN_TRUE; }
-  "false"                     { return HtlTokenTypes.BOOLEAN_FALSE; }
+  "true"                      { return HtlElementTypes.BOOLEAN_TRUE; }
+  "false"                     { return HtlElementTypes.BOOLEAN_FALSE; }
 
-  {SINGLE_QUOTED_STRING}      { return HtlTokenTypes.SINGLE_QUOTED_STRING; }
-  {DOUBLE_QUOTED_STRING}      { return HtlTokenTypes.DOUBLE_QUOTED_STRING; }
-  {INTEGER_NUMBER}            { return HtlTokenTypes.INTEGER_NUMBER; }
-  {FLOAT_NUMBER}              { return HtlTokenTypes.FLOAT_NUMBER; }
-  {IDENTIFIER}                { return HtlTokenTypes.IDENTIFIER; }
+  {SINGLE_QUOTED_STRING}      { return HtlElementTypes.SINGLE_QUOTED_STRING; }
+  {DOUBLE_QUOTED_STRING}      { return HtlElementTypes.DOUBLE_QUOTED_STRING; }
+  {INTEGER_NUMBER}            { return HtlElementTypes.INTEGER_NUMBER; }
+  {FLOAT_NUMBER}              { return HtlElementTypes.FLOAT_NUMBER; }
+  {IDENTIFIER}                { return HtlElementTypes.IDENTIFIER; }
 
-  "("                         { return HtlTokenTypes.LEFT_PARENTH; }
-  ")"                         { return HtlTokenTypes.RIGHT_PARENTH; }
-  "["                         { return HtlTokenTypes.LEFT_BRACKET; }
-  "]"                         { return HtlTokenTypes.RIGHT_BRACKET; }
-  "."                         { return HtlTokenTypes.DOT; }
-  ","                         { return HtlTokenTypes.COMMA; }
-  "!"                         { return HtlTokenTypes.NOT; }
-  "@"                         { return HtlTokenTypes.OPTIONS_SEPARATOR; }
-  " ? "                       { return HtlTokenTypes.TERNARY_QUESTION_OP; }
-  " : "                       { return HtlTokenTypes.TERNARY_BRANCHES_OP; }
+  "("                         { return HtlElementTypes.LEFT_PARENTH; }
+  ")"                         { return HtlElementTypes.RIGHT_PARENTH; }
+  "["                         { return HtlElementTypes.LEFT_BRACKET; }
+  "]"                         { return HtlElementTypes.RIGHT_BRACKET; }
+  "."                         { return HtlElementTypes.DOT; }
+  ","                         { return HtlElementTypes.COMMA; }
+  "!"                         { return HtlElementTypes.NOT; }
+  "@"                         { return HtlElementTypes.OPTIONS_SEPARATOR; }
+  " ? "                       { return HtlElementTypes.TERNARY_QUESTION_OP; }
+  " : "                       { return HtlElementTypes.TERNARY_BRANCHES_OP; }
 
-  "&&"                        { return HtlTokenTypes.AND; }
-  "||"                        { return HtlTokenTypes.OR; }
+  "&&"                        { return HtlElementTypes.AND; }
+  "||"                        { return HtlElementTypes.OR; }
 
-  "="                         { return HtlTokenTypes.ASSIGN; }
-  "=="                        { return HtlTokenTypes.EQ; }
-  "!="                        { return HtlTokenTypes.NEQ; }
-  "<"                         { return HtlTokenTypes.LT; }
-  ">"                         { return HtlTokenTypes.GT; }
-  "<="                        { return HtlTokenTypes.LEQ; }
-  ">="                        { return HtlTokenTypes.GEQ; }
+  "="                         { return HtlElementTypes.ASSIGN; }
+  "=="                        { return HtlElementTypes.EQ; }
+  "!="                        { return HtlElementTypes.NEQ; }
+  "<"                         { return HtlElementTypes.LT; }
+  ">"                         { return HtlElementTypes.GT; }
+  "<="                        { return HtlElementTypes.LEQ; }
+  ">="                        { return HtlElementTypes.GEQ; }
 }
 
-{WHITE_SPACE_CHAR}+           { return HtlTokenTypes.HTML_FRAGMENT; }
+{WHITE_SPACE_CHAR}+           { return HtlElementTypes.HTML_FRAGMENT; }
 [^]                           { return TokenType.BAD_CHARACTER; }

@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.file
 
 import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.psi.HtlElementType
-import co.nums.intellij.aem.htl.psi.HtlTokenTypes
+import co.nums.intellij.aem.htl.psi.HtlElementTypes
 import com.intellij.lang.Language
 import com.intellij.lang.LanguageParserDefinitions
 import com.intellij.lang.ParserDefinition
@@ -78,7 +78,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: V
             if (result != null) {
                 return result
             }
-            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlTokenTypes.HTML_FRAGMENT, HTL_FRAGMENT)
+            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlElementTypes.HTML_FRAGMENT, HTL_FRAGMENT)
             val prevValue = TEMPLATE_DATA_TO_LANG.putIfAbsent(lang.id, created)
 
             return prevValue ?: created

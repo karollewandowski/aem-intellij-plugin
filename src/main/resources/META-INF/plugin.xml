@@ -44,6 +44,12 @@
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlExprOptionsCompletionContributor"/>
 		<completion.contributor
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlGlobalObjectsCompletionContributor"/>
+		<completion.contributor
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlPredefinedPropertyCompletionContributor"/>
+		<completion.contributor
 				language="HTML"
 				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlBlocksCompletionContributor"/>
 

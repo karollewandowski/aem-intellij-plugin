@@ -1,0 +1,62 @@
+[
+  {
+    "name": "jcr:title",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "jcr:description",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "jcr:language",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "jcr:created",
+    "type": "java.util.Calendar"
+  },
+  {
+    "name": "jcr:createdBy",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "jcr:lastModified",
+    "type": "java.util.Calendar"
+  },
+  {
+    "name": "jcr:lastModifiedBy",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "jcr:primaryType",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "sling:key",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "sling:message",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "sling:resourceType",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "sling:resourceSuperType",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "cq:lastModified",
+    "type": "java.util.Calendar"
+  },
+  {
+    "name": "cq:lastModifiedBy",
+    "type": "java.lang.String"
+  },
+  {
+    "name": "cq:template",
+    "type": "java.lang.String"
+  }
+]

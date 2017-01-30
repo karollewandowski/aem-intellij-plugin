@@ -1,0 +1,127 @@
+[
+  {
+    "name": "properties",
+    "type": "org.apache.sling.api.resource.ValueMap",
+    "description": "List of properties of the current resource."
+  },
+  {
+    "name": "pageProperties",
+    "type": "org.apache.sling.api.resource.ValueMap",
+    "description": "List of page properties of the current page."
+  },
+  {
+    "name": "inheritedPageProperties",
+    "type": "org.apache.sling.api.resource.ValueMap",
+    "description": "List of inherited page properties of the current page."
+  },
+  {
+    "name": "component",
+    "type": "com.day.cq.wcm.api.components.Component",
+    "description": "The current AEM component object of the current resource."
+  },
+  {
+    "name": "componentContext",
+    "type": "com.day.cq.wcm.api.components.ComponentContext",
+    "description": "The current component context object of the request."
+  },
+  {
+    "name": "currentDesign",
+    "type": "com.day.cq.wcm.api.designer.Design",
+    "description": "The current design object of the current page."
+  },
+  {
+    "name": "currentNode",
+    "type": "javax.jcr.Node",
+    "description": "The current JCR node object."
+  },
+  {
+    "name": "currentPage",
+    "type": "com.day.cq.wcm.api.Page",
+    "description": "The current AEM WCM page object."
+  },
+  {
+    "name": "currentSession",
+    "type": "javax.servlet.http.HttpSession",
+    "description": "The current HTTP session object."
+  },
+  {
+    "name": "currentStyle",
+    "type": "com.day.cq.wcm.api.designer.Style",
+    "description": "The current style object of the current cell."
+  },
+  {
+    "name": "designer",
+    "type": "com.day.cq.wcm.api.designer.Designer",
+    "description": "The designer object used to access design information."
+  },
+  {
+    "name": "editContext",
+    "type": "com.day.cq.wcm.api.components.EditContext",
+    "description": "The edit context object of the AEM component."
+  },
+  {
+    "name": "log",
+    "type": "org.slf4j.Logger"
+  },
+  {
+    "name": "out",
+    "type": "java.io.PrintWriter"
+  },
+  {
+    "name": "pageManager",
+    "type": "com.day.cq.wcm.api.PageManager",
+    "description": "The page manager object for page level operations."
+  },
+  {
+    "name": "reader",
+    "type": "java.io.BufferedReader"
+  },
+  {
+    "name": "request",
+    "type": "org.apache.sling.api.SlingHttpServletRequest",
+    "description": "The current Sling HTTP request object."
+  },
+  {
+    "name": "resolver",
+    "type": "org.apache.sling.api.resource.ResourceResolver",
+    "description": "The Sling resource resolver object."
+  },
+  {
+    "name": "resource",
+    "type": "org.apache.sling.api.resource.Resource",
+    "description": "The current Sling resource object."
+  },
+  {
+    "name": "resourceDesign",
+    "type": "com.day.cq.wcm.api.designer.Design",
+    "description": "The design object of the resource page."
+  },
+  {
+    "name": "resourcePage",
+    "type": "com.day.cq.wcm.api.Page",
+    "description": "The resource page object."
+  },
+  {
+    "name": "response",
+    "type": "org.apache.sling.api.SlingHttpServletResponse",
+    "description": "The current Sling HTTP response object."
+  },
+  {
+    "name": "sling",
+    "type": "org.apache.sling.api.scripting.SlingScriptHelper",
+    "description": "The Sling script helper object."
+  },
+  {
+    "name": "slyWcmHelper",
+    "type": "com.adobe.cq.sightly.WCMScriptHelper"
+  },
+  {
+    "name": "wcmmode",
+    "type": "com.adobe.cq.sightly.SightlyWCMMode",
+    "description": "Object containing information about current WCM mode."
+  },
+  {
+    "name": "xssAPI",
+    "type": "com.adobe.granite.xss.XSSAPI"
+  }
+]
