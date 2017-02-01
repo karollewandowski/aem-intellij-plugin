@@ -32,15 +32,19 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<fileTypeFactory implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
+
 		<html.scriptContentProvider
 				language="HTL"
 				implementationClass="com.intellij.lang.HtmlScriptContentProvider.Empty"/>
+
 		<lang.parserDefinition
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.parser.HtlParserDefinition"/>
+
 		<lang.fileViewProviderFactory
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.file.HtlFileViewProviderFactory"/>
+
 		<completion.contributor
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlExprOptionsCompletionContributor"/>
@@ -54,8 +58,15 @@
 				language="HTML"
 				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlBlocksCompletionContributor"/>
 
+		<lang.documentationProvider
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.documentation.HtlBlockDocumentationProvider"/>
+
 		<iconProvider implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
-		<lang.substitutor language="HTML" implementationClass="co.nums.intellij.aem.htl.file.HtlLanguageSubstitutor"/>
+
+		<lang.substitutor
+				language="HTML"
+				implementationClass="co.nums.intellij.aem.htl.file.HtlLanguageSubstitutor"/>
 
 		<lang.syntaxHighlighterFactory
 				language="HTL"

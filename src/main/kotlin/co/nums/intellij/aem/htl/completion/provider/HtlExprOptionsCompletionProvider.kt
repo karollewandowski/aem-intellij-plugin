@@ -5,7 +5,7 @@ import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOption
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionQuotesInsertHandler
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.HtlElementTypes
-import co.nums.intellij.aem.utils.JsonReader
+import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.tree.IElementType
@@ -20,13 +20,7 @@ object HtlExprOptionsCompletionProvider : UniqueIdentifiersProviderBase() {
             "brackets" to HtlExprOptionBracketsInsertHandler
     )
 
-    override val candidateLookupElements = loadExpressionOptions()
-
-    private fun loadExpressionOptions(): Set<LookupElement> {
-        return JsonReader.readJson<Array<ExpressionOption>>("definitions/htl-expression-options.json")
-                .map { it.toLookupElement() }
-                .toSet()
-    }
+    override val candidateLookupElements = HtlDefinitions.expressionOptions.map { it.toLookupElement() }
 
     private fun ExpressionOption.toLookupElement(): LookupElement {
         return LookupElementBuilder.create(this.name)

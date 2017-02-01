@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.editor.actions
 
-import co.nums.intellij.aem.extensions.isHtl
+import co.nums.intellij.aem.htl.psi.extensions.isHtl
 import co.nums.intellij.aem.extensions.moveCaret
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
 import com.intellij.openapi.editor.Editor

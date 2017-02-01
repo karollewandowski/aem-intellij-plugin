@@ -11,7 +11,7 @@ import com.intellij.util.ProcessingContext
 
 abstract class UniqueIdentifiersProviderBase : CompletionProvider<CompletionParameters>() {
 
-    protected abstract val candidateLookupElements: Set<LookupElement>
+    protected abstract val candidateLookupElements: List<LookupElement>
     protected abstract val identifiersContainerElementType: IElementType
     protected abstract val identifiedElementType: IElementType
 

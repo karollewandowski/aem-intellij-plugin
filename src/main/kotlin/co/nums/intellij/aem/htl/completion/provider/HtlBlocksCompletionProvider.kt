@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.completion.provider.data.blocks.Block
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprBlockInsertHandler
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlSimpleBlockInsertHandler
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import co.nums.intellij.aem.utils.JsonReader
+import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.tree.IElementType
@@ -20,13 +20,7 @@ object HtlBlocksCompletionProvider : UniqueIdentifiersProviderBase() {
             "quotes" to HtlSimpleBlockInsertHandler
     )
 
-    override val candidateLookupElements = loadExpressionOptions()
-
-    private fun loadExpressionOptions(): Set<LookupElement> {
-        return JsonReader.readJson<Array<Block>>("definitions/htl-blocks.json")
-                .map { it.toLookupElement() }
-                .toSet()
-    }
+    override val candidateLookupElements = HtlDefinitions.blocks.map { it.toLookupElement() }
 
     private fun Block.toLookupElement(): LookupElement {
         return LookupElementBuilder.create(this.name)

@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.editor.actions
 
-import co.nums.intellij.aem.extensions.isHtl
-import co.nums.intellij.aem.extensions.isHtlExpressionToken
+import co.nums.intellij.aem.htl.psi.extensions.isHtl
+import co.nums.intellij.aem.htl.psi.extensions.isHtlExpressionToken
 import co.nums.intellij.aem.extensions.removeText
 import com.intellij.codeInsight.editorActions.BackspaceHandlerDelegate
 import com.intellij.openapi.editor.Editor

@@ -28,7 +28,7 @@
       "description": "Replaces the element's tag name.",
       "element": "always shown",
       "elementContent": "always shown",
-      "attributeValue": "required; String; the element's tag name",
+      "attributeValue": "required; <code>String</code>; the element's tag name",
       "attributeIdentifier": "none"
     }
   },
@@ -104,7 +104,7 @@
       "description": "Sets the content for the current element.",
       "element": "always shown",
       "elementContent": "replaced with evaluated result",
-      "attributeValue": "required; evaluates to String; the element content",
+      "attributeValue": "required; evaluates to <code>String</code>; the element content",
       "attributeIdentifier": "none"
     }
   },
@@ -124,7 +124,7 @@
     "doc": {
       "description": "Exposes logic to the template.",
       "element": "always shown",
-      "attributeValue": "required; evaluates to String; the object to instantiate",
+      "attributeValue": "required; evaluates to <code>String</code>; the object to instantiate",
       "attributeIdentifier": "optional; customised identifier name to access the instantiated logic"
     }
   }

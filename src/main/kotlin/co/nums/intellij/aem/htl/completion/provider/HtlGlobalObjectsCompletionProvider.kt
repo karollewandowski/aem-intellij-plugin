@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.completion.provider
 
 import co.nums.intellij.aem.htl.completion.provider.data.globalobjects.GlobalObject
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import co.nums.intellij.aem.utils.JsonReader
+import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
@@ -12,12 +12,7 @@ import com.intellij.util.ProcessingContext
 
 object HtlGlobalObjectsCompletionProvider : CompletionProvider<CompletionParameters>() {
 
-    private val globalObjectsElements = loadGlobalObjects()
-
-    private fun loadGlobalObjects(): List<LookupElement> {
-        val globalObjects = JsonReader.readJson<Array<GlobalObject>>("definitions/htl-global-objects.json")
-        return globalObjects.map { it.toLookupElement() }
-    }
+    private val globalObjectsElements = HtlDefinitions.globalObjects.map { it.toLookupElement() }
 
     private fun GlobalObject.toLookupElement(): LookupElement {
         return LookupElementBuilder.create(this.name)

@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.inspections
 
-import co.nums.intellij.aem.extensions.isHtlString
+import co.nums.intellij.aem.htl.psi.extensions.isHtlString
 import com.intellij.codeInsight.FileModificationService
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
