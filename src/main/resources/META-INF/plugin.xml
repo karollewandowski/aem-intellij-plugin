@@ -2,27 +2,42 @@
 <idea-plugin version="2" url="https://github.com/karollewandowski/aem-intellij-plugin">
 	<id>co.nums.intellij.aem</id>
 	<name>AEM IntelliJ Plugin</name>
-	<version>0.4</version>
+	<version>0.5</version>
 	<vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
 
 	<description><![CDATA[
       Intellij Platform plugin for Adobe Experience Manager.<br>
       Features:<br>
       <ul>
-          <li>HTL/Sightly support (only for HTML files under 'jcr_root' directory)
+          <li>HTL/Sightly support (only for HTML files under <code>jcr_root</code> directory)
               <ul>
-              <li>syntax validation and highlighting</li>
-              <li>autocompletion for block attributes (data-sly-*), global objects, properties, expression options and display contexts</li>
+                  <li>syntax validation and highlighting</li>
+                  <li>autocompletion and documentation for:
+                      <ul>
+                          <li>block attributes (<code>data-sly-*</code>)</li>
+                          <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
+                          <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
+                          <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
+                          <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
+                      </ul>
+                  </li>
               </ul>
           </li>
       </ul>
     ]]></description>
 
 	<change-notes><![CDATA[
-		<ul>
-            <li>autocompletion for global objects (properties, pageProperties, currentPage, etc.) and predefined AEM properties (jcr:title, sling:resourceType, etc.)</li>
-            <li>improved typing experience</li>
-		</ul>
+        <ul>
+            <li>documentation for:
+                <ul>
+                    <li>block attributes (<code>data-sly-*</code>)</li>
+                    <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
+                    <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
+                    <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
+                    <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
+                </ul>
+            </li>
+        </ul>
 	]]></change-notes>
 
 	<idea-version since-build="143"/>
