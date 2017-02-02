@@ -18,7 +18,8 @@ object HtlPredefinedPropertyCompletionProvider : CompletionProvider<CompletionPa
     private fun PredefinedProperty.toLookupElement(): LookupElement {
         return LookupElementBuilder.create(this.name)
                 .withIcon(HtlIcons.HTL_PREDEFINED_PROPERTY)
-                .withTypeText("HTL property", true)
+                .withTypeText(this.type)
+                .bold()
     }
 
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) =

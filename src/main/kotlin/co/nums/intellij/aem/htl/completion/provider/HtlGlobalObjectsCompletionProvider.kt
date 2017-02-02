@@ -17,7 +17,8 @@ object HtlGlobalObjectsCompletionProvider : CompletionProvider<CompletionParamet
     private fun GlobalObject.toLookupElement(): LookupElement {
         return LookupElementBuilder.create(this.name)
                 .withIcon(HtlIcons.HTL_GLOBAL_OBJECT)
-                .withTypeText("HTL global object", true)
+                .withTypeText(this.type)
+                .bold()
     }
 
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) =

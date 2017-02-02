@@ -26,6 +26,7 @@ object HtlBlocksCompletionProvider : UniqueIdentifiersProviderBase() {
         return LookupElementBuilder.create(this.name)
                 .withIcon(HtlIcons.HTL_BLOCK)
                 .withTypeText("HTL block", true)
+                .bold()
                 .withInsertHandler(insertHandlers[this.insertHandlerType])
     }
 

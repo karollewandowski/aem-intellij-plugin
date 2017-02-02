@@ -18,6 +18,7 @@ object HtlDisplayContextsProvider : CompletionProvider<CompletionParameters>() {
         return LookupElementBuilder.create(this.name)
                 .withIcon(HtlIcons.HTL_DISPLAY_CONTEXT)
                 .withTypeText("HTL display context", true)
+                .bold()
     }
 
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) =

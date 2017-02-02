@@ -26,6 +26,7 @@ object HtlExprOptionsCompletionProvider : UniqueIdentifiersProviderBase() {
         return LookupElementBuilder.create(this.name)
                 .withIcon(HtlIcons.HTL_EXPRESSION_OPTION)
                 .withTypeText("HTL expression option", true)
+                .bold()
                 .withInsertHandler(insertHandlers[this.insertHandlerType])
     }
 
