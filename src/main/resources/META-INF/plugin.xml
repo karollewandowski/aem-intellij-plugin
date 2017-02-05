@@ -28,15 +28,7 @@
 
 	<change-notes><![CDATA[
         <ul>
-            <li>documentation for:
-                <ul>
-                    <li>block attributes (<code>data-sly-*</code>)</li>
-                    <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
-                    <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
-                    <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
-                    <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
-                </ul>
-            </li>
+            <li>autocompletion for use objects (<code>data-sly-use</code>)</li>
         </ul>
 	]]></change-notes>
 
@@ -47,6 +39,8 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<fileTypeFactory implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
+
+		<iconProvider implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
 
 		<html.scriptContentProvider
 				language="HTL"
@@ -61,23 +55,15 @@
 				implementationClass="co.nums.intellij.aem.htl.file.HtlFileViewProviderFactory"/>
 
 		<completion.contributor
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlExprOptionsCompletionContributor"/>
-		<completion.contributor
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlGlobalObjectsCompletionContributor"/>
-		<completion.contributor
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlPredefinedPropertyCompletionContributor"/>
-		<completion.contributor
 				language="HTML"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlBlocksCompletionContributor"/>
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtmlCompletionContributor"/>
+		<completion.contributor
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlCompletionContributor"/>
 
 		<lang.documentationProvider
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.documentation.HtlBlockDocumentationProvider"/>
-
-		<iconProvider implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
 
 		<lang.substitutor
 				language="HTML"
@@ -91,7 +77,7 @@
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
 
-		<typedHandler implementation="co.nums.intellij.aem.htl.editor.actions.HtlTypedHandler"/>
+		<typedHandler implementation="co.nums.intellij.aem.htl.editor.actions.HtlExpressionTypedHandler"/>
 		<backspaceHandlerDelegate implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
 		<quoteHandler fileType="HTL" className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
 		<lang.braceMatcher language="HTL" implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>

@@ -1,10 +1,10 @@
 package co.nums.intellij.aem.htl.service
 
-import co.nums.intellij.aem.htl.completion.provider.data.blocks.Block
-import co.nums.intellij.aem.htl.completion.provider.data.expressions.DisplayContext
-import co.nums.intellij.aem.htl.completion.provider.data.expressions.ExpressionOption
-import co.nums.intellij.aem.htl.completion.provider.data.globalobjects.GlobalObject
-import co.nums.intellij.aem.htl.completion.provider.data.globalobjects.PredefinedProperty
+import co.nums.intellij.aem.htl.data.blocks.Block
+import co.nums.intellij.aem.htl.data.expressions.DisplayContext
+import co.nums.intellij.aem.htl.data.expressions.ExpressionOption
+import co.nums.intellij.aem.htl.data.globalobjects.GlobalObject
+import co.nums.intellij.aem.htl.data.globalobjects.PredefinedProperty
 import co.nums.intellij.aem.utils.JsonReader
 
 object HtlDefinitions {

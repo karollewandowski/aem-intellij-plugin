@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.completion.provider.data.expressions
+package co.nums.intellij.aem.htl.data.expressions
 
 data class DisplayContext(
         val name: String,

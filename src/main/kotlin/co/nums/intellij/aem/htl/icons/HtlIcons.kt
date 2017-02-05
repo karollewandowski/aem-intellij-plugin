@@ -10,6 +10,7 @@ object HtlIcons {
     val HTL_DISPLAY_CONTEXT = loadIcon("htl-display-context.png")
     val HTL_GLOBAL_OBJECT = loadIcon("htl-global-object.png")
     val HTL_PREDEFINED_PROPERTY = loadIcon("htl-predefined-property.png")
+    val HTL_USE_OBJECT = loadIcon("htl-use-object.png")
 
     private fun loadIcon(iconName: String) = IconLoader.getIcon("/icons/$iconName", HtlIcons::class.java)
 

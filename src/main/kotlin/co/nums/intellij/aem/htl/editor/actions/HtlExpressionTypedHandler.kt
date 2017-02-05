@@ -1,14 +1,14 @@
 package co.nums.intellij.aem.htl.editor.actions
 
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
 import co.nums.intellij.aem.extensions.moveCaret
+import co.nums.intellij.aem.htl.psi.extensions.isHtl
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 
-class HtlTypedHandler : TypedHandlerDelegate() {
+class HtlExpressionTypedHandler : TypedHandlerDelegate() {
 
     override fun beforeCharTyped(charTyped: Char, project: Project?, editor: Editor, file: PsiFile, fileType: FileType?): TypedHandlerDelegate.Result {
         if (charTyped == '}' && file.isHtl()) {

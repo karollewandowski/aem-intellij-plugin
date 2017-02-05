@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.completion.provider.data.globalobjects.GlobalObject
+import co.nums.intellij.aem.htl.data.globalobjects.GlobalObject
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.completion.CompletionParameters

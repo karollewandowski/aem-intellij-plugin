@@ -20,4 +20,4 @@ fun PsiElement.isHtlExpressionToken() =
 
 fun PsiElement?.isHtlBlock() =
         this != null && this.context is XmlAttribute
-                && htlBlocksNames.contains(this.text.substringBefore("."))
+                && htlBlocksNames.contains(this.text.substringBefore(".").toLowerCase())

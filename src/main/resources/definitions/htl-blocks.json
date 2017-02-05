@@ -120,7 +120,7 @@
   },
   {
     "name": "data-sly-use",
-    "insertHandlerType": "quotes",
+    "insertHandlerType": "use",
     "doc": {
       "description": "Exposes logic to the template.",
       "element": "always shown",

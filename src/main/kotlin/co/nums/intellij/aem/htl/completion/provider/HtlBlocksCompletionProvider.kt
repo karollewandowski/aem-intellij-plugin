@@ -1,8 +1,9 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.completion.provider.data.blocks.Block
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprBlockInsertHandler
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlSimpleBlockInsertHandler
+import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlUseBlockInsertHandler
+import co.nums.intellij.aem.htl.data.blocks.Block
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.lookup.LookupElement
@@ -17,7 +18,8 @@ object HtlBlocksCompletionProvider : UniqueIdentifiersProviderBase() {
 
     private val insertHandlers = mapOf(
             "expression" to HtlExprBlockInsertHandler,
-            "quotes" to HtlSimpleBlockInsertHandler
+            "quotes" to HtlSimpleBlockInsertHandler,
+            "use" to HtlUseBlockInsertHandler
     )
 
     override val candidateLookupElements = HtlDefinitions.blocks.map { it.toLookupElement() }

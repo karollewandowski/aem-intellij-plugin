@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.completion.provider.data.blocks
+package co.nums.intellij.aem.htl.data.blocks
 
 data class Block(
         val name: String,

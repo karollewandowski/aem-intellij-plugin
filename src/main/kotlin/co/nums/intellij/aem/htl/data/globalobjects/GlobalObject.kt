@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.completion.provider.data.globalobjects
+package co.nums.intellij.aem.htl.data.globalobjects
 
 data class GlobalObject(
         val name: String,

@@ -14,10 +14,10 @@ class HtlBlockDocumentationProvider : AbstractDocumentationProvider() {
     override fun getCustomDocumentationElement(editor: Editor, file: PsiFile, contextElement: PsiElement?): PsiElement? {
         return when {
             contextElement.isHtlBlock() -> contextElement
-            HtlPatterns.globalObjectIdentifier().accepts(contextElement) -> contextElement
-            HtlPatterns.predefinedPropertyIdentifier().accepts(contextElement) -> contextElement
-            HtlPatterns.optionIdentifier().accepts(contextElement) -> contextElement
-            HtlPatterns.displayContextOptionValue().accepts(contextElement) -> contextElement
+            HtlPatterns.globalObjectIdentifier.accepts(contextElement) -> contextElement
+            HtlPatterns.predefinedPropertyIdentifier.accepts(contextElement) -> contextElement
+            HtlPatterns.optionIdentifier.accepts(contextElement) -> contextElement
+            HtlPatterns.displayContextOptionValue.accepts(contextElement) -> contextElement
             else -> super.getCustomDocumentationElement(editor, file, contextElement)
         }
     }
@@ -26,10 +26,10 @@ class HtlBlockDocumentationProvider : AbstractDocumentationProvider() {
         element ?: return null
         return when {
             element.isHtlBlock() -> generateBlockDoc(element)
-            HtlPatterns.globalObjectIdentifier().accepts(element) -> generateGlobalObjectDoc(element)
-            HtlPatterns.predefinedPropertyIdentifier().accepts(element) -> generatePredefinedPropertyDoc(element)
-            HtlPatterns.optionIdentifier().accepts(element) -> generateOptionDoc(element)
-            HtlPatterns.displayContextOptionValue().accepts(element) -> generateDisplayContextDoc(element)
+            HtlPatterns.globalObjectIdentifier.accepts(element) -> generateGlobalObjectDoc(element)
+            HtlPatterns.predefinedPropertyIdentifier.accepts(element) -> generatePredefinedPropertyDoc(element)
+            HtlPatterns.optionIdentifier.accepts(element) -> generateOptionDoc(element)
+            HtlPatterns.displayContextOptionValue.accepts(element) -> generateDisplayContextDoc(element)
             else -> null
         }
     }

@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.completion.provider.data.expressions.ExpressionOption
+import co.nums.intellij.aem.htl.data.expressions.ExpressionOption
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionBracketsInsertHandler
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionQuotesInsertHandler
 import co.nums.intellij.aem.htl.icons.HtlIcons
