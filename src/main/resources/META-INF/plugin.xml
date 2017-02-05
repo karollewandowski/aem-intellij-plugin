@@ -64,7 +64,7 @@
 
 		<lang.documentationProvider
 				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.documentation.HtlBlockDocumentationProvider"/>
+				implementationClass="co.nums.intellij.aem.htl.documentation.HtlDocumentationProvider"/>
 
 		<lang.substitutor
 				language="HTML"

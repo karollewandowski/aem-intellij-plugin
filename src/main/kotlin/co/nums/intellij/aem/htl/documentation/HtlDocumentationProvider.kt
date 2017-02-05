@@ -7,9 +7,10 @@ import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiManager
 import com.intellij.psi.xml.XmlAttribute
 
-class HtlBlockDocumentationProvider : AbstractDocumentationProvider() {
+class HtlDocumentationProvider : AbstractDocumentationProvider() {
 
     override fun getCustomDocumentationElement(editor: Editor, file: PsiFile, contextElement: PsiElement?): PsiElement? {
         return when {
@@ -39,14 +40,14 @@ class HtlBlockDocumentationProvider : AbstractDocumentationProvider() {
         val blockDoc = HtlDefinitions.blocks.find { htlBlockElement.text.startsWith(it.name) }?.doc
         if (blockDoc != null) {
             return """
-                    |<p>${blockDoc.description}</p>
-                    |<ul>
-                    |  ${blockDetail("Element", blockDoc.element)}
-                    |  ${blockDetail("Content of element", blockDoc.elementContent)}
-                    |  ${blockDetail("Attribute value", blockDoc.attributeValue)}
-                    |  ${blockDetail("Attribute identifier", blockDoc.attributeIdentifier)}
-                    |</ul>
-                   """.trimMargin()
+                   <p>${blockDoc.description}</p>
+                   <ul>
+                     ${blockDetail("Element", blockDoc.element)}
+                     ${blockDetail("Content of element", blockDoc.elementContent)}
+                     ${blockDetail("Attribute value", blockDoc.attributeValue)}
+                     ${blockDetail("Attribute identifier", blockDoc.attributeIdentifier)}
+                   </ul>
+                   """
         }
         return null
     }
@@ -85,6 +86,10 @@ class HtlBlockDocumentationProvider : AbstractDocumentationProvider() {
     private fun generateDisplayContextDoc(element: PsiElement): String? {
         val displayContextName = element.text.removeSurrounding("'").removeSurrounding("\"")
         return HtlDefinitions.displayContexts.find { it.name == displayContextName }?.description
+    }
+
+    override fun getDocumentationElementForLookupItem(psiManager: PsiManager?, `object`: Any?, element: PsiElement?): PsiElement? {
+        return super.getDocumentationElementForLookupItem(psiManager, `object`, element)
     }
 
 }
