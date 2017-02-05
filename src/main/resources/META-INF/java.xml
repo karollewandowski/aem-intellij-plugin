@@ -1,0 +1,10 @@
+<idea-plugin url="https://www.jetbrains.com/idea">
+	<extensions defaultExtensionNs="com.intellij">
+		<completion.contributor
+				language="HTML"
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtmlJavaCompletionContributor"/>
+		<completion.contributor
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlJavaCompletionContributor"/>
+	</extensions>
+</idea-plugin>

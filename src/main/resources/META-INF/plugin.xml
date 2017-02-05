@@ -36,6 +36,7 @@
 
 	<depends>com.intellij.modules.lang</depends>
 	<depends optional="true">JavaScript</depends>
+	<depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
 		<fileTypeFactory implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>

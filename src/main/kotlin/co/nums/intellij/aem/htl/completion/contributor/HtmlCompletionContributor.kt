@@ -1,8 +1,6 @@
 package co.nums.intellij.aem.htl.completion.contributor
 
 import co.nums.intellij.aem.htl.completion.provider.HtlBlocksCompletionProvider
-import co.nums.intellij.aem.htl.completion.provider.HtlJavaUseApiClassesProvider
-import co.nums.intellij.aem.htl.psi.patterns.HtlPatterns
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns.psiElement
@@ -16,11 +14,6 @@ class HtmlCompletionContributor : CompletionContributor() {
                 CompletionType.BASIC,
                 psiElement(XmlTokenType.XML_NAME).inside(xmlAttribute()),
                 HtlBlocksCompletionProvider
-        )
-        extend(
-                CompletionType.BASIC,
-                HtlPatterns.simpleUseObjectDeclaration,
-                HtlJavaUseApiClassesProvider
         )
     }
 
