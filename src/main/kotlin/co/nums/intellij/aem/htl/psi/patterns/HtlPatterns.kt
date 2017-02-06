@@ -43,7 +43,9 @@ object HtlPatterns {
             )
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
-            psiElement().inside(xmlAttributeValue().withLocalName(string().startsWith("data-sly-use")))
+            psiElement().inside(xmlAttributeValue().withLocalName(or(
+                    string().equalTo("data-sly-use"),
+                    string().startsWith("data-sly-use."))))
 
     val expressionUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement()

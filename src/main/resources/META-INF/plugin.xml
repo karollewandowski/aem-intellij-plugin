@@ -19,6 +19,7 @@
                           <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
                           <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
                           <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
+                          <li>use objects (Use API objects and Sling Models)</li>
                       </ul>
                   </li>
               </ul>
