@@ -19,7 +19,7 @@ object HtlPatterns {
 
     val displayContextOptionValue: ElementPattern<PsiElement> =
             psiElement()
-                    .inside(psiElement(HtlElementTypes.OPTION))
+                    .inside(psiElement(HtlElementTypes.STRING_LITERAL).inside(psiElement(HtlElementTypes.OPTION)))
                     .afterLeafSkipping(
                             or(psiElement(HtlElementTypes.ASSIGN), psiElement(TokenType.WHITE_SPACE)),
                             psiElement(HtlElementTypes.IDENTIFIER).withText("context")
