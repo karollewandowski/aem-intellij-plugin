@@ -8,7 +8,7 @@
   psiPackage="co.nums.intellij.aem.htl.psi"
   psiImplPackage="co.nums.intellij.aem.htl.psi.impl"
 
-  elementTypeHolderClass="co.nums.intellij.aem.htl.psi.HtlElementTypes"
+  elementTypeHolderClass="co.nums.intellij.aem.htl.psi.HtlTypes"
   elementTypeClass="co.nums.intellij.aem.htl.psi.HtlElementType"
   tokenTypeClass="co.nums.intellij.aem.htl.psi.HtlTokenType"
 

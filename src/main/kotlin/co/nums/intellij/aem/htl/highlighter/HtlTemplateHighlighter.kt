@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.highlighter
 
 import co.nums.intellij.aem.htl.HtlLanguage
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.openapi.editor.colors.EditorColorsScheme
 import com.intellij.openapi.editor.ex.util.LayerDescriptor
 import com.intellij.openapi.editor.ex.util.LayeredLexerEditorHighlighter
@@ -22,7 +22,7 @@ class HtlTemplateHighlighter(project: Project?, virtualFile: VirtualFile?, color
 
     private fun registerOuterLanguageHighlighter(project: Project?, virtualFile: VirtualFile?) {
         val outerLanguageHighlighter = getOuterSyntaxHighlighter(project, virtualFile)
-        registerLayer(HtlElementTypes.HTML_FRAGMENT, LayerDescriptor(outerLanguageHighlighter, ""))
+        registerLayer(HtlTypes.HTML_FRAGMENT, LayerDescriptor(outerLanguageHighlighter, ""))
     }
 
     private fun getOuterSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter? {

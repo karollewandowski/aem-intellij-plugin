@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.psi.extensions
 
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
@@ -10,13 +10,13 @@ val htlBlocksNames = HtlDefinitions.blocks.map { it.name }
 
 fun PsiElement.isHtlString() =
         this is LeafPsiElement
-                && (this.elementType === HtlElementTypes.SINGLE_QUOTED_STRING
-                || this.elementType === HtlElementTypes.DOUBLE_QUOTED_STRING)
+                && (this.elementType === HtlTypes.SINGLE_QUOTED_STRING
+                || this.elementType === HtlTypes.DOUBLE_QUOTED_STRING)
 
 fun PsiElement.isHtlExpressionToken() =
         this is LeafPsiElement
-                && (this.elementType === HtlElementTypes.EXPR_START
-                || this.elementType === HtlElementTypes.EXPR_END)
+                && (this.elementType === HtlTypes.EXPR_START
+                || this.elementType === HtlTypes.EXPR_END)
 
 fun PsiElement?.isHtlBlock() =
         this != null && this.context is XmlAttribute

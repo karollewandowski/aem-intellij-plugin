@@ -2,8 +2,8 @@ package co.nums.intellij.aem.htl.parser
 
 import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.lexer.HtlLexerAdapter
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
 import co.nums.intellij.aem.htl.psi.HtlFile
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.lang.ASTNode
 import com.intellij.lang.Language
 import com.intellij.lang.ParserDefinition
@@ -24,7 +24,7 @@ class HtlParserDefinition : ParserDefinition {
 
     override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
 
-    override fun getStringLiteralElements() = TokenSet.create(HtlElementTypes.SINGLE_QUOTED_STRING, HtlElementTypes.DOUBLE_QUOTED_STRING)
+    override fun getStringLiteralElements() = TokenSet.create(HtlTypes.SINGLE_QUOTED_STRING, HtlTypes.DOUBLE_QUOTED_STRING)
 
     override fun getFileNodeType() = IFileElementType(Language.findInstance(HtlLanguage::class.java))
 
@@ -32,6 +32,6 @@ class HtlParserDefinition : ParserDefinition {
 
     override fun spaceExistanceTypeBetweenTokens(left: ASTNode, right: ASTNode) = ParserDefinition.SpaceRequirements.MAY
 
-    override fun createElement(node: ASTNode): PsiElement = HtlElementTypes.Factory.createElement(node)
+    override fun createElement(node: ASTNode): PsiElement = HtlTypes.Factory.createElement(node)
 
 }

@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.editor.braces
 
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.lang.BracePair
 import com.intellij.lang.PairedBraceMatcher
 import com.intellij.psi.PsiFile
@@ -11,9 +11,9 @@ private const val STRUCTURAL = true
 class HtlBraceMatcher : PairedBraceMatcher {
 
     private val PAIRS = arrayOf(
-            BracePair(HtlElementTypes.EXPR_START, HtlElementTypes.EXPR_END, !STRUCTURAL),
-            BracePair(HtlElementTypes.LEFT_BRACKET, HtlElementTypes.RIGHT_BRACKET, !STRUCTURAL),
-            BracePair(HtlElementTypes.LEFT_PARENTH, HtlElementTypes.RIGHT_PARENTH, !STRUCTURAL)
+            BracePair(HtlTypes.EXPR_START, HtlTypes.EXPR_END, !STRUCTURAL),
+            BracePair(HtlTypes.LEFT_BRACKET, HtlTypes.RIGHT_BRACKET, !STRUCTURAL),
+            BracePair(HtlTypes.LEFT_PARENTH, HtlTypes.RIGHT_PARENTH, !STRUCTURAL)
     )
 
     override fun getPairs() = PAIRS

@@ -1,10 +1,10 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.data.expressions.ExpressionOption
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionBracketsInsertHandler
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.HtlExprOptionQuotesInsertHandler
+import co.nums.intellij.aem.htl.data.expressions.ExpressionOption
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
@@ -30,8 +30,8 @@ object HtlExprOptionsCompletionProvider : UniqueIdentifiersProviderBase() {
                 .withInsertHandler(insertHandlers[this.insertHandlerType])
     }
 
-    override val identifiersContainerElementType: IElementType = HtlElementTypes.OPTION_LIST
+    override val identifiersContainerElementType: IElementType = HtlTypes.OPTION_LIST
 
-    override val identifiedElementType: IElementType = HtlElementTypes.OPTION
+    override val identifiedElementType: IElementType = HtlTypes.OPTION
 
 }

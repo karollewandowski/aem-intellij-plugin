@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.highlighter
 
 import co.nums.intellij.aem.htl.lexer.HtlLexerAdapter
-import co.nums.intellij.aem.htl.psi.HtlElementTypes
+import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.NUMBER
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING
@@ -12,15 +12,15 @@ import com.intellij.psi.tree.IElementType
 object HtlSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val ATTRIBUTES = mapOf(
-            HtlElementTypes.BOOLEAN_TRUE to KEYWORD,
-            HtlElementTypes.BOOLEAN_FALSE to KEYWORD,
-            HtlElementTypes.EXPR_START to KEYWORD,
-            HtlElementTypes.EXPR_END to KEYWORD,
-            HtlElementTypes.OPTIONS_SEPARATOR to KEYWORD,
-            HtlElementTypes.SINGLE_QUOTED_STRING to STRING,
-            HtlElementTypes.DOUBLE_QUOTED_STRING to STRING,
-            HtlElementTypes.INTEGER_NUMBER to NUMBER,
-            HtlElementTypes.FLOAT_NUMBER to NUMBER
+            HtlTypes.BOOLEAN_TRUE to KEYWORD,
+            HtlTypes.BOOLEAN_FALSE to KEYWORD,
+            HtlTypes.EXPR_START to KEYWORD,
+            HtlTypes.EXPR_END to KEYWORD,
+            HtlTypes.OPTIONS_SEPARATOR to KEYWORD,
+            HtlTypes.SINGLE_QUOTED_STRING to STRING,
+            HtlTypes.DOUBLE_QUOTED_STRING to STRING,
+            HtlTypes.INTEGER_NUMBER to NUMBER,
+            HtlTypes.FLOAT_NUMBER to NUMBER
     )
 
     override fun getHighlightingLexer() = HtlLexerAdapter()
