@@ -79,7 +79,6 @@
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
 
-		<typedHandler implementation="co.nums.intellij.aem.htl.editor.actions.HtlExpressionTypedHandler"/>
 		<backspaceHandlerDelegate implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
 		<quoteHandler fileType="HTL" className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
 		<lang.braceMatcher language="HTL" implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>

@@ -11,6 +11,7 @@ private const val STRUCTURAL = true
 class HtlBraceMatcher : PairedBraceMatcher {
 
     private val PAIRS = arrayOf(
+            BracePair(HtlElementTypes.EXPR_START, HtlElementTypes.EXPR_END, !STRUCTURAL),
             BracePair(HtlElementTypes.LEFT_BRACKET, HtlElementTypes.RIGHT_BRACKET, !STRUCTURAL),
             BracePair(HtlElementTypes.LEFT_PARENTH, HtlElementTypes.RIGHT_PARENTH, !STRUCTURAL)
     )
