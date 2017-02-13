@@ -50,8 +50,6 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   "${"                        { return HtlTypes.EXPR_START; }
   "}"                         { yybegin(YYINITIAL); return HtlTypes.EXPR_END; }
 
-  {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
-
   "true"                      { return HtlTypes.BOOLEAN_TRUE; }
   "false"                     { return HtlTypes.BOOLEAN_FALSE; }
 
@@ -69,8 +67,8 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ","                         { return HtlTypes.COMMA; }
   "!"                         { return HtlTypes.NOT; }
   "@"                         { return HtlTypes.OPTIONS_SEPARATOR; }
-  " ? "                       { return HtlTypes.TERNARY_QUESTION_OP; }
-  " : "                       { return HtlTypes.TERNARY_BRANCHES_OP; }
+  "?"                         { return HtlTypes.TERNARY_QUESTION_OP; }
+  {WHITE_SPACE_CHAR}* " : "   { return HtlTypes.TERNARY_BRANCHES_OP; } //{WHITE_SPACE_CHAR}* needed, otherwise spaces are matched up to ':' and ' : ' cannot be recognized
 
   "&&"                        { return HtlTypes.AND; }
   "||"                        { return HtlTypes.OR; }
@@ -82,6 +80,8 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ">"                         { return HtlTypes.GT; }
   "<="                        { return HtlTypes.LEQ; }
   ">="                        { return HtlTypes.GEQ; }
+
+  {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
 }
 
 {WHITE_SPACE_CHAR}+           { return HtlTypes.HTML_FRAGMENT; }
