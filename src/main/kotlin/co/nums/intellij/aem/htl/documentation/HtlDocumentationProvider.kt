@@ -9,13 +9,17 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlToken
 
 class HtlDocumentationProvider : AbstractDocumentationProvider() {
 
+    // TODO: move generation methods to separate classes
+    // TODO: cache generated values
+
     override fun getCustomDocumentationElement(editor: Editor, file: PsiFile, contextElement: PsiElement?): PsiElement? {
         return when {
-            contextElement.isHtlBlock() -> contextElement
-            HtlPatterns.globalObjectIdentifier.accepts(contextElement) -> contextElement
+            contextElement is XmlToken && contextElement.isHtlBlock() -> contextElement
+            HtlPatterns.variable.accepts(contextElement) -> contextElement
             HtlPatterns.predefinedPropertyIdentifier.accepts(contextElement) -> contextElement
             HtlPatterns.optionIdentifier.accepts(contextElement) -> contextElement
             HtlPatterns.displayContextOptionValue.accepts(contextElement) -> contextElement
@@ -26,8 +30,8 @@ class HtlDocumentationProvider : AbstractDocumentationProvider() {
     override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
         element ?: return null
         return when {
-            element.isHtlBlock() -> generateBlockDoc(element)
-            HtlPatterns.globalObjectIdentifier.accepts(element) -> generateGlobalObjectDoc(element)
+            element is XmlToken && element.isHtlBlock() -> generateBlockDoc(element)
+            HtlPatterns.variable.accepts(element) -> generateGlobalObjectDoc(element)
             HtlPatterns.predefinedPropertyIdentifier.accepts(element) -> generatePredefinedPropertyDoc(element)
             HtlPatterns.optionIdentifier.accepts(element) -> generateOptionDoc(element)
             HtlPatterns.displayContextOptionValue.accepts(element) -> generateDisplayContextDoc(element)

@@ -85,10 +85,15 @@ comparison_operator ::= '>'
                       | '=='
                       | '!='
 
-factor ::= term
-         | '!' term
+private factor ::= '!'? term
 
-term ::= simple ('[' expr_node ']' | '.' field)*
+private term ::= simple property_access*
+
+property_access ::= bracket_property_access | dot_property_access
+
+bracket_property_access ::= '[' expr_node ']'
+
+dot_property_access ::= '.' field
 
 private field ::= IDENTIFIER
 
@@ -99,11 +104,13 @@ private simple ::= atom
 
 value_list ::= expr_node (',' expr_node)*
 
-atom ::= IDENTIFIER
+private atom ::= variable
        | INTEGER_NUMBER
        | FLOAT_NUMBER
        | string_literal
        | boolean_constant
+
+variable ::= IDENTIFIER
 
 string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING
 

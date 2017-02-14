@@ -1,5 +1,6 @@
 package co.nums.intellij.aem.htl.completion.contributor
 
+import co.nums.intellij.aem.htl.completion.provider.HtlBlockVariablesProvider
 import co.nums.intellij.aem.htl.completion.provider.HtlDisplayContextsProvider
 import co.nums.intellij.aem.htl.completion.provider.HtlExprOptionsCompletionProvider
 import co.nums.intellij.aem.htl.completion.provider.HtlGlobalObjectsCompletionProvider
@@ -13,8 +14,13 @@ class HtlCompletionContributor : CompletionContributor() {
     init {
         extend(
                 CompletionType.BASIC,
-                HtlPatterns.globalObjectIdentifier,
+                HtlPatterns.variable,
                 HtlGlobalObjectsCompletionProvider
+        )
+        extend(
+                CompletionType.BASIC,
+                HtlPatterns.variable,
+                HtlBlockVariablesProvider
         )
         extend(
                 CompletionType.BASIC,

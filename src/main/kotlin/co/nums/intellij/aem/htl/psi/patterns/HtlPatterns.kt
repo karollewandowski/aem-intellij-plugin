@@ -1,5 +1,6 @@
 package co.nums.intellij.aem.htl.psi.patterns
 
+import co.nums.intellij.aem.htl.HtlBlocks
 import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.PlatformPatterns.psiElement
@@ -25,14 +26,7 @@ object HtlPatterns {
                             psiElement(HtlTypes.IDENTIFIER).withText("context")
                     )
 
-    val globalObjectIdentifier: ElementPattern<PsiElement> =
-            psiElement(HtlTypes.IDENTIFIER)
-                    .andNot(dotAccessedPropertyIdentifier())
-                    .andNot(optionIdentifier)
-
-    private fun dotAccessedPropertyIdentifier() =
-            psiElement(HtlTypes.IDENTIFIER)
-                    .afterLeaf(psiElement(HtlTypes.DOT))
+    val variable: ElementPattern<PsiElement> = psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.VARIABLE))
 
     val predefinedPropertyIdentifier: ElementPattern<PsiElement> =
             or(
@@ -44,14 +38,14 @@ object HtlPatterns {
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement().inside(xmlAttributeValue().withLocalName(or(
-                    string().equalTo("data-sly-use"),
-                    string().startsWith("data-sly-use."))))
+                    string().equalTo(HtlBlocks.USE),
+                    string().startsWith("${HtlBlocks.USE}."))))
 
     val expressionUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement()
                     .inside(psiElement(HtlTypes.STRING_LITERAL)
                             .afterLeafSkipping(psiElement(TokenType.WHITE_SPACE), psiElement(HtlTypes.EXPR_START))
-                            .inside(htlBlock("data-sly-use")))
+                            .inside(htlBlock(HtlBlocks.USE)))
 
     fun htlBlock(name: String) = HtlPattern().block(name)
 

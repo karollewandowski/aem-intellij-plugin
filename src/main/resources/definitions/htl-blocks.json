@@ -1,6 +1,7 @@
 [
   {
     "name": "data-sly-attribute",
+    "identifierType": "ATTRIBUTE_NAME",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Sets an attribute or a group of attributes on the current element.",
@@ -12,6 +13,7 @@
   },
   {
     "name": "data-sly-call",
+    "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Calls a declared HTML block, passing parameters to it.",
@@ -23,6 +25,7 @@
   },
   {
     "name": "data-sly-element",
+    "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Replaces the element's tag name.",
@@ -34,6 +37,7 @@
   },
   {
     "name": "data-sly-include",
+    "identifierType": "NONE",
     "insertHandlerType": "quotes",
     "doc": {
       "description": "Includes the output of a rendering script run with the current context.",
@@ -45,6 +49,7 @@
   },
   {
     "name": "data-sly-list",
+    "identifierType": "BLOCK_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Iterates over the content of each item in the attribute value.",
@@ -56,6 +61,7 @@
   },
   {
     "name": "data-sly-repeat",
+    "identifierType": "BLOCK_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Iterates over the content of each item in the attribute value and displays the containing element as many times as items in the attribute value.",
@@ -67,6 +73,7 @@
   },
   {
     "name": "data-sly-resource",
+    "identifierType": "NONE",
     "insertHandlerType": "quotes",
     "doc": {
       "description": "Includes a rendered resource.",
@@ -78,6 +85,7 @@
   },
   {
     "name": "data-sly-template",
+    "identifierType": "TEMPLATE_NAME",
     "doc": {
       "description": "Declares an HTML block, naming it with an identifier and defining the parameters it can get.",
       "element": "never shown",
@@ -88,6 +96,7 @@
   },
   {
     "name": "data-sly-test",
+    "identifierType": "HOISTED_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Keeps, or removes the element depending on the attribute value.",
@@ -99,6 +108,7 @@
   },
   {
     "name": "data-sly-text",
+    "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
       "description": "Sets the content for the current element.",
@@ -110,6 +120,7 @@
   },
   {
     "name": "data-sly-unwrap",
+    "identifierType": "NONE",
     "doc": {
       "description": "Unwraps the element.",
       "element": "never shown",
@@ -120,6 +131,7 @@
   },
   {
     "name": "data-sly-use",
+    "identifierType": "HOISTED_VARIABLE",
     "insertHandlerType": "use",
     "doc": {
       "description": "Exposes logic to the template.",
