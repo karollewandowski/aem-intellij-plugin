@@ -28,16 +28,11 @@ internal constructor(private val insertionString: String, private val insertionO
     private fun Document.hasBlockValue(offset: Int) = this.hasText(offset, "=\"") || this.hasText(offset, "='")
 
     private fun Document.insertBlockValue(offset: Int, context: InsertionContext) {
-        val toInsert = if (glitchDetected(this, offset)) (insertionString + " ") else insertionString
-        this.insertString(offset, toInsert)
+        this.insertString(offset, insertionString)
         if (context.completionChar == '=') {
             context.setAddCompletionChar(false) // IDEA-19449
         }
         context.editor.moveCaret(insertionOffset)
     }
-
-    private fun glitchDetected(document: Document, offset: Int) =
-            offset >= document.textLength
-                    || setOf('/', '>', '\n', '\r', '\t').contains(document.charsSequence[offset])
 
 }

@@ -74,14 +74,26 @@
 		<lang.syntaxHighlighterFactory
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlSyntaxHighlighterFactory"/>
+		<annotator
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlVariablesHighlighter"/>
+		<annotator
+				language="HTML"
+				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
+		<additionalTextAttributes scheme="Default" file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
+		<additionalTextAttributes scheme="Darcula" file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
 
 		<lang.formatter
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
 
 		<backspaceHandlerDelegate implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
-		<quoteHandler fileType="HTL" className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
-		<lang.braceMatcher language="HTL" implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
+		<quoteHandler
+				fileType="HTL"
+				className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
+		<lang.braceMatcher
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
 
 		<annotator
 				language="HTL"

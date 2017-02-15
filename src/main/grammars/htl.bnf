@@ -105,10 +105,10 @@ private simple ::= atom
 value_list ::= expr_node (',' expr_node)*
 
 private atom ::= variable
-       | INTEGER_NUMBER
-       | FLOAT_NUMBER
-       | string_literal
-       | boolean_constant
+               | INTEGER_NUMBER
+               | FLOAT_NUMBER
+               | string_literal
+               | boolean_constant
 
 variable ::= IDENTIFIER
 

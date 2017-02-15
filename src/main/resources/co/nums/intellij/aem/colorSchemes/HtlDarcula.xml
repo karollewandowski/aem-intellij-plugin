@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<list>
+	<option name="BLOCK_NAME">
+		<value>
+			<option name="FOREGROUND" value="6694B6"/>
+		</value>
+	</option>
+	<option name="BLOCK_VARIABLE">
+		<value>
+			<option name="FOREGROUND" value="9975AB"/>
+		</value>
+	</option>
+	<option name="GLOBAL_VARIABLE">
+		<value>
+			<option name="FOREGROUND" value="9975AB"/>
+			<option name="FONT_TYPE" value="1"/>
+		</value>
+	</option>
+</list>
