@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 <list>
-	<option name="BLOCK_NAME">
+	<option name="BLOCK_TYPE">
 		<value>
-			<option name="FOREGROUND" value="194389"/>
+			<option name="FOREGROUND" value="3c78d8"/>
 			<option name="FONT_TYPE" value="1"/>
 		</value>
 	</option>

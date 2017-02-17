@@ -25,7 +25,7 @@ object HtlBlocksCompletionProvider : UniqueIdentifiersProviderBase() {
     override val candidateLookupElements = HtlDefinitions.blocks.map { it.toLookupElement() }
 
     private fun Block.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(this.name)
+        return LookupElementBuilder.create(this.type)
                 .withIcon(HtlIcons.HTL_BLOCK)
                 .withTypeText("HTL block", true)
                 .bold()

@@ -12,7 +12,7 @@ import com.intellij.openapi.editor.Document
  */
 abstract class HtlValueBlockInsertHandler
 /**
- * @param insertionString text to insert after HTL block name, eg. `="${}"` in `data-sly-test="${}"` or `=""` in `data-sly-use=""`
+ * @param insertionString text to insert after HTL block type, eg. `="${}"` in `data-sly-test="${}"` or `=""` in `data-sly-use=""`
  * @param insertionOffset offset that caret should be moved to after string insertion
  */
 internal constructor(private val insertionString: String, private val insertionOffset: Int) : InsertHandler<LookupElement> {

@@ -41,7 +41,7 @@ class HtlDocumentationProvider : AbstractDocumentationProvider() {
 
     private fun generateBlockDoc(element: PsiElement?): String? {
         val htlBlockElement = element?.context as XmlAttribute
-        val blockDoc = HtlDefinitions.blocks.find { htlBlockElement.text.startsWith(it.name) }?.doc
+        val blockDoc = HtlDefinitions.blocks.find { htlBlockElement.text.startsWith(it.type) }?.doc
         if (blockDoc != null) {
             return """
                    <p>${blockDoc.description}</p>

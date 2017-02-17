@@ -34,16 +34,16 @@ object HtlPsiUtil {
     }
 
     /**
-     * Returns outer HTL block's name that the HTL element is inside of.
+     * Returns outer HTL block's type that the HTL element is inside of.
 
      * @param htlElement element from expression to check
      * *
-     * @return block's name or `null` if element is not in block
+     * @return block's type or `null` if element is not in block
      */
-    fun getOuterBlockName(htlElement: PsiElement): String? {
+    fun getOuterBlockType(htlElement: PsiElement): String? {
         val htlExpression = PsiTreeUtil.getParentOfType(htlElement, HtlExpression::class.java) ?: return null
         val outerAttribute = htlExpression.getOuterXmlAttribute() ?: return null
-        return outerAttribute.localName.substringBeforeLast(".").toLowerCase()
+        return outerAttribute.localName.substringBefore(".").toLowerCase()
     }
 
 }

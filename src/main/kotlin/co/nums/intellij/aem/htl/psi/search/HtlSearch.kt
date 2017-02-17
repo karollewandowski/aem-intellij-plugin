@@ -18,7 +18,7 @@ object HtlSearch {
     private const val DEFAULT_USE_OBJECT_TYPE = "Use object"
 
     private val htlVariableBlocks = HtlDefinitions.blocks.filter { it.identifierType.isVariable() }
-    private val htlVariableBlockNames = htlVariableBlocks.map { it.name }
+    private val htlVariableBlockTypes = htlVariableBlocks.map { it.type }
 
     fun blockVariables(htmlFile: PsiFile): Collection<HtlBlockVariable> {
         return PsiTreeUtil.findChildrenOfType(htmlFile, XmlAttribute::class.java)
@@ -28,9 +28,9 @@ object HtlSearch {
 
     private fun XmlAttribute.toHtlVariables(): List<HtlBlockVariable> {
         if (this.isHtlBlock()) {
-            val blockName = this.text.substringBefore(".").toLowerCase()
-            if (htlVariableBlockNames.contains(blockName)) {
-                val blockDefinition = htlVariableBlocks.find { it.name == blockName } ?: return emptyList()
+            val blockType = this.text.substringBefore(".").toLowerCase()
+            if (htlVariableBlockTypes.contains(blockType)) {
+                val blockDefinition = htlVariableBlocks.find { it.type == blockType } ?: return emptyList()
                 return this.createHtlVariables(blockDefinition)
             }
         }
@@ -67,8 +67,8 @@ object HtlSearch {
 
     private fun XmlAttribute.getDataType(block: Block, implicitList: Boolean = false): String {
         return when {
-            HtlBlocks.USE == block.name -> this.getUseObjectType()
-            HtlBlocks.TEST == block.name -> "Test result"
+            HtlBlocks.USE == block.type -> this.getUseObjectType()
+            HtlBlocks.TEST == block.type -> "Test result"
             block.isIterable() -> if (implicitList) "Iterable" else "List element" // TODO: resolve Java type
             else -> ""
         }

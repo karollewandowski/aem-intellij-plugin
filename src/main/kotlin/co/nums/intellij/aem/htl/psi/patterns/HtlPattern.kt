@@ -8,10 +8,10 @@ import com.intellij.util.ProcessingContext
 
 class HtlPattern : ObjectPattern<PsiElement, HtlPattern>(PsiElement::class.java) {
 
-    fun block(name: String): HtlPattern {
+    fun block(type: String): HtlPattern {
         return with(object : PatternCondition<PsiElement>("block") {
             override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
-                return name == HtlPsiUtil.getOuterBlockName(element)
+                return type == HtlPsiUtil.getOuterBlockType(element)
             }
         })
     }

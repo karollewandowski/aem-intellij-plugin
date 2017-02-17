@@ -16,5 +16,8 @@ object HtlBlocks {
     const val USE = "data-sly-use"
 
     val ITERABLE = setOf(LIST, REPEAT)
+    val VARIABLE_BLOCKS = setOf(HtlBlocks.USE, HtlBlocks.TEST, HtlBlocks.LIST, HtlBlocks.REPEAT, HtlBlocks.TEMPLATE)
+
+    fun isVariableBlock(name: String) = VARIABLE_BLOCKS.contains(name.toLowerCase())
 
 }

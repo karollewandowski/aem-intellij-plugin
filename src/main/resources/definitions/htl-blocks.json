@@ -1,6 +1,6 @@
 [
   {
-    "name": "data-sly-attribute",
+    "type": "data-sly-attribute",
     "identifierType": "ATTRIBUTE_NAME",
     "insertHandlerType": "expression",
     "doc": {
@@ -12,7 +12,7 @@
     }
   },
   {
-    "name": "data-sly-call",
+    "type": "data-sly-call",
     "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
@@ -24,7 +24,7 @@
     }
   },
   {
-    "name": "data-sly-element",
+    "type": "data-sly-element",
     "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
@@ -36,7 +36,7 @@
     }
   },
   {
-    "name": "data-sly-include",
+    "type": "data-sly-include",
     "identifierType": "NONE",
     "insertHandlerType": "quotes",
     "doc": {
@@ -48,7 +48,7 @@
     }
   },
   {
-    "name": "data-sly-list",
+    "type": "data-sly-list",
     "identifierType": "BLOCK_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
@@ -60,7 +60,7 @@
     }
   },
   {
-    "name": "data-sly-repeat",
+    "type": "data-sly-repeat",
     "identifierType": "BLOCK_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
@@ -72,7 +72,7 @@
     }
   },
   {
-    "name": "data-sly-resource",
+    "type": "data-sly-resource",
     "identifierType": "NONE",
     "insertHandlerType": "quotes",
     "doc": {
@@ -84,7 +84,7 @@
     }
   },
   {
-    "name": "data-sly-template",
+    "type": "data-sly-template",
     "identifierType": "TEMPLATE_NAME",
     "doc": {
       "description": "Declares an HTML block, naming it with an identifier and defining the parameters it can get.",
@@ -95,7 +95,7 @@
     }
   },
   {
-    "name": "data-sly-test",
+    "type": "data-sly-test",
     "identifierType": "HOISTED_VARIABLE",
     "insertHandlerType": "expression",
     "doc": {
@@ -107,7 +107,7 @@
     }
   },
   {
-    "name": "data-sly-text",
+    "type": "data-sly-text",
     "identifierType": "NONE",
     "insertHandlerType": "expression",
     "doc": {
@@ -119,7 +119,7 @@
     }
   },
   {
-    "name": "data-sly-unwrap",
+    "type": "data-sly-unwrap",
     "identifierType": "NONE",
     "doc": {
       "description": "Unwraps the element.",
@@ -130,7 +130,7 @@
     }
   },
   {
-    "name": "data-sly-use",
+    "type": "data-sly-use",
     "identifierType": "HOISTED_VARIABLE",
     "insertHandlerType": "use",
     "doc": {
