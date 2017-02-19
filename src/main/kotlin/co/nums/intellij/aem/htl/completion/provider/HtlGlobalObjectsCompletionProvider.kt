@@ -21,7 +21,7 @@ object HtlGlobalObjectsCompletionProvider : CompletionProvider<CompletionParamet
                 .bold()
     }
 
-    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) =
-            resultSet.addAllElements(globalObjectsElements)
+    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) =
+            result.addAllElements(globalObjectsElements)
 
 }

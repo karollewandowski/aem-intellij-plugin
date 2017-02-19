@@ -15,11 +15,11 @@ abstract class UniqueIdentifiersProviderBase : CompletionProvider<CompletionPara
     protected abstract val identifiersContainerElementType: IElementType
     protected abstract val identifiedElementType: IElementType
 
-    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) {
+    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
         val existingIdentifiers = findExistingIdentifiers(parameters)
         candidateLookupElements
                 .filterNot { existingIdentifiers.contains(it.lookupString) }
-                .forEach { resultSet.addElement(it) }
+                .forEach { result.addElement(it) }
     }
 
     private fun findExistingIdentifiers(parameters: CompletionParameters): Set<String> {

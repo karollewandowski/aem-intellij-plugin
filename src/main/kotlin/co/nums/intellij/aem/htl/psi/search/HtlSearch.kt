@@ -28,7 +28,7 @@ object HtlSearch {
 
     private fun XmlAttribute.toHtlVariables(): List<HtlBlockVariable> {
         if (this.isHtlBlock()) {
-            val blockType = this.text.substringBefore(".").toLowerCase()
+            val blockType = this.nameElement.text.substringBefore(".").toLowerCase()
             if (htlVariableBlockTypes.contains(blockType)) {
                 val blockDefinition = htlVariableBlocks.find { it.type == blockType } ?: return emptyList()
                 return this.createHtlVariables(blockDefinition)

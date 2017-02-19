@@ -95,7 +95,7 @@ bracket_property_access ::= '[' expr_node ']'
 
 dot_property_access ::= '.' field
 
-private field ::= IDENTIFIER
+field ::= IDENTIFIER
 
 private simple ::= atom
                  | '(' expr_node ')'

@@ -12,8 +12,6 @@ import com.intellij.psi.TokenType
 
 object HtlPatterns {
 
-    private val propertyObjectsNames = arrayOf("properties", "pageProperties", "inheritedPageProperties")
-
     val optionIdentifier: ElementPattern<PsiElement> =
             psiElement(HtlTypes.IDENTIFIER)
                     .atStartOf(psiElement(HtlTypes.OPTION))
@@ -28,12 +26,12 @@ object HtlPatterns {
 
     val variable: ElementPattern<PsiElement> = psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.VARIABLE))
 
-    val predefinedPropertyIdentifier: ElementPattern<PsiElement> =
+    val propertyIdentifier: ElementPattern<PsiElement> =
             or(
-                    psiElement(HtlTypes.IDENTIFIER)
-                            .afterLeaf(psiElement(HtlTypes.DOT).afterLeaf(*propertyObjectsNames)),
-                    psiElement().inside(psiElement(HtlTypes.STRING_LITERAL))
-                            .afterLeaf(psiElement(HtlTypes.LEFT_BRACKET).afterLeaf(*propertyObjectsNames))
+                    psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.FIELD)),
+                    psiElement()
+                            .inside((psiElement(HtlTypes.STRING_LITERAL)).atStartOf(psiElement(HtlTypes.EXPR_NODE)))
+                            .inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS))
             )
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =

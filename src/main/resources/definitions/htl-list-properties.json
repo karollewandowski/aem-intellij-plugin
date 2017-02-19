@@ -1,0 +1,37 @@
+[
+  {
+    "name": "index",
+    "type": "Number",
+    "description": "zero-based counter (<code>0..length-1</code>)"
+  },
+  {
+    "name": "count",
+    "type": "Number",
+    "description": "one-based counter (<code>1..length</code>)"
+  },
+  {
+    "name": "first",
+    "type": "Boolean",
+    "description": "<code>true</code> for the first element being iterated"
+  },
+  {
+    "name": "middle",
+    "type": "Boolean",
+    "description": "<code>true</code> if element being iterated is neither the first nor the last"
+  },
+  {
+    "name": "last",
+    "type": "Boolean",
+    "description": "<code>true</code> for the last element being iterated"
+  },
+  {
+    "name": "odd",
+    "type": "Boolean",
+    "description": "<code>true</code> if index is odd"
+  },
+  {
+    "name": "even",
+    "type": "Boolean",
+    "description": "<code>true</code> if index is even"
+  }
+]

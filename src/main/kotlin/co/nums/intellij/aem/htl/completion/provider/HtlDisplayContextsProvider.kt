@@ -21,7 +21,7 @@ object HtlDisplayContextsProvider : CompletionProvider<CompletionParameters>() {
                 .bold()
     }
 
-    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, resultSet: CompletionResultSet) =
-            resultSet.addAllElements(displayContextElements)
+    override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) =
+            result.addAllElements(displayContextElements)
 
 }

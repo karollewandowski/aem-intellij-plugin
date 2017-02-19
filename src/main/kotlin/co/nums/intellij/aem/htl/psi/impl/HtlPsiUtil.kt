@@ -1,8 +1,11 @@
 package co.nums.intellij.aem.htl.psi.impl
 
 import co.nums.intellij.aem.htl.psi.HtlExpression
+import co.nums.intellij.aem.htl.psi.HtlTypes
+import co.nums.intellij.aem.htl.psi.HtlVariable
 import com.intellij.lang.StdLanguages
 import com.intellij.psi.PsiElement
+import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 
@@ -45,5 +48,24 @@ object HtlPsiUtil {
         val outerAttribute = htlExpression.getOuterXmlAttribute() ?: return null
         return outerAttribute.localName.substringBefore(".").toLowerCase()
     }
+
+    /**
+     * Returns referenced variable identifier if property refers to variable.
+     * Otherwise returns `null`.
+     *
+     * @param htlPropertyIdentifier identifier in property access element
+     *
+     * @return referenced variable identifier or `null`
+     */
+    fun getReferencedVariableElement(htlPropertyIdentifier: PsiElement): PsiElement? {
+        val dotOrBracket = PsiTreeUtil.prevLeaf(htlPropertyIdentifier) ?: return null
+        val referencedElement = PsiTreeUtil.prevLeaf(dotOrBracket) ?: return null
+        if ((referencedElement as? LeafPsiElement)?.elementType === HtlTypes.IDENTIFIER && referencedElement.parent is HtlVariable) {
+            return referencedElement
+        }
+        return null
+    }
+
+
 
 }
