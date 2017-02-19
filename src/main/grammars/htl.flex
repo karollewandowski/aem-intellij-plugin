@@ -26,6 +26,7 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
 
 %state EXPRESSION
+%state TERNARY_BRANCHES_OP
 
 %%
 
@@ -68,8 +69,13 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   "!"                         { return HtlTypes.NOT; }
   "@"                         { return HtlTypes.OPTIONS_SEPARATOR; }
   "?"                         { return HtlTypes.TERNARY_QUESTION_OP; }
-  {WHITE_SPACE_CHAR}* " : "   { return HtlTypes.TERNARY_BRANCHES_OP; } //{WHITE_SPACE_CHAR}* needed, otherwise spaces are matched up to ':' and ' : ' cannot be recognized
-
+  {WHITE_SPACE_CHAR}* " : "   {
+                                yypushback(3); // get back before ' : '
+                                yybegin(TERNARY_BRANCHES_OP);
+                                if (yylength() > 0) {
+                                  return TokenType.WHITE_SPACE;
+                                }
+                              }
   "&&"                        { return HtlTypes.AND; }
   "||"                        { return HtlTypes.OR; }
 
@@ -82,6 +88,10 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ">="                        { return HtlTypes.GEQ; }
 
   {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
+}
+
+<TERNARY_BRANCHES_OP> {
+  " : "                       { yybegin(EXPRESSION); return HtlTypes.TERNARY_BRANCHES_OP; }
 }
 
 {WHITE_SPACE_CHAR}+           { return HtlTypes.HTML_FRAGMENT; }
