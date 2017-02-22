@@ -1,5 +1,5 @@
 <!--suppress XmlUnboundNsPrefix -->
-<idea-plugin version="2" url="https://github.com/karollewandowski/aem-intellij-plugin">
+<idea-plugin url="https://github.com/karollewandowski/aem-intellij-plugin">
 	<id>co.nums.intellij.aem</id>
 	<name>AEM IntelliJ Plugin</name>
 	<version>0.6</version>
@@ -30,8 +30,8 @@
 
 	<change-notes><![CDATA[
         <ul>
-            <li>autocompletion for use objects (<code>data-sly-use</code>)</li>
-            <li>autocompletion for block variables (eg. <code>data-sly-use.variable</code>)</li>
+            <li>HTL comments support</li>
+            <li>iterable objects properties (<code>itemList.even</code>, <code>itemList.first</code>, <code>itemList.odd</code>, etc.)</li>
         </ul>
 	]]></change-notes>
 
@@ -88,6 +88,10 @@
 		<lang.formatter
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
+
+		<lang.commenter
+				language="HTL"
+				implementationClass="co.nums.intellij.aem.htl.editor.comments.HtlCommenter"/>
 
 		<backspaceHandlerDelegate implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
 		<quoteHandler

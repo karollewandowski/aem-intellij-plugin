@@ -8,7 +8,13 @@ import com.intellij.psi.TokenType;
 
 %%
 
-%class HtlLexer
+%{
+  public _HtlLexer() {
+    this((java.io.Reader) null);
+  }
+%}
+
+%class _HtlLexer
 %implements FlexLexer
 %function advance
 %type IElementType
@@ -27,28 +33,18 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
 %state EXPRESSION
 %state TERNARY_BRANCHES_OP
+%state HTL_COMMENT
 
 %%
 
 <YYINITIAL> {
-  ~"${"                       {
-                                if (yylength() >= 3 && yytext().toString().substring(yylength() - 3, yylength()).equals("\\${")) {
-                                  // escaped expression
-                                  return HtlTypes.HTML_FRAGMENT;
-                                } else {
-                                  // matched expression
-                                  yypushback(2); // get back before ${
-                                  yybegin(EXPRESSION);
-                                  if (yylength() > 0) {
-                                    return HtlTypes.HTML_FRAGMENT;
-                                  }
-                                }
-                              }
-  !([^]*"${"[^]*)             { return HtlTypes.HTML_FRAGMENT; }
+  "${"                        { yybegin(EXPRESSION); return HtlTypes.EXPR_START; }
+  "\\${"                      { return HtlTypes.HTML_FRAGMENT; }
+  "<!--/*"                    { yybegin(HTL_COMMENT); }
+  [^]                         { return HtlTypes.HTML_FRAGMENT; }
 }
 
 <EXPRESSION> {
-  "${"                        { return HtlTypes.EXPR_START; }
   "}"                         { yybegin(YYINITIAL); return HtlTypes.EXPR_END; }
 
   "true"                      { return HtlTypes.BOOLEAN_TRUE; }
@@ -88,11 +84,15 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ">="                        { return HtlTypes.GEQ; }
 
   {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
+
+  [^]                         { yybegin(YYINITIAL); return HtlTypes.HTML_FRAGMENT; }
 }
 
 <TERNARY_BRANCHES_OP> {
   " : "                       { yybegin(EXPRESSION); return HtlTypes.TERNARY_BRANCHES_OP; }
 }
 
-{WHITE_SPACE_CHAR}+           { return HtlTypes.HTML_FRAGMENT; }
-[^]                           { return TokenType.BAD_CHARACTER; }
+<HTL_COMMENT> {
+  "*/-->"                     { yybegin(YYINITIAL); return HtlTypes.HTML_FRAGMENT; }
+  [^]                         { return HtlTypes.HTML_FRAGMENT; }
+}
