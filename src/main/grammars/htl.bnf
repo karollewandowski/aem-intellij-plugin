@@ -12,9 +12,10 @@
   elementTypeClass="co.nums.intellij.aem.htl.psi.HtlElementType"
   tokenTypeClass="co.nums.intellij.aem.htl.psi.HtlTokenType"
 
+  mixin("template_comment")="co.nums.intellij.aem.htl.psi.HtlCommentMixin"
+
   tokens = [
     HTML_FRAGMENT='regexp:(?:(?!\$\{).)*'
-    ESC_EXPR='regexp:\\\$\{.*}'
 
     EXPR_START='${'
     EXPR_END='}'
@@ -51,19 +52,25 @@
     DOUBLE_QUOTED_STRING='regexp:"([^\\"\r\n]|\\([\\"/bfnrt]|u[a-fA-F0-9]{4}))*"'
     SINGLE_QUOTED_STRING="regexp:'([^\\'\r\n]|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'"
 
+    COMMENT_START='<!--/*'
+    COMMENT_END='*/-->'
+    COMMENT_CONTENT='regexp:.*'
+
     space='regexp:\s+'
   ]
 }
 
-interpolation ::= (expression | text_fragment)*
+interpolation ::= (expression | template_comment | html_fragment)*
 
-private text_fragment ::= HTML_FRAGMENT+ | ESC_EXPR+
+template_comment ::= "<!--/*" COMMENT_CONTENT? "*/-->"
+
+private html_fragment ::= HTML_FRAGMENT+
 
 expression ::= '${' expr_node? ['@' option_list] '}' {
   pin=1
   recoverWhile=expression_recover
 }
-private expression_recover ::= !('${' | text_fragment)
+private expression_recover ::= !('${' | html_fragment | "<!--/*")
 
 option_list ::= option (',' option)*
 

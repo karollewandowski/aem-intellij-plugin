@@ -40,7 +40,7 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 <YYINITIAL> {
   "${"                        { yybegin(EXPRESSION); return HtlTypes.EXPR_START; }
   "\\${"                      { return HtlTypes.HTML_FRAGMENT; }
-  "<!--/*"                    { yybegin(HTL_COMMENT); }
+  "<!--/*"                    { yybegin(HTL_COMMENT); return HtlTypes.COMMENT_START; }
   [^]                         { return HtlTypes.HTML_FRAGMENT; }
 }
 
@@ -93,6 +93,6 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 }
 
 <HTL_COMMENT> {
-  "*/-->"                     { yybegin(YYINITIAL); return HtlTypes.HTML_FRAGMENT; }
-  [^]                         { return HtlTypes.HTML_FRAGMENT; }
+  "*/-->"                     { yybegin(YYINITIAL); return HtlTypes.COMMENT_END; }
+  [^]                         { return HtlTypes.COMMENT_CONTENT; }
 }

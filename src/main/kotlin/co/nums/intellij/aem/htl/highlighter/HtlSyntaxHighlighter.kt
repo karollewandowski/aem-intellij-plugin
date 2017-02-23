@@ -5,6 +5,7 @@ import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.KEYWORD
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.NUMBER
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors.STRING
+import com.intellij.openapi.editor.XmlHighlighterColors.HTML_COMMENT
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
@@ -20,7 +21,10 @@ object HtlSyntaxHighlighter : SyntaxHighlighterBase() {
             HtlTypes.SINGLE_QUOTED_STRING to STRING,
             HtlTypes.DOUBLE_QUOTED_STRING to STRING,
             HtlTypes.INTEGER_NUMBER to NUMBER,
-            HtlTypes.FLOAT_NUMBER to NUMBER
+            HtlTypes.FLOAT_NUMBER to NUMBER,
+            HtlTypes.COMMENT_START to HTML_COMMENT,
+            HtlTypes.COMMENT_CONTENT to HTML_COMMENT,
+            HtlTypes.COMMENT_END to HTML_COMMENT
     )
 
     override fun getHighlightingLexer() = HtlLexerAdapter()
