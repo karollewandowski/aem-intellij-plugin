@@ -2,7 +2,7 @@
 <idea-plugin url="https://github.com/karollewandowski/aem-intellij-plugin">
 	<id>co.nums.intellij.aem</id>
 	<name>AEM IntelliJ Plugin</name>
-	<version>0.6</version>
+	<version>0.7</version>
 	<vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
 
 	<description><![CDATA[

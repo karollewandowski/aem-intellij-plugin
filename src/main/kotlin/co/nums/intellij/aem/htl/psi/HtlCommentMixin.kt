@@ -10,4 +10,5 @@ abstract class HtlCommentMixin(node: ASTNode) : ASTWrapperPsiElement(node), PsiC
     override fun getTokenType(): IElementType {
         return node.elementType
     }
+
 }
