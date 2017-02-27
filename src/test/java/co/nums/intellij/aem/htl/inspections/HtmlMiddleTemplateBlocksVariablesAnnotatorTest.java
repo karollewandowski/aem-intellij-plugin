@@ -15,10 +15,6 @@ import org.junit.runner.RunWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by Paweł Tarkowski on 18.02.2017.
- */
-
 @RunWith(DataProviderRunner.class)
 public class HtmlMiddleTemplateBlocksVariablesAnnotatorTest {
     private HtmlMiddleTemplateBlocksVariablesAnnotator testObject = new HtmlMiddleTemplateBlocksVariablesAnnotator();

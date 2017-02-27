@@ -10,9 +10,6 @@ import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
 import org.jetbrains.annotations.NotNull
 
-/**
- * Created by Paweł Tarkowski on 18.02.2017.
- */
 class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool() {
 
     private val MESSAGE = "Use data-sly-use statements only on root elements"
