@@ -6,10 +6,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 
-/**
- * Created by Paweł Tarkowski on 18.02.2017.
- */
-
 private const val NAME = "Fix not root variables"
 
 class HtmlMiddleTemplateBlocksVariablesFix(private val attributeToMove: XmlAttribute, private val firstElement: XmlTag?) : LocalQuickFix {
