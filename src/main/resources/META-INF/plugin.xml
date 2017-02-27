@@ -102,8 +102,12 @@
 				implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
 
 		<annotator
-				language="HTL"
+			language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
+
+		<localInspection
+				language="HTML"
+				implementationClass="co.nums.intellij.aem.htl.inspections.HtmlMiddleTemplateBlocksVariablesAnnotator"/>
 	</extensions>
 
 </idea-plugin>
