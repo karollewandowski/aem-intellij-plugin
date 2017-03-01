@@ -46,7 +46,6 @@ class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool
         }
     }
 
-    @NotNull
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : XmlElementVisitorExtension() {
             override fun visitXmlFile(file: XmlFile?) {
