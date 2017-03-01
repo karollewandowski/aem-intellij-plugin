@@ -106,6 +106,7 @@
 				implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
 
 		<localInspection
+				enabledByDefault="true"
 				language="HTML"
 				implementationClass="co.nums.intellij.aem.htl.inspections.HtmlMiddleTemplateBlocksVariablesAnnotator"/>
 	</extensions>
