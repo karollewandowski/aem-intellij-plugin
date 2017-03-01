@@ -2,6 +2,7 @@ package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.htl.psi.extensions.XmlElementVisitorExtension
 import co.nums.intellij.aem.htl.psi.extensions.isHtlVariableBlock
+import com.intellij.codeInspection.InspectionProfileEntry
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.codeInspection.XmlSuppressableInspectionTool
 import com.intellij.psi.PsiElementVisitor
@@ -12,20 +13,26 @@ import org.jetbrains.annotations.NotNull
 
 class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool() {
 
-    private val MESSAGE = "Use data-sly-use statements only on root elements"
+    private val MESSAGE = "Use data-sly-use variable statements only on root elements"
 
-    @NotNull
     override fun getDisplayName(): String {
-        return "HtmlMiddleTemplateBlocksVariablesAnnotator"
+        return "Middle template blocks variables annotator"
     }
 
-    @NotNull
     override fun getShortName(): String {
         return "HtmlMiddleTemplateBlocksVariablesAnnotator"
     }
 
     override fun getGroupDisplayName(): String {
-        return super.getGroupDisplayName()
+        return "Htl inspections"
+    }
+
+    override fun getDescriptionContextClass(): Class<out InspectionProfileEntry> {
+        return super.getDescriptionContextClass()
+    }
+
+    override fun getStaticDescription(): String? {
+        return "Select non root data-sly-use statements variables"
     }
 
 
@@ -34,7 +41,7 @@ class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool
     }
 
     fun checkAttribute(attribute: XmlAttribute, holder: ProblemsHolder, firstElement: XmlTag?) {
-        if (attribute.isHtlVariableBlock() && attribute.name.startsWith("data-sly-use") && firstElement != null) {
+        if (attribute.isHtlVariableBlock() && attribute.name.startsWith("data-sly-use") && (firstElement != null && firstElement != attribute.parent)) {
             holder.registerProblem(attribute, MESSAGE, HtmlMiddleTemplateBlocksVariablesFix(attribute, firstElement))
         }
     }
