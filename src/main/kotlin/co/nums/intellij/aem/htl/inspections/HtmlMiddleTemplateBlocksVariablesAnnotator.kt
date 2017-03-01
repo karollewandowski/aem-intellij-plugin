@@ -34,7 +34,7 @@ class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool
     }
 
     fun checkAttribute(attribute: XmlAttribute, holder: ProblemsHolder, firstElement: XmlTag?) {
-        if (attribute.isHtlVariableBlock() && attribute.name.startsWith("data-sly-use")) {
+        if (attribute.isHtlVariableBlock() && attribute.name.startsWith("data-sly-use") && firstElement != null) {
             holder.registerProblem(attribute, MESSAGE, HtmlMiddleTemplateBlocksVariablesFix(attribute, firstElement))
         }
     }
@@ -43,7 +43,6 @@ class HtmlMiddleTemplateBlocksVariablesAnnotator : XmlSuppressableInspectionTool
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : XmlElementVisitorExtension() {
             override fun visitXmlFile(file: XmlFile?) {
-                println("VISIT FILE " + file?.name)
                 super.visitXmlFile(file)
             }
 

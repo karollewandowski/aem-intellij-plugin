@@ -11,7 +11,7 @@ open class XmlElementVisitorExtension : XmlElementVisitor() {
     private var firstElement: XmlTag? = null
 
     override fun visitXmlTag(tag: XmlTag?) {
-        if (firstElement == null && tag?.parent == null) {
+        if (firstElement == null) {
             firstElement = tag
         }
         super.visitXmlTag(tag)
