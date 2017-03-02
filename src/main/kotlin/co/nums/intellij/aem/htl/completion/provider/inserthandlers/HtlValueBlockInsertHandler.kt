@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider.inserthandlers
 
-import co.nums.intellij.aem.extensions.hasQuotesAt
+import co.nums.intellij.aem.extensions.hasText
 import co.nums.intellij.aem.extensions.moveCaret
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
@@ -20,12 +20,12 @@ internal constructor(private val insertionString: String, private val insertionO
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         val document = context.editor.document
         val offset = context.editor.caretModel.offset
-        if (!document.hasBlockValueAt(offset)) {
+        if (!document.hasBlockValue(offset)) {
             document.insertBlockValue(offset, context)
         }
     }
 
-    private fun Document.hasBlockValueAt(offset: Int) = this.hasQuotesAt(offset)
+    private fun Document.hasBlockValue(offset: Int) = this.hasText(offset, "=\"") || this.hasText(offset, "='")
 
     private fun Document.insertBlockValue(offset: Int, context: InsertionContext) {
         this.insertString(offset, insertionString)
