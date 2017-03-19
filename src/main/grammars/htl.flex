@@ -9,6 +9,8 @@ import com.intellij.psi.TokenType;
 %%
 
 %{
+  private boolean ternaryBranchesOparatorMatched = false;
+
   public _HtlLexer() {
     this((java.io.Reader) null);
   }
@@ -21,7 +23,7 @@ import com.intellij.psi.TokenType;
 %unicode
 
 
-WHITE_SPACE_CHAR = [\ \n\r\t\f]
+WS = \s
 
 SINGLE_QUOTED_STRING = '([^\\'\r\n]|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'?
 DOUBLE_QUOTED_STRING = \"([^\\\"\r\n]|\\([\\\"/bfnrt]|u[a-fA-F0-9]{4}))*\"?
@@ -64,14 +66,6 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ","                         { return HtlTypes.COMMA; }
   "!"                         { return HtlTypes.NOT; }
   "@"                         { return HtlTypes.OPTIONS_SEPARATOR; }
-  "?"                         { return HtlTypes.TERNARY_QUESTION_OP; }
-  {WHITE_SPACE_CHAR}* " : "   {
-                                yypushback(3); // get back before ' : '
-                                yybegin(TERNARY_BRANCHES_OP);
-                                if (yylength() > 0) {
-                                  return TokenType.WHITE_SPACE;
-                                }
-                              }
   "&&"                        { return HtlTypes.AND; }
   "||"                        { return HtlTypes.OR; }
 
@@ -82,14 +76,40 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   ">"                         { return HtlTypes.GT; }
   "<="                        { return HtlTypes.LEQ; }
   ">="                        { return HtlTypes.GEQ; }
+  "?"                         { return HtlTypes.TERNARY_QUESTION_OP; }
+  {WS}* ":"                   {
+                                if (yylength() <= 2) { // ":" or "WS:" matched
+                                  yypushback(yylength()); // get back before ":" or "WS:"
+                                } else { // WS: with preceding spaces matched
+                                  yypushback(2); // get back before "WS:"
+                                  if (yylength() > 0) {
+                                    return TokenType.WHITE_SPACE;
+                                  }
+                                }
+                                yybegin(TERNARY_BRANCHES_OP);
+                              }
 
-  {WHITE_SPACE_CHAR}+         { return TokenType.WHITE_SPACE; }
+  {WS}+                       { return TokenType.WHITE_SPACE; }
 
   [^]                         { yybegin(YYINITIAL); return HtlTypes.HTML_FRAGMENT; }
 }
 
 <TERNARY_BRANCHES_OP> {
-  " : "                       { yybegin(EXPRESSION); return HtlTypes.TERNARY_BRANCHES_OP; }
+  ":"                         {
+                                ternaryBranchesOparatorMatched = true;
+                                return HtlTypes.TERNARY_BRANCHES_OP;
+                              }
+  {WS}                        {
+                                if (ternaryBranchesOparatorMatched) {
+                                  yybegin(EXPRESSION);
+                                  ternaryBranchesOparatorMatched = false;
+                                }
+                                return HtlTypes.WHITE_SPACE;
+                              }
+  [^]                         {
+                                yypushback(1);       // cancel unexpected char
+                                yybegin(EXPRESSION); // and try to parse it again in <EXPRESSION>
+                              }
 }
 
 <HTL_COMMENT> {

@@ -37,7 +37,7 @@
     OR='||';
     NOT='!';
     TERNARY_QUESTION_OP='?';
-    TERNARY_BRANCHES_OP=' : ';
+    TERNARY_BRANCHES_OP=':';
 
     LT='<';
     LEQ='<=';
@@ -55,8 +55,7 @@
     COMMENT_START='<!--/*'
     COMMENT_END='*/-->'
     COMMENT_CONTENT='regexp:.*'
-
-    space='regexp:\s+'
+    WHITE_SPACE='regexp:\s'
   ]
 }
 
@@ -76,7 +75,7 @@ option_list ::= option (',' option)*
 
 option ::= IDENTIFIER ['=' expr_node]
 
-expr_node ::= binary_operation ['?' binary_operation ' : ' binary_operation]
+expr_node ::= binary_operation ['?' binary_operation WHITE_SPACE ':' WHITE_SPACE binary_operation]
 
 binary_operation ::= comparison_term (logical_operator comparison_term)*
 
