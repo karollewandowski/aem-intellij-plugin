@@ -12,10 +12,8 @@
   elementTypeClass="co.nums.intellij.aem.htl.psi.HtlElementType"
   tokenTypeClass="co.nums.intellij.aem.htl.psi.HtlTokenType"
 
-  mixin("template_comment")="co.nums.intellij.aem.htl.psi.HtlCommentMixin"
-
   tokens = [
-    HTML_FRAGMENT='regexp:(?:(?!\$\{).)*'
+    OUTER_TEXT='regexp:(?:(?!\$\{).)*'
 
     EXPR_START='${'
     EXPR_END='}'
@@ -57,19 +55,21 @@
     COMMENT_CONTENT='regexp:.*'
     WHITE_SPACE='regexp:\s'
   ]
+
+  mixin("template_comment")="co.nums.intellij.aem.htl.psi.mixins.HtlCommentMixin"
 }
 
-interpolation ::= (expression | template_comment | html_fragment)*
+interpolation ::= (expression | template_comment | outer_text)*
 
 template_comment ::= "<!--/*" COMMENT_CONTENT? "*/-->"
 
-private html_fragment ::= HTML_FRAGMENT+
+private outer_text ::= OUTER_TEXT+
 
 expression ::= '${' expr_node? ['@' option_list] '}' {
   pin=1
   recoverWhile=expression_recover
 }
-private expression_recover ::= !('${' | html_fragment | "<!--/*")
+private expression_recover ::= !('${' | outer_text | "<!--/*")
 
 option_list ::= option (',' option)*
 

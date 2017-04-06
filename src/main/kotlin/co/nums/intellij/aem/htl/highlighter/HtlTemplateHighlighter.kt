@@ -22,7 +22,7 @@ class HtlTemplateHighlighter(project: Project?, virtualFile: VirtualFile?, color
 
     private fun registerOuterLanguageHighlighter(project: Project?, virtualFile: VirtualFile?) {
         val outerLanguageHighlighter = getOuterSyntaxHighlighter(project, virtualFile)
-        registerLayer(HtlTypes.HTML_FRAGMENT, LayerDescriptor(outerLanguageHighlighter, ""))
+        registerLayer(HtlTypes.OUTER_TEXT, LayerDescriptor(outerLanguageHighlighter, ""))
     }
 
     private fun getOuterSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter? {

@@ -78,7 +78,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: V
             if (result != null) {
                 return result
             }
-            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlTypes.HTML_FRAGMENT, HTL_FRAGMENT)
+            val created = TemplateDataElementType("HTL_TEMPLATE_DATA", lang, HtlTypes.OUTER_TEXT, HTL_FRAGMENT)
             val prevValue = TEMPLATE_DATA_TO_LANG.putIfAbsent(lang.id, created)
 
             return prevValue ?: created

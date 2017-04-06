@@ -32,8 +32,7 @@ sourceSets {
 }
 
 intellij {
-  version = 'IU-2016.2.5'
-  plugins = ['JavaScriptLanguage', 'CSS']
+  version = 'IC-2016.2.5'
 
   updateSinceUntilBuild = false
 

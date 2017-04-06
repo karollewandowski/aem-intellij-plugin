@@ -4,7 +4,7 @@ import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.lookup.LookupElement
 
-object HtlUseBlockInsertHandler : HtlValueBlockInsertHandler("=\"\"", 2) { // FIXME: DRY (see HtlSimpleBlockInsertHandler)
+object HtlUseBlockInsertHandler : HtlValueBlockInsertHandler(insertionString = "=\"\"", insertionOffset = 2) { // FIXME: DRY (see HtlSimpleBlockInsertHandler)
 
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         super.handleInsert(context, item)

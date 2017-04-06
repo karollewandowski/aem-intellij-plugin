@@ -5,7 +5,6 @@ import co.nums.intellij.aem.htl.lexer.HtlLexerAdapter
 import co.nums.intellij.aem.htl.psi.HtlFile
 import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.lang.ASTNode
-import com.intellij.lang.Language
 import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
@@ -26,7 +25,7 @@ class HtlParserDefinition : ParserDefinition {
 
     override fun getStringLiteralElements() = TokenSet.create(HtlTypes.SINGLE_QUOTED_STRING, HtlTypes.DOUBLE_QUOTED_STRING)
 
-    override fun getFileNodeType() = IFileElementType(Language.findInstance(HtlLanguage::class.java))
+    override fun getFileNodeType() = IFileElementType(HtlLanguage)
 
     override fun createFile(viewProvider: FileViewProvider) = HtlFile(viewProvider)
 

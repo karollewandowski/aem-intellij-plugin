@@ -41,9 +41,9 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
 <YYINITIAL> {
   "${"                        { yybegin(EXPRESSION); return HtlTypes.EXPR_START; }
-  "\\${"                      { return HtlTypes.HTML_FRAGMENT; }
+  "\\${"                      { return HtlTypes.OUTER_TEXT; }
   "<!--/*"                    { yybegin(HTL_COMMENT); return HtlTypes.COMMENT_START; }
-  [^]                         { return HtlTypes.HTML_FRAGMENT; }
+  [^]                         { return HtlTypes.OUTER_TEXT; }
 }
 
 <EXPRESSION> {
@@ -91,7 +91,7 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
   {WS}+                       { return TokenType.WHITE_SPACE; }
 
-  [^]                         { yybegin(YYINITIAL); return HtlTypes.HTML_FRAGMENT; }
+  [^]                         { yybegin(YYINITIAL); return HtlTypes.OUTER_TEXT; }
 }
 
 <TERNARY_BRANCHES_OP> {
