@@ -39,13 +39,14 @@
 	<idea-version since-build="143"/>
 
 	<depends>com.intellij.modules.lang</depends>
-	<depends optional="true">JavaScript</depends>
 	<depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
 
 	<extensions defaultExtensionNs="com.intellij">
-		<fileTypeFactory implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
+		<fileTypeFactory
+				implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
 
-		<iconProvider implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
+		<iconProvider
+				implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
 
 		<html.scriptContentProvider
 				language="HTL"
@@ -81,10 +82,15 @@
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlVariablesHighlighter"/>
 		<annotator
+				id="htlBlocksHighlighter"
 				language="HTML"
 				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
-		<additionalTextAttributes scheme="Default" file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
-		<additionalTextAttributes scheme="Darcula" file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
+		<additionalTextAttributes
+				scheme="Default"
+				file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
+		<additionalTextAttributes
+				scheme="Darcula"
+				file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
 
 		<lang.formatter
 				language="HTL"
@@ -94,7 +100,8 @@
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.editor.comments.HtlCommenter"/>
 
-		<backspaceHandlerDelegate implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
+		<backspaceHandlerDelegate
+				implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
 		<quoteHandler
 				fileType="HTL"
 				className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
@@ -105,6 +112,11 @@
 		<annotator
 				language="HTL"
 				implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
+		<annotator
+				language="HTML"
+				implementationClass="co.nums.intellij.aem.htl.inspections.HtlIncorrectBlockTypeAnnotator"
+				order="after htlBlocksHighlighter"/>
+
 	</extensions>
 
 </idea-plugin>

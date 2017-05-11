@@ -1,6 +1,5 @@
 package co.nums.intellij.aem.htl.highlighter
 
-import co.nums.intellij.aem.htl.highlighter.highlightText
 import co.nums.intellij.aem.htl.psi.HtlVariable
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.lang.annotation.AnnotationHolder
@@ -14,7 +13,7 @@ class HtlVariablesHighlighter : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element is HtlVariable) {
             val isGlobal = globalVariableNames.contains(element.text)
-            val color = if (isGlobal) HtlHighlighterColors.GLOBAL_VARIABLE else HtlHighlighterColors.BLOCK_VARIABLE
+            val color = if (isGlobal) HtlHighlighterColors.GLOBAL_OBJECT else HtlHighlighterColors.BLOCK_VARIABLE
             holder.highlightText(element.textRange, color)
         }
     }

@@ -2,6 +2,8 @@ package co.nums.intellij.aem.htl
 
 object HtlBlocks {
 
+    const val PREFIX = "data-sly-"
+
     const val ATTRIBUTE = "data-sly-attribute"
     const val CALL = "data-sly-call"
     const val ELEMENT = "data-sly-element"
@@ -17,7 +19,13 @@ object HtlBlocks {
 
     val ITERABLE = setOf(LIST, REPEAT)
     val VARIABLE_BLOCKS = setOf(HtlBlocks.USE, HtlBlocks.TEST, HtlBlocks.LIST, HtlBlocks.REPEAT, HtlBlocks.TEMPLATE)
+    val SCOPED_VARIABLE_BLOCKS = setOf(HtlBlocks.LIST, HtlBlocks.REPEAT)
+    val HOISTED_VARIABLE_BLOCKS = setOf(HtlBlocks.USE, HtlBlocks.TEST)
 
+    fun isIterableBlock(name: String) = ITERABLE.contains(name.toLowerCase())
     fun isVariableBlock(name: String) = VARIABLE_BLOCKS.contains(name.toLowerCase())
+    fun isScopedVariableBlock(name: String) = SCOPED_VARIABLE_BLOCKS.contains(name.toLowerCase())
+    fun isHoistedVariableBlock(name: String) = HOISTED_VARIABLE_BLOCKS.contains(name.toLowerCase())
+    fun isTemplateVariableBlock(name: String) = TEMPLATE == name.toLowerCase()
 
 }

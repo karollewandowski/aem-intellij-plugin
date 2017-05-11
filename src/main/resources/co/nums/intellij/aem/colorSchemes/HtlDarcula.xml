@@ -10,10 +10,15 @@
 			<option name="FOREGROUND" value="9975AB"/>
 		</value>
 	</option>
-	<option name="GLOBAL_VARIABLE">
+	<option name="GLOBAL_OBJECT">
 		<value>
 			<option name="FOREGROUND" value="9975AB"/>
 			<option name="FONT_TYPE" value="2"/>
+		</value>
+	</option>
+	<option name="UNREFERENCED_IDENTIFIER">
+		<value>
+			<option name="FOREGROUND" value="B73E3B"/>
 		</value>
 	</option>
 </list>

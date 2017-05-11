@@ -18,14 +18,18 @@ import com.intellij.psi.templateLanguages.TemplateDataLanguageMappings
 import com.intellij.util.containers.ContainerUtil
 
 // TODO: clean it
-class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: VirtualFile, physical: Boolean, private val baseLanguage: Language,
-                                                    private val templateDataLanguage: Language = HtlFileViewProvider.getTemplateDataLanguage(manager, file)) : MultiplePsiFilesPerDocumentFileViewProvider(manager, file, physical), ConfigurableTemplateLanguageFileViewProvider {
+class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager,
+                                                    file: VirtualFile,
+                                                    physical: Boolean,
+                                                    private val baseLanguage: Language,
+                                                    private val templateDataLanguage: Language = HtlFileViewProvider.getTemplateDataLanguage(manager, file))
+    : MultiplePsiFilesPerDocumentFileViewProvider(manager, file, physical), ConfigurableTemplateLanguageFileViewProvider {
 
     override fun getBaseLanguage() = baseLanguage
 
     override fun getTemplateDataLanguage() = templateDataLanguage
 
-    override fun getLanguages(): Set<Language> = hashSetOf(baseLanguage, templateDataLanguage)
+    override fun getLanguages(): Set<Language> = setOf(baseLanguage, templateDataLanguage)
 
     override fun supportsIncrementalReparse(rootLanguage: Language) = false
 
@@ -61,7 +65,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager, file: V
         private val TEMPLATE_DATA_TO_LANG = ContainerUtil.newConcurrentMap<String, TemplateDataElementType>()
 
         private fun getTemplateDataLanguage(manager: PsiManager, file: VirtualFile): Language {
-            var dataLanguage = TemplateDataLanguageMappings.getInstance(manager.project).getMapping(file)
+            var dataLanguage = TemplateDataLanguageMappings.getInstance(manager.project)?.getMapping(file)
                     ?: HtlLanguage.getTemplateLanguageFileType().language
 
             val substituteLanguage = LanguageSubstitutors.INSTANCE.substituteLanguage(dataLanguage, file, manager.project)

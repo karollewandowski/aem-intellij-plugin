@@ -5,14 +5,27 @@ import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlToken
 
-private val htlBlocksNames = HtlDefinitions.blocks.map { it.type }
-private val htlVariableBlocksNames = HtlDefinitions.blocks.filter { HtlBlocks.VARIABLE_BLOCKS.contains(it.type) }.map { it.type }
+private val htlBlockTypes = HtlDefinitions.blocks.map { it.type }
+private val htlVariableBlockTypes = HtlDefinitions.blocks.filter { HtlBlocks.VARIABLE_BLOCKS.contains(it.type) }.map { it.type }
+private val htlImplicitVariableBlockTypes = HtlDefinitions.blocks.filter { HtlBlocks.ITERABLE.contains(it.type) }.map { it.type }
 
-fun XmlAttribute.isHtlBlock() = (this.firstChild as? XmlToken)?.isHtlBlock() ?: false
+fun XmlAttribute.isHtlBlock() = (firstChild as? XmlToken)?.isHtlBlock() ?: false
 
 fun XmlAttribute.isHtlVariableBlock(): Boolean {
-    val blockType = (this.firstChild as? XmlToken)?.text?.substringBefore(".")?.toLowerCase()
-    return htlVariableBlocksNames.contains(blockType)
+    val blockType = (firstChild as? XmlToken)?.text?.substringBefore(".")?.toLowerCase()
+    return htlVariableBlockTypes.contains(blockType)
 }
 
-fun XmlToken.isHtlBlock() = htlBlocksNames.contains(this.text.substringBefore(".").toLowerCase())
+fun XmlAttribute.isHtlVariableDeclaration(): Boolean {
+    val blockName = (firstChild as? XmlToken)?.text ?: return false
+    val blockType = blockName.substringBefore(".").toLowerCase()
+    return htlVariableBlockTypes.contains(blockType)
+            && (htlImplicitVariableBlockTypes.contains(blockType) || blockHasIdentifier(blockName))
+}
+
+private fun blockHasIdentifier(blockName: String): Boolean {
+    val blockIdentifier = blockName.substringAfter('.', missingDelimiterValue = "")
+    return blockIdentifier.isNotEmpty()
+}
+
+fun XmlToken.isHtlBlock() = htlBlockTypes.contains(text.substringBefore(".").toLowerCase())

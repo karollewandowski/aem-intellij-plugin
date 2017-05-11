@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.inspections
 
+import co.nums.intellij.aem.extensions.canBeEdited
 import co.nums.intellij.aem.htl.psi.extensions.isHtlString
-import com.intellij.codeInsight.FileModificationService
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
@@ -27,9 +27,6 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
             fixQuotes(project, file, currentElement)
         }
     }
-
-    private fun PsiElement.canBeEdited() =
-            this.isValid && FileModificationService.getInstance().prepareFileForWrite(this.containingFile)
 
     private fun fixQuotes(project: Project, file: PsiFile, htlStringLiteral: PsiElement) {
         val document = PsiDocumentManager.getInstance(project).getDocument(file)
