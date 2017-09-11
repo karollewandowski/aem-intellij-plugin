@@ -73,7 +73,9 @@ private expression_recover ::= !('${' | outer_text | "<!--/*")
 
 option_list ::= option (',' option)*
 
-option ::= IDENTIFIER ['=' expr_node]
+option ::= option_name ['=' expr_node]
+
+option_name ::= IDENTIFIER
 
 expr_node ::= binary_operation ['?' binary_operation WHITE_SPACE ':' WHITE_SPACE binary_operation]
 

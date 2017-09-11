@@ -1,0 +1,6 @@
+<!--/* ('<!--/*')
+*/--> ('*/-->')
+OUTER_TEXT ('\n')
+<!--/* ('<!--/*')
+COMMENT_CONTENT ('\n${everything here should be lexed as comment content}\n${true}\n${var.prop @ option=12}\n')
+*/--> ('*/-->')

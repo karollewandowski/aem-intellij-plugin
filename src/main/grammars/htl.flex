@@ -25,11 +25,12 @@ import com.intellij.psi.TokenType;
 
 WS = \s
 
-SINGLE_QUOTED_STRING = '([^\\'\r\n]|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'?
-DOUBLE_QUOTED_STRING = \"([^\\\"\r\n]|\\([\\\"/bfnrt]|u[a-fA-F0-9]{4}))*\"?
+SINGLE_QUOTED_STRING = '([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*'?
+DOUBLE_QUOTED_STRING = \"([^\\\"]|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*\"?
 
 INTEGER_NUMBER = 0|[1-9]\d*
 FLOAT_NUMBER = [0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
+
 IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
 

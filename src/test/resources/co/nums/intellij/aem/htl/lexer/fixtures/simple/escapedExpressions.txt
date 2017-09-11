@@ -1,0 +1,1 @@
+OUTER_TEXT ('\\${}\n\\${variable.test @ option1=true, option2='string}\nsome text \\${}\n\\${')

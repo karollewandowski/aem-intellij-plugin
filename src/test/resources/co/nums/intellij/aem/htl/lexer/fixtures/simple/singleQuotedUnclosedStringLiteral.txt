@@ -1,0 +1,2 @@
+${ ('${')
+SINGLE_QUOTED_STRING (''unclosed single quoted string}')

@@ -1,0 +1,8 @@
+OUTER_TEXT ('\\${this should be outer text}\n')
+${ ('${')
+SINGLE_QUOTED_STRING (''this should be parsed as expression'')
+} ('}')
+OUTER_TEXT ('\n\\${this should be outer text}\n')
+${ ('${')
+SINGLE_QUOTED_STRING (''this should be parsed as expression'')
+} ('}')
