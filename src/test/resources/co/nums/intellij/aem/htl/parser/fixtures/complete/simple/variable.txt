@@ -1,0 +1,8 @@
+HTL File: variable.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlVariableImpl(VARIABLE)
+          PsiElement(IDENTIFIER)('variable')
+    PsiElement(})('}')

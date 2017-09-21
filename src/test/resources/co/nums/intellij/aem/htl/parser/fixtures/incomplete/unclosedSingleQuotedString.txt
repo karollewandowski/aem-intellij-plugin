@@ -1,0 +1,9 @@
+HTL File: unclosedSingleQuotedString.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlStringLiteralImpl(STRING_LITERAL)
+          PsiElement(SINGLE_QUOTED_STRING)(''unclosed single quoted string}')
+  PsiErrorElement:'!=', '&&', <, <=, <property access>, '==', '>', '>=', '?', '@', '||' or '}' expected, unexpected end of file
+    <empty list>

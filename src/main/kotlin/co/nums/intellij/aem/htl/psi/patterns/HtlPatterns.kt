@@ -7,8 +7,7 @@ import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.patterns.StandardPatterns.or
 import com.intellij.patterns.StandardPatterns.string
 import com.intellij.patterns.XmlPatterns.xmlAttributeValue
-import com.intellij.psi.PsiElement
-import com.intellij.psi.TokenType
+import com.intellij.psi.*
 
 object HtlPatterns {
 
@@ -28,9 +27,11 @@ object HtlPatterns {
 
     val propertyIdentifier: ElementPattern<PsiElement> =
             or(
-                    psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.FIELD)),
+                    // FIXME:
+                    psiElement(HtlTypes.IDENTIFIER).afterLeaf(psiElement(HtlTypes.DOT))
+                            .inside(psiElement(HtlTypes.DOT_PROPERTY_ACCESS)),
                     psiElement()
-                            .inside((psiElement(HtlTypes.STRING_LITERAL)).atStartOf(psiElement(HtlTypes.EXPR_NODE)))
+                            .inside((psiElement(HtlTypes.STRING_LITERAL)).afterLeaf(psiElement(HtlTypes.LEFT_BRACKET)))
                             .inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS))
             )
 

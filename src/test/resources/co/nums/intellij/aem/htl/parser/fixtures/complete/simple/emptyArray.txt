@@ -1,0 +1,9 @@
+HTL File: emptyArray.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlArrayImpl(ARRAY)
+          PsiElement([)('[')
+          PsiElement(])(']')
+    PsiElement(})('}')

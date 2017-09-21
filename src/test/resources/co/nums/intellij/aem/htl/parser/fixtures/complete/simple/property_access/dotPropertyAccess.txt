@@ -1,0 +1,12 @@
+HTL File: dotPropertyAccess.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlVariableImpl(VARIABLE)
+          PsiElement(IDENTIFIER)('variable')
+        HtlPropertyAccessImpl(PROPERTY_ACCESS)
+          HtlDotPropertyAccessImpl(DOT_PROPERTY_ACCESS)
+            PsiElement(.)('.')
+            PsiElement(IDENTIFIER)('property')
+    PsiElement(})('}')

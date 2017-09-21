@@ -10,6 +10,7 @@ import com.intellij.psi.TokenType;
 
 %{
   private boolean ternaryBranchesOparatorMatched = false;
+  private boolean wsAfterTernaryBranchesOparatorMatched = false;
 
   public _HtlLexer() {
     this((java.io.Reader) null);
@@ -50,8 +51,8 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 <EXPRESSION> {
   "}"                         { yybegin(YYINITIAL); return HtlTypes.EXPR_END; }
 
-  "true"                      { return HtlTypes.BOOLEAN_TRUE; }
-  "false"                     { return HtlTypes.BOOLEAN_FALSE; }
+  "true"                      { return HtlTypes.BOOLEAN_LITERAL; }
+  "false"                     { return HtlTypes.BOOLEAN_LITERAL; }
 
   {SINGLE_QUOTED_STRING}      { return HtlTypes.SINGLE_QUOTED_STRING; }
   {DOUBLE_QUOTED_STRING}      { return HtlTypes.DOUBLE_QUOTED_STRING; }
@@ -105,7 +106,7 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
                                   yybegin(EXPRESSION);
                                   ternaryBranchesOparatorMatched = false;
                                 }
-                                return HtlTypes.WHITE_SPACE;
+                                return TokenType.WHITE_SPACE;
                               }
   [^]                         {
                                 yypushback(1);       // cancel unexpected char

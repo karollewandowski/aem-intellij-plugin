@@ -18,9 +18,6 @@
     EXPR_START='${'
     EXPR_END='}'
 
-    BOOLEAN_TRUE='true'
-    BOOLEAN_FALSE='false'
-
     DOT='.';
     COMMA=',';
     OPTIONS_SEPARATOR='@';
@@ -47,13 +44,13 @@
     IDENTIFIER='regexp:[\p{Alpha}_][\p{Alnum}_:]*'
     INTEGER_NUMBER='regexp:0|[1-9]\d*'
     FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
-    DOUBLE_QUOTED_STRING='regexp:"([^\\"\r\n]|\\([\\"/bfnrt]|u[a-fA-F0-9]{4}))*"'
-    SINGLE_QUOTED_STRING="regexp:'([^\\'\r\n]|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'"
+    DOUBLE_QUOTED_STRING='regexp:"([^\\"]|\\([\\"/bfnrt]|u[a-fA-F0-9]{4}))*"' // missing ' in escapes but lexer handles it
+    SINGLE_QUOTED_STRING="regexp:'([^\\']|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'" // missing " in escapes but lexer handles it
+    BOOLEAN_LITERAL='regexp:true|false'
 
     COMMENT_START='<!--/*'
     COMMENT_END='*/-->'
     COMMENT_CONTENT='regexp:.*'
-    WHITE_SPACE='regexp:\s'
   ]
 
   mixin("template_comment")="co.nums.intellij.aem.htl.psi.mixins.HtlCommentMixin"
@@ -77,49 +74,52 @@ option ::= option_name ['=' expr_node]
 
 option_name ::= IDENTIFIER
 
-expr_node ::= binary_operation ['?' binary_operation WHITE_SPACE ':' WHITE_SPACE binary_operation]
+private expr_node ::= ternary_operator | logical_operation
 
-binary_operation ::= comparison_term (logical_operator comparison_term)*
+ternary_operator ::= logical_operation '?' logical_operation ':' logical_operation {
+  pin=2
+}
 
-comparison_term ::= factor [comparison_operator factor]
+logical_operation ::= logical_operand (logical_operator logical_operand)*
 
-logical_operator ::= '&&'
-                   | '||'
+logical_operand ::= comparison | term
 
-comparison_operator ::= '>'
-                      | '<'
-                      | '>='
-                      | '<='
-                      | '=='
-                      | '!='
+comparison ::= factor comparison_operator factor
 
-private factor ::= '!'? term
+factor ::= term
 
-private term ::= simple property_access*
+private term ::= '!'? simple property_access*
+
+private logical_operator ::= '&&'
+                           | '||'
+
+private comparison_operator ::= '>'
+                              | '<'
+                              | '>='
+                              | '<='
+                              | '=='
+                              | '!='
 
 property_access ::= bracket_property_access | dot_property_access
 
 bracket_property_access ::= '[' expr_node ']'
 
-dot_property_access ::= '.' field
-
-field ::= IDENTIFIER
+dot_property_access ::= '.' IDENTIFIER
 
 private simple ::= atom
+                 | array
                  | '(' expr_node ')'
-                 | '[' value_list ']'
-                 | '[' ']'
 
-value_list ::= expr_node (',' expr_node)*
+array ::= '[' value_list ']' | '[' ']'
 
-private atom ::= variable
+private value_list ::= expr_node (',' expr_node)*
+
+private atom ::= BOOLEAN_LITERAL
                | INTEGER_NUMBER
                | FLOAT_NUMBER
+               | variable
                | string_literal
-               | boolean_constant
 
 variable ::= IDENTIFIER
 
 string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING
-
-private boolean_constant ::= BOOLEAN_TRUE | BOOLEAN_FALSE

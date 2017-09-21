@@ -1,0 +1,12 @@
+HTL File: unclosedParentheses.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    PsiElement(()('(')
+    PsiElement(INTEGER_NUMBER)('20')
+    PsiWhiteSpace(' ')
+    PsiElement(>)('>')
+    PsiWhiteSpace(' ')
+    PsiElement(INTEGER_NUMBER)('0')
+    PsiWhiteSpace(' ')
+    PsiErrorElement:'&&', ')', <property access>, '?' or '||' expected, got '}'
+      PsiElement(})('}')

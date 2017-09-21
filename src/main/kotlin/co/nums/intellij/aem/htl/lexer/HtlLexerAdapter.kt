@@ -5,10 +5,9 @@ import com.intellij.lexer.*
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 
-private val MERGEABLE_TOKENS = TokenSet.create(
+private val mergeableTokens = TokenSet.create(
         TokenType.WHITE_SPACE,
-        HtlTypes.WHITE_SPACE,
         HtlTypes.OUTER_TEXT,
         HtlTypes.COMMENT_CONTENT)
 
-class HtlLexerAdapter : MergingLexerAdapter(FlexAdapter(_HtlLexer()), MERGEABLE_TOKENS)
+class HtlLexerAdapter : MergingLexerAdapter(FlexAdapter(_HtlLexer()), mergeableTokens)

@@ -1,0 +1,14 @@
+HTL File: unclosedArray.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    PsiElement([)('[')
+    PsiElement(INTEGER_NUMBER)('1')
+    PsiElement(,)(',')
+    PsiWhiteSpace(' ')
+    PsiElement(INTEGER_NUMBER)('2')
+    PsiElement(,)(',')
+    PsiWhiteSpace(' ')
+    PsiElement(INTEGER_NUMBER)('3')
+    PsiWhiteSpace(' ')
+    PsiErrorElement:'!=', '&&', ',', <, <=, <property access>, '==', '>', '>=', '?', ']' or '||' expected, got '}'
+      PsiElement(})('}')

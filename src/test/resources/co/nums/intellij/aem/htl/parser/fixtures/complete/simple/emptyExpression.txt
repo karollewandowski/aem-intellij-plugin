@@ -1,0 +1,4 @@
+HTL File: emptyExpression.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    PsiElement(})('}')

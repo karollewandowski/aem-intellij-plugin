@@ -1,8 +1,6 @@
 package co.nums.intellij.aem.htl.lexer
 
-import co.nums.intellij.aem.htl.HtlTestCase
-
-class HtlSimpleLexerTest : HtlLexingTestCaseBase(), HtlTestCase {
+class HtlSimpleLexingTest : HtlLexingTestCaseBase() {
 
     override fun getTestDataPath() = "co/nums/intellij/aem/htl/lexer/fixtures/simple"
 

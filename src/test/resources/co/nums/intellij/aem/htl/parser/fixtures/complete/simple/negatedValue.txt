@@ -1,0 +1,9 @@
+HTL File: negatedValue.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        PsiElement(!)('!')
+        HtlVariableImpl(VARIABLE)
+          PsiElement(IDENTIFIER)('value')
+    PsiElement(})('}')

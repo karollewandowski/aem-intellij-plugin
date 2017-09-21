@@ -1,20 +1,16 @@
 package co.nums.intellij.aem.htl.parser
 
 import co.nums.intellij.aem.htl.lexer.HtlLexerAdapter
-import co.nums.intellij.aem.htl.psi.HtlFile
-import co.nums.intellij.aem.htl.psi.HtlFileElementType
-import co.nums.intellij.aem.htl.psi.HtlTypes
-import com.intellij.lang.ASTNode
-import com.intellij.lang.ParserDefinition
+import co.nums.intellij.aem.htl.psi.*
+import com.intellij.lang.*
 import com.intellij.openapi.project.Project
-import com.intellij.psi.FileViewProvider
-import com.intellij.psi.PsiElement
-import com.intellij.psi.TokenType
+import com.intellij.psi.*
 import com.intellij.psi.tree.TokenSet
 
 class HtlParserDefinition : ParserDefinition {
 
     private val whitespaceTokens = TokenSet.create(TokenType.WHITE_SPACE)
+    private val commentTokens = TokenSet.create(HtlTypes.TEMPLATE_COMMENT, HtlTypes.COMMENT_START, HtlTypes.COMMENT_CONTENT, HtlTypes.COMMENT_END)
     private val stringLiteralElements = TokenSet.create(HtlTypes.SINGLE_QUOTED_STRING, HtlTypes.DOUBLE_QUOTED_STRING)
 
     override fun createLexer(project: Project) = HtlLexerAdapter()
@@ -23,7 +19,7 @@ class HtlParserDefinition : ParserDefinition {
 
     override fun getWhitespaceTokens() = whitespaceTokens
 
-    override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
+    override fun getCommentTokens() = commentTokens
 
     override fun getStringLiteralElements() = stringLiteralElements
 
