@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.psi.extensions
 
 import co.nums.intellij.aem.htl.HtlBlocks
-import co.nums.intellij.aem.htl.psi.HtlTypes
+import co.nums.intellij.aem.htl.psi.*
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.lang.StdLanguages
@@ -9,13 +9,9 @@ import com.intellij.openapi.util.Condition
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.*
 
-fun PsiElement.isHtlString() =
-        this is LeafPsiElement
-                && (this.elementType === HtlTypes.SINGLE_QUOTED_STRING
-                || this.elementType === HtlTypes.DOUBLE_QUOTED_STRING)
+fun PsiElement.isPartOfHtlString() = this.parent is HtlStringLiteral
 
 fun PsiElement.isHtlExpressionToken() =
         this is LeafPsiElement

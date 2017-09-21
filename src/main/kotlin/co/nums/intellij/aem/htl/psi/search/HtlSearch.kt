@@ -6,7 +6,7 @@ import co.nums.intellij.aem.htl.data.blocks.Block
 import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
 import co.nums.intellij.aem.htl.psi.extensions.isHtlExpressionToken
-import co.nums.intellij.aem.htl.psi.extensions.isHtlString
+import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
@@ -81,7 +81,7 @@ object HtlSearch {
         val htlExpressionStart = htlFile.findElementAt(blockValue.textOffset) ?: return DEFAULT_USE_OBJECT_TYPE
         if (htlExpressionStart.isHtlExpressionToken()) {
             val nextToken = PsiTreeUtil.nextVisibleLeaf(htlExpressionStart) ?: return DEFAULT_USE_OBJECT_TYPE
-            useObjectType = if (nextToken.isHtlString()) nextToken.text else ""
+            useObjectType = if (nextToken.isPartOfHtlString()) nextToken.text else ""
         } else {
             useObjectType = blockValue.text
         }

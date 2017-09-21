@@ -1,13 +1,12 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.extensions.canBeEdited
-import co.nums.intellij.aem.htl.psi.extensions.isHtlString
+import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiDocumentManager
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
+import com.intellij.psi.*
+import com.intellij.psi.util.PsiTreeUtil
 
 private const val NAME = "Fix quotes"
 private const val SINGLE_QUOTE = '\''
@@ -23,9 +22,17 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
 
     override fun invoke(project: Project, editor: Editor, file: PsiFile) {
         val currentElement = file.findElementAt(editor.caretModel.offset) ?: return
-        if (currentElement.isHtlString() && currentElement.canBeEdited()) {
-            fixQuotes(project, file, currentElement)
+        val stringLiteralToFix = getStringLiteralToFix(currentElement)
+        if (stringLiteralToFix != null && stringLiteralToFix.canBeEdited()) {
+            fixQuotes(project, file, stringLiteralToFix)
         }
+    }
+
+    private fun getStringLiteralToFix(currentElement: PsiElement): PsiElement? {
+        if (currentElement.isPartOfHtlString()) return currentElement.parent
+        val prevVisibleLeaf = PsiTreeUtil.prevVisibleLeaf(currentElement) ?: return null
+        if (prevVisibleLeaf.isPartOfHtlString()) return prevVisibleLeaf.parent
+        return null
     }
 
     private fun fixQuotes(project: Project, file: PsiFile, htlStringLiteral: PsiElement) {

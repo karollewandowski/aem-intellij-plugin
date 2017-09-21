@@ -11,7 +11,7 @@ class HtlParserDefinition : ParserDefinition {
 
     private val whitespaceTokens = TokenSet.create(TokenType.WHITE_SPACE)
     private val commentTokens = TokenSet.create(HtlTypes.TEMPLATE_COMMENT, HtlTypes.COMMENT_START, HtlTypes.COMMENT_CONTENT, HtlTypes.COMMENT_END)
-    private val stringLiteralElements = TokenSet.create(HtlTypes.SINGLE_QUOTED_STRING, HtlTypes.DOUBLE_QUOTED_STRING)
+    private val stringLiteralElements = TokenSet.create(HtlTypes.STRING_LITERAL)
 
     override fun createLexer(project: Project) = HtlLexerAdapter()
 

@@ -7,6 +7,7 @@ import com.intellij.psi.tree.TokenSet
 
 private val mergeableTokens = TokenSet.create(
         TokenType.WHITE_SPACE,
+        HtlTypes.STRING_CONTENT,
         HtlTypes.OUTER_TEXT,
         HtlTypes.COMMENT_CONTENT)
 

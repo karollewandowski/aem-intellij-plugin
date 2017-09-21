@@ -26,16 +26,16 @@ import com.intellij.psi.TokenType;
 
 WS = \s
 
-SINGLE_QUOTED_STRING = '([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*'?
-DOUBLE_QUOTED_STRING = \"([^\\\"]|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*\"?
+SINGLE_QUOTED_STR_CONTENT = ([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))+
+DOUBLE_QUOTED_STR_CONTENT = ([^\\\"]|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))+
 
 INTEGER_NUMBER = 0|[1-9]\d*
 FLOAT_NUMBER = [0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+
-
 IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
 
-
 %state EXPRESSION
+%state SINGLE_QUOTED_STRING
+%state DOUBLE_QUOTED_STRING
 %state TERNARY_BRANCHES_OP
 %state HTL_COMMENT
 
@@ -54,8 +54,8 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   "true"                      { return HtlTypes.BOOLEAN_LITERAL; }
   "false"                     { return HtlTypes.BOOLEAN_LITERAL; }
 
-  {SINGLE_QUOTED_STRING}      { return HtlTypes.SINGLE_QUOTED_STRING; }
-  {DOUBLE_QUOTED_STRING}      { return HtlTypes.DOUBLE_QUOTED_STRING; }
+  "'"                         { yybegin(SINGLE_QUOTED_STRING); return HtlTypes.SINGLE_QUOTE; }
+  \"                          { yybegin(DOUBLE_QUOTED_STRING); return HtlTypes.DOUBLE_QUOTE; }
   {INTEGER_NUMBER}            { return HtlTypes.INTEGER_NUMBER; }
   {FLOAT_NUMBER}              { return HtlTypes.FLOAT_NUMBER; }
   {IDENTIFIER}                { return HtlTypes.IDENTIFIER; }
@@ -94,6 +94,26 @@ IDENTIFIER = [\p{Alpha}_][\p{Alnum}_:]*
   {WS}+                       { return TokenType.WHITE_SPACE; }
 
   [^]                         { yybegin(YYINITIAL); return HtlTypes.OUTER_TEXT; }
+}
+
+<SINGLE_QUOTED_STRING> {
+  "'"                         { yybegin(EXPRESSION); return HtlTypes.SINGLE_QUOTE; }
+  {SINGLE_QUOTED_STR_CONTENT} { return HtlTypes.STRING_CONTENT; }
+
+  [^]                         {
+                                yypushback(1);       // cancel unexpected char
+                                yybegin(EXPRESSION); // and try to parse it again in <EXPRESSION>
+                              }
+}
+
+<DOUBLE_QUOTED_STRING> {
+  \"                          { yybegin(EXPRESSION); return HtlTypes.DOUBLE_QUOTE; }
+  {DOUBLE_QUOTED_STR_CONTENT} { return HtlTypes.STRING_CONTENT; }
+
+  [^]                         {
+                                yypushback(1);       // cancel unexpected char
+                                yybegin(EXPRESSION); // and try to parse it again in <EXPRESSION>
+                              }
 }
 
 <TERNARY_BRANCHES_OP> {

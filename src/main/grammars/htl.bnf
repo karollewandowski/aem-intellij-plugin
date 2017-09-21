@@ -44,9 +44,11 @@
     IDENTIFIER='regexp:[\p{Alpha}_][\p{Alnum}_:]*'
     INTEGER_NUMBER='regexp:0|[1-9]\d*'
     FLOAT_NUMBER='regexp:[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?|[0-9]+[eE][-+]?[0-9]+'
-    DOUBLE_QUOTED_STRING='regexp:"([^\\"]|\\([\\"/bfnrt]|u[a-fA-F0-9]{4}))*"' // missing ' in escapes but lexer handles it
-    SINGLE_QUOTED_STRING="regexp:'([^\\']|\\([\\'/bfnrt]|u[a-fA-F0-9]{4}))*'" // missing " in escapes but lexer handles it
     BOOLEAN_LITERAL='regexp:true|false'
+
+    SINGLE_QUOTE="'"
+    DOUBLE_QUOTE='"'
+    STRING_CONTENT="regexp:([^\\']|\\([\\'\"/bfnrt]|u[a-fA-F0-9]{4}))*"
 
     COMMENT_START='<!--/*'
     COMMENT_END='*/-->'
@@ -90,15 +92,15 @@ factor ::= term
 
 private term ::= '!'? simple property_access*
 
-private logical_operator ::= '&&'
-                           | '||'
+logical_operator ::= '&&'
+                   | '||'
 
-private comparison_operator ::= '>'
-                              | '<'
-                              | '>='
-                              | '<='
-                              | '=='
-                              | '!='
+comparison_operator ::= '>'
+                      | '<'
+                      | '>='
+                      | '<='
+                      | '=='
+                      | '!='
 
 property_access ::= bracket_property_access | dot_property_access
 
@@ -110,9 +112,15 @@ private simple ::= atom
                  | array
                  | '(' expr_node ')'
 
-array ::= '[' value_list ']' | '[' ']'
+array ::= '[' value_list? ']' {
+  pin=1
+}
 
 private value_list ::= expr_node (',' expr_node)*
+//{
+//  recoverWhile=array_recover
+//}
+//private array_recover ::= !(',' | ']')
 
 private atom ::= BOOLEAN_LITERAL
                | INTEGER_NUMBER
@@ -122,4 +130,5 @@ private atom ::= BOOLEAN_LITERAL
 
 variable ::= IDENTIFIER
 
-string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING
+string_literal ::= "'" STRING_CONTENT? "'"
+                 | '"' STRING_CONTENT? '"'
