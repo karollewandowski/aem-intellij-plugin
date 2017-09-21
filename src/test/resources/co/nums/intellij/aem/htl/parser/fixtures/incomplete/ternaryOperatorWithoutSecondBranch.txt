@@ -13,6 +13,6 @@ HTL File: ternaryOperatorWithoutSecondBranch.html
         HtlLogicalOperandImpl(LOGICAL_OPERAND)
           HtlVariableImpl(VARIABLE)
             PsiElement(IDENTIFIER)('jcr:title')
-      PsiErrorElement:'!=', '&&', ':', <, <=, <property access>, '==', '>', '>=' or '||' expected, got '}'
+      PsiErrorElement:':', <comparison operator>, <logical operator> or <property access> expected, got '}'
         <empty list>
     PsiElement(})('}')
