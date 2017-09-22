@@ -1,11 +1,11 @@
 <!--suppress XmlUnboundNsPrefix -->
 <idea-plugin url="https://github.com/karollewandowski/aem-intellij-plugin">
-	<id>co.nums.intellij.aem</id>
-	<name>AEM IntelliJ Plugin</name>
-	<version>0.7</version>
-	<vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
+    <id>co.nums.intellij.aem</id>
+    <name>AEM IntelliJ Plugin</name>
+    <version>0.7</version>
+    <vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
 
-	<description><![CDATA[
+    <description><![CDATA[
       Intellij Platform plugin for Adobe Experience Manager.<br>
       Features:<br>
       <ul>
@@ -28,7 +28,7 @@
       </ul>
     ]]></description>
 
-	<change-notes><![CDATA[
+    <change-notes><![CDATA[
         <ul>
             <li>HTL comments support</li>
             <li>iterable objects properties (<code>itemList.even</code>, <code>itemList.first</code>, <code>itemList.odd</code>, etc.)</li>
@@ -36,87 +36,91 @@
         </ul>
 	]]></change-notes>
 
-	<idea-version since-build="143"/>
+    <idea-version since-build="143"/>
 
-	<depends>com.intellij.modules.lang</depends>
-	<depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
 
-	<extensions defaultExtensionNs="com.intellij">
-		<fileTypeFactory
-				implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory
+                implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
 
-		<iconProvider
-				implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
+        <iconProvider
+                implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
 
-		<html.scriptContentProvider
-				language="HTL"
-				implementationClass="com.intellij.lang.HtmlScriptContentProvider.Empty"/>
+        <html.scriptContentProvider
+                language="HTL"
+                implementationClass="com.intellij.lang.HtmlScriptContentProvider.Empty"/>
 
-		<lang.parserDefinition
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.parser.HtlParserDefinition"/>
+        <lang.parserDefinition
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.parser.HtlParserDefinition"/>
 
-		<lang.fileViewProviderFactory
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.file.HtlFileViewProviderFactory"/>
+        <lang.fileViewProviderFactory
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.file.HtlFileViewProviderFactory"/>
 
-		<completion.contributor
-				language="HTML"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtmlCompletionContributor"/>
-		<completion.contributor
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlCompletionContributor"/>
+        <completion.contributor
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtmlCompletionContributor"/>
+        <completion.contributor
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.completion.contributor.HtlCompletionContributor"/>
 
-		<lang.documentationProvider
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.documentation.HtlDocumentationProvider"/>
+        <lang.documentationProvider
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.documentation.HtlDocumentationProvider"/>
 
-		<lang.substitutor
-				language="HTML"
-				implementationClass="co.nums.intellij.aem.htl.file.HtlLanguageSubstitutor"/>
+        <lang.substitutor
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.file.HtlLanguageSubstitutor"/>
 
-		<lang.syntaxHighlighterFactory
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlSyntaxHighlighterFactory"/>
-		<annotator
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlVariablesHighlighter"/>
-		<annotator
-				id="htlBlocksHighlighter"
-				language="HTML"
-				implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
-		<additionalTextAttributes
-				scheme="Default"
-				file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
-		<additionalTextAttributes
-				scheme="Darcula"
-				file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
+        <lang.syntaxHighlighterFactory
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlSyntaxHighlighterFactory"/>
+        <annotator
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlVariablesHighlighter"/>
+        <annotator
+                id="htlBlocksHighlighter"
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
+        <additionalTextAttributes
+                scheme="Default"
+                file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
+        <additionalTextAttributes
+                scheme="Darcula"
+                file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
 
-		<lang.formatter
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
+        <lang.formatter
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.formatter.HtlFormattingModelBuilder"/>
 
-		<lang.commenter
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.editor.comments.HtlCommenter"/>
+        <lang.commenter
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.editor.comments.HtlCommenter"/>
 
-		<backspaceHandlerDelegate
-				implementation="co.nums.intellij.aem.htl.editor.actions.HtlBackspaceHandler"/>
-		<quoteHandler
-				fileType="HTL"
-				className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
-		<lang.braceMatcher
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
+        <backspaceHandlerDelegate
+                implementation="co.nums.intellij.aem.htl.editor.actions.backspace.HtlExpressionBackspaceHandler"/>
+        <backspaceHandlerDelegate
+                implementation="co.nums.intellij.aem.htl.editor.actions.backspace.HtlSingleQuotedStringBackspaceHandler"/>
+        <backspaceHandlerDelegate
+                implementation="co.nums.intellij.aem.htl.editor.actions.backspace.HtlDoubleQuotedStringBackspaceHandler"/>
+        <quoteHandler
+                fileType="HTL"
+                className="co.nums.intellij.aem.htl.editor.actions.HtlQuoteHandler"/>
+        <lang.braceMatcher
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.editor.braces.HtlBraceMatcher"/>
 
-		<annotator
-				language="HTL"
-				implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
-		<annotator
-				language="HTML"
-				implementationClass="co.nums.intellij.aem.htl.inspections.HtlIncorrectBlockTypeAnnotator"
-				order="after htlBlocksHighlighter"/>
+        <annotator
+                language="HTL"
+                implementationClass="co.nums.intellij.aem.htl.inspections.HtlWrongStringQuotesAnnotator"/>
+        <annotator
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.inspections.HtlIncorrectBlockTypeAnnotator"
+                order="after htlBlocksHighlighter"/>
 
-	</extensions>
+    </extensions>
 
 </idea-plugin>
