@@ -1,2 +1,3 @@
 ${ ('${')
-DOUBLE_QUOTED_STRING ('"unclosed double quoted string}')
+" ('"')
+STRING_CONTENT ('unclosed double quoted string}')
