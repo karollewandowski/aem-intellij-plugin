@@ -28,5 +28,6 @@ class HtlSimpleLexingTest : HtlLexingTestCaseBase() {
     fun testBrackets() = doTest()
     fun testOptionsSeparator() = doTest()
     fun testCommaSeparator() = doTest()
+    fun testOuterTexts() = doTest()
 
 }

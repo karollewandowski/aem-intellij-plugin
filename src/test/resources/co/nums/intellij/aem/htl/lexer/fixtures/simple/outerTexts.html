@@ -1,0 +1,4 @@
+${} this should be outer text <!--/*this shouldn't be outer text but HTL comment*/-->
+<div class="${'expression in attribute'}">outer text in div<span>${'expression in element'}</span></div>
+<!--${"this should be expression"}-->
+<div style="color: ${'this should be expression'}">test ${'expression in element mixed with text'} test</div>

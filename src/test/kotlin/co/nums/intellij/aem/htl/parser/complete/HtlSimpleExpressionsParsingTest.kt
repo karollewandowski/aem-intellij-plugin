@@ -13,5 +13,8 @@ class HtlSimpleExpressionsParsingTest : HtlParsingTestCaseBase("complete/simple"
     fun testArrayOfArrays() = doTest()
     fun testArrayOfMixedValues() = doTest()
     fun testEmptyArray() = doTest()
+    fun testLogicalAndOperation() = doTest()
+    fun testLogicalOrOperation() = doTest()
+    fun testTernaryOperator() = doTest()
 
 }
