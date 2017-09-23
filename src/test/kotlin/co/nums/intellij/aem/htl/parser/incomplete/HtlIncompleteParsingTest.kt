@@ -7,10 +7,9 @@ class HtlIncompleteParsingTest : HtlParsingTestCaseBase("incomplete") {
     fun testUnclosedSingleQuotedString() = doTest()
     fun testUnclosedDoubleQuotedString() = doTest()
     fun testUnclosedArray() = doTest()
-    fun testUnclosedParentheses() = doTest()
+    fun testUnclosedNestedArray() = doTest()
     fun testTernaryOperatorWithoutSecondBranch() = doTest()
-    // TODO
-    // testUnclosedPropertyAccess
-    // testUnclosedNestedArray?
+    fun testUnclosedParentheses() = doTest()
+    fun testUnclosedPropertyAccess() = doTest()
 
 }

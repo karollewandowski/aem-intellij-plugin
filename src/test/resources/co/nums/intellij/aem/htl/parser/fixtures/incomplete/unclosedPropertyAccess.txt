@@ -1,0 +1,20 @@
+HTL File: unclosedPropertyAccess.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlVariableImpl(VARIABLE)
+          PsiElement(IDENTIFIER)('object')
+        HtlPropertyAccessImpl(PROPERTY_ACCESS)
+          HtlBracketPropertyAccessImpl(BRACKET_PROPERTY_ACCESS)
+            PsiElement([)('[')
+            HtlLogicalOperationImpl(LOGICAL_OPERATION)
+              HtlLogicalOperandImpl(LOGICAL_OPERAND)
+                HtlStringLiteralImpl(STRING_LITERAL)
+                  PsiElement(')(''')
+                  PsiElement(STRING_CONTENT)('property')
+                  PsiElement(')(''')
+            PsiErrorElement:<comparison operator>, <logical operator>, <property access>, '?' or ']' expected, got '}'
+              <empty list>
+    PsiWhiteSpace(' ')
+    PsiElement(})('}')
