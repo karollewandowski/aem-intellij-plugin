@@ -117,10 +117,6 @@ array ::= '[' value_list? ']' {
 }
 
 private value_list ::= expr_node (',' expr_node)*
-//{
-//  recoverWhile=array_recover
-//}
-//private array_recover ::= !(',' | ']')
 
 private atom ::= BOOLEAN_LITERAL
                | INTEGER_NUMBER
