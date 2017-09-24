@@ -1,9 +1,14 @@
 package co.nums.intellij.aem.htl.editor.comments
 
 import com.intellij.codeInsight.generation.EscapingCommenter
-import com.intellij.openapi.editor.Document
-import com.intellij.openapi.editor.RangeMarker
+import com.intellij.openapi.editor.*
 import com.intellij.util.text.CharArrayUtil
+
+
+private const val CLOSING_DOUBLE_DASH = "*/--"
+private const val ESCAPED_CLOSING_DOUBLE_DASH = "*/&#45;&#45;"
+private const val GT = ">"
+private const val ESCAPED_GT = "&gt;"
 
 class HtlCommenter : EscapingCommenter {
 
@@ -12,11 +17,6 @@ class HtlCommenter : EscapingCommenter {
      * double dash when block comment's end is inserted at the beginning of line.
      * If there is another simple solution, implement it.
      */
-
-    private val CLOSING_DOUBLE_DASH = "*/--"
-    private val ESCAPED_CLOSING_DOUBLE_DASH = "*/&#45;&#45;"
-    private val GT = ">"
-    private val ESCAPED_GT = "&gt;"
 
     override fun getBlockCommentPrefix() = "<!--/*"
 
