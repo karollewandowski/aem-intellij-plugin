@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.lexer
+package co.nums.intellij.aem.htl
 
 import java.nio.file.*
 

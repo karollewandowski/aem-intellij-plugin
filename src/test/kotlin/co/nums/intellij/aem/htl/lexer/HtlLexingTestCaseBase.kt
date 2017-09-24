@@ -1,5 +1,6 @@
 package co.nums.intellij.aem.htl.lexer
 
+import co.nums.intellij.aem.htl.*
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.util.io.FileUtil
 import com.intellij.openapi.util.text.StringUtil
