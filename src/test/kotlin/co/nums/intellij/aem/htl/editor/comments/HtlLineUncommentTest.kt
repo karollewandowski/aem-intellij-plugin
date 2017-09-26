@@ -9,6 +9,7 @@ class HtlLineUncommentTest : HtlCommenterTestBase("line/uncomment") {
     fun testSingleLineUncommentAtBeginningOfLine() = doTest()
     fun testSingleLineUncommentInMiddleOfLine() = doTest()
     fun testSingleLineUncommentAtEndOfLine() = doTest()
+    fun testSingleLineUncommentContainingSingleLineComment() = doTest()
 
     fun testMultiLineUncommentAtBeginningOfFile() = doTest()
     fun testMultiLineUncommentInMiddleOfFile() = doTest()

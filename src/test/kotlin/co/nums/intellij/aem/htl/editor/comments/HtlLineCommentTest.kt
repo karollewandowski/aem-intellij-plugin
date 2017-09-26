@@ -9,6 +9,7 @@ class HtlLineCommentTest : HtlCommenterTestBase("line/comment") {
     fun testSingleLineCommentAtBeginningOfLine() = doTest()
     fun testSingleLineCommentInMiddleOfLine() = doTest()
     fun testSingleLineCommentAtEndOfLine() = doTest()
+    fun testSingleLineCommentContainingSingleLineComment() = doTest()
 
     fun testMultiLineCommentAtBeginningOfFile() = doTest()
     fun testMultiLineCommentInMiddleOfFile() = doTest()

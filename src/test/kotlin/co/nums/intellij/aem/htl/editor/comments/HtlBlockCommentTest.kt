@@ -18,6 +18,10 @@ class HtlBlockCommentTest : HtlCommenterTestBase("block/comment") {
     fun testMultiLineBlockCommentInMiddleOfFile() = doTest()
     fun testMultiLineBlockCommentAtEndOfFile() = doTest()
 
+    fun testSingleLineBlockCommentContainingSingleLineComment() = doTest()
+    fun testMultiLineBlockCommentContainingSingleLineComment() = doTest()
+    fun testMultiLineBlockCommentContainingMultiLineComment() = doTest()
+
     fun testMultiLineBlockCommentEndingAtEmptyLine() = doTest()
 
 }
