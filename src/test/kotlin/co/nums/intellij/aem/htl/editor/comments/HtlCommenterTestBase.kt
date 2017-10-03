@@ -9,6 +9,6 @@ abstract class HtlCommenterTestBase(dataSubPath: String) : HtlTestBase() {
     override val dataPath = "co/nums/intellij/aem/htl/editor/comments/fixtures/$dataSubPath"
     override val relativeDataPath = "jcr_root"
 
-    protected fun doTest() = doTest(commentType)
+    protected fun doTest() = testByFile { myFixture.performEditorAction(commentType) }
 
 }

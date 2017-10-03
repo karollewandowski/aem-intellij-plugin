@@ -4,17 +4,17 @@ import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCa
 
 abstract class HtlTestBase : LightPlatformCodeInsightFixtureTestCase() {
 
-    abstract val dataPath: String
+    open val dataPath = ""
     open val relativeDataPath = ""
-    private val filePath: String
-        get() = "$relativeDataPath/${getTestName(true)}.html"
 
     override fun getTestDataPath() = "${HtlTestCase.testResourcesPath}/$dataPath"
 
-    protected fun doTest(actionId: String) {
-        myFixture.configureByFile(filePath)
-        myFixture.performEditorAction(actionId)
-        myFixture.checkResultByFile(filePath.replace(".html", "_after.html"), true)
+    protected fun testByFile(action: () -> Unit) {
+        myFixture.configureByFile(getFilePath())
+        action()
+        myFixture.checkResultByFile(getFilePath().replace(".html", "_after.html"), true)
     }
+
+    protected fun getFilePath() = "$relativeDataPath/${getTestName(true)}.html"
 
 }
