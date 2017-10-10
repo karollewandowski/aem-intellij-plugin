@@ -8,8 +8,9 @@ import com.intellij.openapi.fileTypes.*
 object HtlFileType : LanguageFileType(HtlLanguage), TemplateLanguageFileType {
 
     init {
-        FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this)
-        { project, _, virtualFile, editorColorsScheme -> HtlTemplateHighlighter(project, virtualFile, editorColorsScheme) }
+        FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this) { project, _, virtualFile, editorColorsScheme ->
+            HtlTemplateHighlighter(project, virtualFile, editorColorsScheme)
+        }
     }
 
     override fun getName() = "HTL"
