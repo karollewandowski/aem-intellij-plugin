@@ -3,42 +3,18 @@ package co.nums.intellij.aem.settings
 import co.nums.intellij.aem.version.AemVersion
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
+import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(name = "AemSettings")
-class AemSettings : PersistentStateComponent<AemSettings.State> {
+class AemSettings : PersistentStateComponent<AemSettings> {
 
-    data class State(
-            var aemVersion: String = AemVersion.ALL.last().aem,
-            var htlVersion: String = AemVersion.ALL.last().htl,
-            var manualVersionsEnabled: Boolean = false
-    )
+    var aemVersion: String = AemVersion.ALL.last().aem
+    var htlVersion: String = AemVersion.ALL.last().htl
+    var manualVersionsEnabled: Boolean = false
 
-    private var myState = State()
+    override fun getState() = this
 
-    var aemVersion: String
-        get() = myState.aemVersion
-        set(value) {
-            myState.aemVersion = value
-        }
-
-    var htlVersion: String
-        get() = myState.htlVersion
-        set(value) {
-            myState.htlVersion = value
-        }
-
-    var manualVersionsEnabled: Boolean
-        get() = myState.manualVersionsEnabled
-        set(value) {
-            myState.manualVersionsEnabled = value
-        }
-
-    override fun getState() = myState
-
-    override fun loadState(state: State) {
-        myState.aemVersion = state.aemVersion
-        myState.htlVersion = state.htlVersion
-    }
+    override fun loadState(state: AemSettings) = XmlSerializerUtil.copyBean(state, this)
 
 }
 

@@ -1,4 +1,3 @@
-
 package co.nums.intellij.aem.settings;
 
 import co.nums.intellij.aem.version.AemVersion;
@@ -18,107 +17,111 @@ import java.util.function.Function;
 
 public class AemIntellijPluginConfigurable implements Configurable {
 
-	private JPanel mainPanel;
-	private JComboBox<String> aemVersion;
-	private JCheckBox enableManualVersionsCheckBox;
-	private JLabel htlVersionLabel;
-	private JComboBox<String> htlVersion;
+    public static final String DISPLAY_NAME = "AEM IntelliJ Plugin";
 
-	private final AemSettings aemSettings;
+    private JPanel mainPanel;
+    private JComboBox<String> aemVersion;
+    private JCheckBox enableManualVersionsCheckBox;
+    private JLabel htlVersionLabel;
+    private JComboBox<String> htlVersion;
 
-	public AemIntellijPluginConfigurable(Project project) {
-		this.aemSettings = AemSettingsKt.getAemSettings(project);
-	}
+    private final AemSettings aemSettings;
 
-	@Override
-	public JComponent createComponent() {
-		initVersionsComboBox(aemVersion, AemVersion::getAem, aemSettings.getAemVersion());
-		aemVersion.addItemListener(event -> {
-			if (!enableManualVersionsCheckBox.isSelected()) {
-				setHtlByAemVersion();
-			}
-		});
-		initVersionsComboBox(htlVersion, AemVersion::getHtl, aemSettings.getHtlVersion());
-		initManualVersionsCheckBox();
-		return mainPanel;
-	}
+    public AemIntellijPluginConfigurable(Project project) {
+        this.aemSettings = AemSettingsKt.getAemSettings(project);
+    }
 
-	private void initVersionsComboBox(JComboBox<String> comboBox, Function<AemVersion, String> versionExtractor,
-			String selectedVersion) {
-		comboBox.setModel(new DefaultComboBoxModel<>(getVersions(versionExtractor)));
-		comboBox.setSelectedItem(selectedVersion);
-	}
+    @Override
+    public JComponent createComponent() {
+        initVersionsComboBox(aemVersion, AemVersion::getAem, aemSettings.getAemVersion());
+        aemVersion.addItemListener(event -> {
+            if (!enableManualVersionsCheckBox.isSelected()) {
+                setHtlByAemVersion();
+            }
+        });
+        initVersionsComboBox(htlVersion, AemVersion::getHtl, aemSettings.getHtlVersion());
+        initManualVersionsCheckBox();
+        return mainPanel;
+    }
 
-	private String[] getVersions(Function<AemVersion, String> versionExtractor) {
-		return Arrays.stream(AemVersion.Companion.getALL()).map(versionExtractor).toArray(String[]::new);
-	}
+    private void initVersionsComboBox(JComboBox<String> comboBox, Function<AemVersion, String> versionExtractor,
+            String selectedVersion) {
+        comboBox.setModel(new DefaultComboBoxModel<>(getVersions(versionExtractor)));
+        comboBox.setSelectedItem(selectedVersion);
+    }
 
-	private void initManualVersionsCheckBox() {
-		enableManualVersionsCheckBox.setSelected(aemSettings.getManualVersionsEnabled());
-		enableManualVersionsCheckBox.addItemListener(event -> {
-			boolean enabled = enableManualVersionsCheckBox.isSelected();
-			htlVersionLabel.setEnabled(enabled);
-			htlVersion.setEnabled(enabled);
-			if (!enabled) {
-				setHtlByAemVersion();
-			}
-		});
-	}
+    private String[] getVersions(Function<AemVersion, String> versionExtractor) {
+        return Arrays.stream(AemVersion.Companion.getALL()).map(versionExtractor).toArray(String[]::new);
+    }
 
-	private void setHtlByAemVersion() {
-		String selectedAemVersion = (String) aemVersion.getSelectedItem();
-		String htlVersionString = findHtlByAemVersion(selectedAemVersion);
-		htlVersion.setSelectedItem(htlVersionString);
-	}
+    private void initManualVersionsCheckBox() {
+        enableManualVersionsCheckBox.setSelected(aemSettings.getManualVersionsEnabled());
+        htlVersionLabel.setEnabled(aemSettings.getManualVersionsEnabled());
+        htlVersion.setEnabled(aemSettings.getManualVersionsEnabled());
+        enableManualVersionsCheckBox.addItemListener(event -> {
+            boolean enabled = enableManualVersionsCheckBox.isSelected();
+            htlVersionLabel.setEnabled(enabled);
+            htlVersion.setEnabled(enabled);
+            if (!enabled) {
+                setHtlByAemVersion();
+            }
+        });
+    }
 
-	private static String findHtlByAemVersion(String selectedAemVersion) {
-		return Arrays.stream(AemVersion.Companion.getALL())
-				.filter(version -> version.getAem().equals(selectedAemVersion))
-				.map(AemVersion::getHtl)
-				.findFirst()
-				.orElseThrow(() -> new IllegalStateException(
-						"Could not find HTL version for AEM: " + selectedAemVersion));
-	}
+    private void setHtlByAemVersion() {
+        String selectedAemVersion = (String) aemVersion.getSelectedItem();
+        String htlVersionString = findHtlByAemVersion(selectedAemVersion);
+        htlVersion.setSelectedItem(htlVersionString);
+    }
 
-	@Override
-	public boolean isModified() {
-		return aemSettings.getManualVersionsEnabled() != enableManualVersionsCheckBox.isSelected()
-				|| !aemSettings.getAemVersion().equals(aemVersion.getSelectedItem())
-				|| !aemSettings.getHtlVersion().equals(htlVersion.getSelectedItem());
-	}
+    private static String findHtlByAemVersion(String selectedAemVersion) {
+        return Arrays.stream(AemVersion.Companion.getALL())
+                .filter(version -> version.getAem().equals(selectedAemVersion))
+                .map(AemVersion::getHtl)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(
+                        "Could not find HTL version for AEM: " + selectedAemVersion));
+    }
 
-	@Override
-	public void apply() throws ConfigurationException {
-		aemSettings.setManualVersionsEnabled(enableManualVersionsCheckBox.isSelected());
-		aemSettings.setAemVersion(getVersion(aemVersion, "AEM version is null"));
-		aemSettings.setHtlVersion(getVersion(htlVersion, "HTL version is null"));
-	}
+    @Override
+    public boolean isModified() {
+        return aemSettings.getManualVersionsEnabled() != enableManualVersionsCheckBox.isSelected()
+                || !aemSettings.getAemVersion().equals(aemVersion.getSelectedItem())
+                || !aemSettings.getHtlVersion().equals(htlVersion.getSelectedItem());
+    }
 
-	private static String getVersion(JComboBox<String> version, String exceptionMessage) throws ConfigurationException {
-		return Optional.ofNullable((String) version.getSelectedItem())
-				.orElseThrow(() -> new ConfigurationException(exceptionMessage));
-	}
+    @Override
+    public void apply() throws ConfigurationException {
+        aemSettings.setManualVersionsEnabled(enableManualVersionsCheckBox.isSelected());
+        aemSettings.setAemVersion(getVersion(aemVersion, "AEM version is null"));
+        aemSettings.setHtlVersion(getVersion(htlVersion, "HTL version is null"));
+    }
 
-	@Override
-	public void reset() {
-		enableManualVersionsCheckBox.setSelected(aemSettings.getManualVersionsEnabled());
-		aemVersion.setSelectedItem(aemSettings.getAemVersion());
-		htlVersion.setSelectedItem(aemSettings.getHtlVersion());
-	}
+    private static String getVersion(JComboBox<String> version, String exceptionMessage) throws ConfigurationException {
+        return Optional.ofNullable((String) version.getSelectedItem())
+                .orElseThrow(() -> new ConfigurationException(exceptionMessage));
+    }
 
-	@Override
-	public void disposeUIResources() {
-		// nothing to dispose
-	}
+    @Override
+    public void reset() {
+        enableManualVersionsCheckBox.setSelected(aemSettings.getManualVersionsEnabled());
+        aemVersion.setSelectedItem(aemSettings.getAemVersion());
+        htlVersion.setSelectedItem(aemSettings.getHtlVersion());
+    }
 
-	@Override
-	public String getDisplayName() {
-		return "AEM IntelliJ Plugin";
-	}
+    @Override
+    public void disposeUIResources() {
+        // nothing to dispose
+    }
 
-	@Override
-	public String getHelpTopic() {
-		return null;
-	}
+    @Override
+    public String getDisplayName() {
+        return DISPLAY_NAME;
+    }
+
+    @Override
+    public String getHelpTopic() {
+        return null;
+    }
 
 }
