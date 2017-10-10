@@ -49,7 +49,7 @@
                 serviceImplementation="co.nums.intellij.aem.settings.AemSettings"/>
 
         <projectConfigurable
-                instance="co.nums.intellij.aem.settings.AemIntellijPluginConfigurable"
+                instance="co.nums.intellij.aem.settings.AemProjectConfigurable"
                 displayName="AEM IntelliJ Plugin"
                 groupId="other"/>
 

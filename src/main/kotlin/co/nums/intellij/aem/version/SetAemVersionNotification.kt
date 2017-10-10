@@ -46,7 +46,7 @@ private class OpenSettings(private val project: Project, private val notificatio
         project.disableVersionNotification()
         notification.expire()
         SwingUtilities.invokeLater {
-            ShowSettingsUtil.getInstance().showSettingsDialog(project, AemIntellijPluginConfigurable.DISPLAY_NAME)
+            ShowSettingsUtil.getInstance().showSettingsDialog(project, AemProjectConfigurable.DISPLAY_NAME)
         }
     }
 

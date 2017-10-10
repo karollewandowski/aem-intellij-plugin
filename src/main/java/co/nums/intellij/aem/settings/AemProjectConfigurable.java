@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class AemIntellijPluginConfigurable implements Configurable {
+public class AemProjectConfigurable implements Configurable {
 
     public static final String DISPLAY_NAME = "AEM IntelliJ Plugin";
 
@@ -27,7 +27,7 @@ public class AemIntellijPluginConfigurable implements Configurable {
 
     private final AemSettings aemSettings;
 
-    public AemIntellijPluginConfigurable(Project project) {
+    public AemProjectConfigurable(Project project) {
         this.aemSettings = AemSettingsKt.getAemSettings(project);
     }
 
