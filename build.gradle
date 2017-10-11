@@ -49,12 +49,23 @@ test {
   }
 }
 
-jacocoTestReport {
-  reports {
-    xml.enabled = true
-    csv.enabled = false
-    html.enabled = false
+project.afterEvaluate {
+  def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+  jacoco {
+    toolVersion = "0.7.6.201602180812"
+    applyTo junitPlatformTestTask
   }
+  project.task(type: JacocoReport, "junitPlatformJacocoReport",
+      {
+        sourceDirectories = files("./src/main")
+        classDirectories = files("$buildDir/classes/main")
+        reports {
+          xml.enabled = true
+          csv.enabled = false
+          html.enabled = false
+        }
+        executionData junitPlatformTestTask
+      })
 }
 
 idea {
@@ -72,6 +83,7 @@ dependencies {
   testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
   testCompile 'org.junit.jupiter:junit-jupiter-params:5.0.1'
   testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
+  testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'
   testCompile 'org.mockito:mockito-core:2.2.21'
   testCompile 'org.assertj:assertj-core:3.6.0'
 }
