@@ -5,7 +5,6 @@ import co.nums.intellij.aem.htl.psi.*
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.lang.StdLanguages
-import com.intellij.openapi.util.Condition
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.PsiTreeUtil
@@ -32,7 +31,7 @@ fun PsiElement.isListPropertyAccess(): Boolean {
 private fun PsiElement.isDeclaredAsIterable(): Boolean {
     val variableIdentifier = this.text.substringBefore("List")
     val htmlPsiElement = this.containingFile.viewProvider.findElementAt(this.textOffset, StdLanguages.HTML)
-    return PsiTreeUtil.findFirstParent(htmlPsiElement, Condition { it.declaresIterableVariable(variableIdentifier) }) != null
+    return PsiTreeUtil.findFirstParent(htmlPsiElement, { it.declaresIterableVariable(variableIdentifier) }) != null
 }
 
 private fun PsiElement.declaresIterableVariable(variableIdentifier: String): Boolean {

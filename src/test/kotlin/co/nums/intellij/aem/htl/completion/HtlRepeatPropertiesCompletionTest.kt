@@ -2,9 +2,9 @@ package co.nums.intellij.aem.htl.completion
 
 import co.nums.intellij.aem.htl.data.expressions.HtlListProperty
 
-class HtlListPropertiesCompletionTest : HtlCompletionTestBase() {
+class HtlRepeatPropertiesCompletionTest : HtlCompletionTestBase() {
 
-    override val dataPath = "co/nums/intellij/aem/htl/completion/list/properties/fixtures"
+    override val dataPath = "co/nums/intellij/aem/htl/completion/repeat/properties/fixtures"
 
     private val allListProperties = HtlListProperty.values().map { it.identifier }.toTypedArray()
 

@@ -5,7 +5,6 @@ import co.nums.intellij.aem.htl.HtlAnnotatorTestBase
 class HtlWrongStringQuotesQuickFixTest : HtlAnnotatorTestBase() {
 
     override val dataPath = "co/nums/intellij/aem/htl/inspections/wrong_string_quotes/fixes/fixtures"
-    override val relativeDataPath = "jcr_root"
 
     fun testEmptySingleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix()
     fun testEmptySingleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix()

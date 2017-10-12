@@ -5,7 +5,7 @@ import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCa
 abstract class HtlTestBase : LightPlatformCodeInsightFixtureTestCase() {
 
     open val dataPath = ""
-    open val relativeDataPath = ""
+    open val relativeDataPath = "jcr_root"
 
     override fun getTestDataPath() = "${HtlTestCase.testResourcesPath}/$dataPath"
 

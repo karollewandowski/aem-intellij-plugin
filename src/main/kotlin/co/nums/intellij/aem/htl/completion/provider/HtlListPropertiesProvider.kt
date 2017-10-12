@@ -1,22 +1,18 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.data.expressions.ListProperty
+import co.nums.intellij.aem.htl.data.expressions.HtlListProperty
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.extensions.isListPropertyAccess
-import co.nums.intellij.aem.htl.service.HtlDefinitions
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
-import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElement
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.lookup.*
 import com.intellij.util.ProcessingContext
 
 object HtlListPropertiesProvider : CompletionProvider<CompletionParameters>() {
 
-    private val listPropertiesElements = HtlDefinitions.listProperties.map { it.toLookupElement() }
+    private val listPropertiesElements = HtlListProperty.values().map { it.toLookupElement() }
 
-    private fun ListProperty.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(this.name)
+    private fun HtlListProperty.toLookupElement(): LookupElement {
+        return LookupElementBuilder.create(this.identifier)
                 .bold()
                 .withIcon(HtlIcons.HTL_PREDEFINED_PROPERTY)
                 .withTypeText(this.type)
