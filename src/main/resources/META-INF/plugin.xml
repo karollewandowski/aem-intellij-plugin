@@ -6,26 +6,26 @@
     <vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
 
     <description><![CDATA[
-      Intellij Platform plugin for Adobe Experience Manager.<br>
-      Features:<br>
-      <ul>
-          <li>HTL/Sightly support (HTML files under <code>jcr_root</code> directory)
-              <ul>
-                  <li>syntax validation and highlighting</li>
-                  <li>autocompletion and documentation for:
-                      <ul>
-                          <li>block attributes (<code>data-sly-*</code>)</li>
-                          <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
-                          <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
-                          <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
-                          <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
-                          <li>use objects (Use API objects and Sling Models)</li>
-                          <li>block variables (eg. <code>data-sly-use.variable</code>)</li>
-                      </ul>
-                  </li>
-              </ul>
-          </li>
-      </ul>
+        Intellij Platform plugin for Adobe Experience Manager.<br>
+        Features:<br>
+        <ul>
+            <li>HTL/Sightly support (HTML files under <code>jcr_root</code> directory)
+                <ul>
+                    <li>syntax validation and highlighting</li>
+                    <li>autocompletion and documentation for:
+                        <ul>
+                            <li>block attributes (<code>data-sly-*</code>)</li>
+                            <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
+                            <li>properties (<code>jcr:title</code>, <code>cq:lastModified</code>, <code>sling:resourceType</code>, etc.)</li>
+                            <li>built-in expression options (<code>context</code>, <code>addSelector</code>, <code>i18n</code>, etc.)</li>
+                            <li>display contexts (<code>html</code>, <code>scriptToken</code>, <code>unsafe</code>, etc.)</li>
+                            <li>use objects (Use API objects and Sling Models)</li>
+                            <li>block variables (eg. <code>data-sly-use.variable</code>)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     ]]></description>
 
     <change-notes><![CDATA[
@@ -34,7 +34,7 @@
             <li>iterable objects properties (<code>itemList.even</code>, <code>itemList.first</code>, <code>itemList.odd</code>, etc.)</li>
             <li>parsing optimizations and improvements</li>
         </ul>
-	]]></change-notes>
+    ]]></change-notes>
 
     <idea-version since-build="143"/>
 
@@ -42,6 +42,17 @@
     <depends optional="true" config-file="java.xml">com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity
+                implementation="co.nums.intellij.aem.version.SetAemVersionNotification"/>
+
+        <projectService
+                serviceImplementation="co.nums.intellij.aem.settings.AemSettings"/>
+
+        <projectConfigurable
+                instance="co.nums.intellij.aem.settings.AemProjectConfigurable"
+                displayName="AEM IntelliJ Plugin"
+                groupId="other"/>
+
         <fileTypeFactory
                 implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
 
@@ -50,7 +61,7 @@
 
         <html.scriptContentProvider
                 language="HTL"
-                implementationClass="com.intellij.lang.HtmlScriptContentProvider.Empty"/>
+                implementationClass="com.intellij.lang.HtmlScriptContentProvider$Empty"/>
 
         <lang.parserDefinition
                 language="HTL"

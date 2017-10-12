@@ -1,12 +1,9 @@
 package co.nums.intellij.aem.htl.psi.search
 
 import com.intellij.openapi.project.Project
-import com.intellij.psi.JavaPsiFacade
-import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiModifier
+import com.intellij.psi.*
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.search.searches.AnnotatedElementsSearch
-import com.intellij.psi.search.searches.ClassInheritorsSearch
+import com.intellij.psi.search.searches.*
 
 object HtlJavaSearch {
 
@@ -15,11 +12,9 @@ object HtlJavaSearch {
 
     fun useApiImplementers(project: Project): Collection<PsiClass> {
         return USE_INTERFACES
-                .map { it.toPsiClass(project) }
-                .filterNotNull()
+                .mapNotNull { it.toPsiClass(project) }
                 .flatMap { project.findImplementers(it) }
                 .filterNot { it.hasModifierProperty(PsiModifier.ABSTRACT) }
-                .orEmpty()
     }
 
     fun slingModels(project: Project): Collection<PsiClass> {

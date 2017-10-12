@@ -3,16 +3,14 @@ package co.nums.intellij.aem.htl.file
 import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.highlighter.HtlTemplateHighlighter
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
-import com.intellij.openapi.fileTypes.LanguageFileType
-import com.intellij.openapi.fileTypes.TemplateLanguageFileType
+import com.intellij.openapi.fileTypes.*
 
 object HtlFileType : LanguageFileType(HtlLanguage), TemplateLanguageFileType {
 
     init {
-        FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(
-                this
-        ) { project, fileType, virtualFile, editorColorsScheme -> HtlTemplateHighlighter(project, virtualFile, editorColorsScheme) }
+        FileTypeEditorHighlighterProviders.INSTANCE.addExplicitExtension(this) { project, _, virtualFile, editorColorsScheme ->
+            HtlTemplateHighlighter(project, virtualFile, editorColorsScheme)
+        }
     }
 
     override fun getName() = "HTL"
