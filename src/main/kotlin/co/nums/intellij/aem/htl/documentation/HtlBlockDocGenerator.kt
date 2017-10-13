@@ -1,15 +1,14 @@
 package co.nums.intellij.aem.htl.documentation
 
-import co.nums.intellij.aem.htl.data.blocks.Block
-import co.nums.intellij.aem.htl.service.HtlDefinitions
+import co.nums.intellij.aem.htl.data.blocks.HtlBlock
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 
 object HtlBlockDocGenerator {
 
-    private val blocksDocs = HtlDefinitions.blocks.associate { Pair(it.type, it.getDocString()) }
+    private val blocksDocs = HtlBlock.values().associate { Pair(it.type, it.getDocString()) }
 
-    private fun Block.getDocString() = """
+    private fun HtlBlock.getDocString() = """
                    <code>${this.type}</code>
                    <p>${this.doc.description}</p>
                    <ul>

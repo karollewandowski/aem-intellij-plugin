@@ -1,29 +1,22 @@
 package co.nums.intellij.aem.htl.psi.search
 
-import co.nums.intellij.aem.htl.HtlBlocks
-import co.nums.intellij.aem.htl.HtlLanguage
-import co.nums.intellij.aem.htl.data.blocks.Block
-import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
-import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
-import co.nums.intellij.aem.htl.psi.extensions.isHtlExpressionToken
-import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
-import co.nums.intellij.aem.htl.service.HtlDefinitions
+import co.nums.intellij.aem.htl.*
+import co.nums.intellij.aem.htl.data.blocks.*
+import co.nums.intellij.aem.htl.psi.extensions.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlToken
+import com.intellij.psi.xml.*
 
 object HtlSearch {
 
     private const val DEFAULT_USE_OBJECT_TYPE = "Use object"
 
-    private val htlVariableBlocks = HtlDefinitions.blocks.filter { it.identifierType.isVariable() }
+    private val htlVariableBlocks = HtlBlock.values().filter { it.identifierType.isVariable() }
     private val htlVariableBlockTypes = htlVariableBlocks.map { it.type }
 
     fun blockVariables(htmlFile: PsiFile): Collection<HtlBlockVariable> {
         return PsiTreeUtil.findChildrenOfType(htmlFile, XmlAttribute::class.java)
                 .flatMap { it.toHtlVariables() }
-                .filterNotNull()
     }
 
     private fun XmlAttribute.toHtlVariables(): List<HtlBlockVariable> {
@@ -37,7 +30,7 @@ object HtlSearch {
         return emptyList()
     }
 
-    private fun XmlAttribute.createHtlVariables(blockDefinition: Block): List<HtlBlockVariable> {
+    private fun XmlAttribute.createHtlVariables(blockDefinition: HtlBlock): List<HtlBlockVariable> {
         val identifier = this.getIdentifier(blockDefinition.isIterable()) ?: return emptyList()
         val dataType = this.getDataType(blockDefinition)
         val variable = HtlBlockVariable(identifier, blockDefinition.identifierType, dataType, this)
@@ -48,7 +41,7 @@ object HtlSearch {
         return listOf(variable)
     }
 
-    private fun XmlAttribute.createImplicitListVariable(identifier: String, blockDefinition: Block): HtlBlockVariable {
+    private fun XmlAttribute.createImplicitListVariable(identifier: String, blockDefinition: HtlBlock): HtlBlockVariable {
         val listIdentifier = identifier + "List"
         val listDataType = this.getDataType(blockDefinition, true)
         return HtlBlockVariable(listIdentifier, blockDefinition.identifierType, listDataType, this)
@@ -65,7 +58,7 @@ object HtlSearch {
         return null
     }
 
-    private fun XmlAttribute.getDataType(block: Block, implicitList: Boolean = false): String {
+    private fun XmlAttribute.getDataType(block: HtlBlock, implicitList: Boolean = false): String {
         return when {
             HtlBlocks.USE == block.type -> this.getUseObjectType()
             HtlBlocks.TEST == block.type -> "Test result"

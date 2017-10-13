@@ -1,12 +1,10 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.htl.HtlBlocks
+import co.nums.intellij.aem.htl.data.blocks.HtlBlock
 import co.nums.intellij.aem.htl.highlighter.createReferenceErrorAnnotation
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
-import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
-import co.nums.intellij.aem.htl.service.HtlDefinitions
-import com.intellij.lang.annotation.AnnotationHolder
-import com.intellij.lang.annotation.Annotator
+import co.nums.intellij.aem.htl.psi.extensions.*
+import com.intellij.lang.annotation.*
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.util.text.EditDistance
@@ -29,11 +27,11 @@ class HtlIncorrectBlockTypeAnnotator : Annotator {
                 .registerFix(HtlIncorrectBlockTypeFix(suggestedBlockType))
     }
 
-    private fun blockStartingWith(blockType: String) = HtlDefinitions.blocks
+    private fun blockStartingWith(blockType: String) = HtlBlock.values()
             .map { it.type }
             .firstOrNull { it.startsWith(blockType) }
 
-    private fun closestLevenshteinDistance(blockType: String) = HtlDefinitions.blocks
+    private fun closestLevenshteinDistance(blockType: String) = HtlBlock.values()
             .sortedBy { EditDistance.levenshtein(it.type, blockType, false) }
             .map { it.type }
             .first()
