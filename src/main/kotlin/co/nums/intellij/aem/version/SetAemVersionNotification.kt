@@ -4,12 +4,12 @@ import co.nums.intellij.aem.settings.*
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.*
 import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupActivity
-import javax.swing.SwingUtilities
 
-private const val VERSION_NOTIFICATION_DISABLED_PROPERTY_NAME = "aem-intellij-plugin.notifications.version.disabled1"
+private const val VERSION_NOTIFICATION_DISABLED_PROPERTY_NAME = "aem-intellij-plugin.notifications.version.disabled"
 
 class SetAemVersionNotification : StartupActivity {
 
@@ -45,7 +45,7 @@ private class OpenSettings(private val project: Project, private val notificatio
     override fun actionPerformed(event: AnActionEvent?) {
         project.disableVersionNotification()
         notification.expire()
-        SwingUtilities.invokeLater {
+        ApplicationManager.getApplication().invokeLater {
             ShowSettingsUtil.getInstance().showSettingsDialog(project, AemProjectConfigurable.DISPLAY_NAME)
         }
     }

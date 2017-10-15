@@ -98,10 +98,10 @@
                 implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
         <additionalTextAttributes
                 scheme="Default"
-                file="co/nums/intellij/aem/colorSchemes/HtlDefault.xml"/>
+                file="colorSchemes/HtlDefault.xml"/>
         <additionalTextAttributes
                 scheme="Darcula"
-                file="co/nums/intellij/aem/colorSchemes/HtlDarcula.xml"/>
+                file="colorSchemes/HtlDarcula.xml"/>
 
         <lang.formatter
                 language="HTL"

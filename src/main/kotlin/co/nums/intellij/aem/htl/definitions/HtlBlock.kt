@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.definitions
 
-import co.nums.intellij.aem.htl.completion.provider.inserthandlers.*
+import co.nums.intellij.aem.htl.completion.provider.insertHandler.*
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.lookup.LookupElement
 

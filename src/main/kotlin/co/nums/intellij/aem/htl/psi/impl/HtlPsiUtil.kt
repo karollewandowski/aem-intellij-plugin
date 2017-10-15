@@ -1,8 +1,6 @@
 package co.nums.intellij.aem.htl.psi.impl
 
-import co.nums.intellij.aem.htl.psi.HtlExpression
-import co.nums.intellij.aem.htl.psi.HtlTypes
-import co.nums.intellij.aem.htl.psi.HtlVariable
+import co.nums.intellij.aem.htl.psi.*
 import com.intellij.lang.StdLanguages
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
@@ -65,7 +63,5 @@ object HtlPsiUtil {
         }
         return null
     }
-
-
 
 }

@@ -1,6 +1,9 @@
 package co.nums.intellij.aem.htl
 
+import co.nums.intellij.aem.htl.file.HtlFileType
 import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase
+
+const val DOLLAR = '$'
 
 abstract class HtlTestBase : LightPlatformCodeInsightFixtureTestCase() {
 
@@ -14,6 +17,14 @@ abstract class HtlTestBase : LightPlatformCodeInsightFixtureTestCase() {
         action()
         myFixture.checkResultByFile(getFilePath().replace(".html", "_after.html"), true)
     }
+
+    protected fun testByText(before: String, after: String, action: () -> Unit) {
+        myFixture.configureByText(HtlFileType, before.trimIndent().replaceCaret())
+        action()
+        myFixture.checkResult(after.trimIndent().replaceCaret())
+    }
+
+    private fun String.replaceCaret() = replace("__caret__", "<caret>")
 
     protected fun getFilePath() = "$relativeDataPath/${getTestName(true)}.html"
 

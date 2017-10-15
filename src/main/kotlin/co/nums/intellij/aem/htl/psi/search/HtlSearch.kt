@@ -1,6 +1,5 @@
 package co.nums.intellij.aem.htl.psi.search
 
-import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.psi.extensions.*
@@ -9,8 +8,6 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.*
 
 object HtlSearch {
-
-    private const val DEFAULT_USE_OBJECT_TYPE = "Use object"
 
     private val htlVariableBlocks = HtlBlock.values().filter { it.identifierType.isVariable() }
     private val htlVariableBlockTypes = htlVariableBlocks.map { it.type }
@@ -61,29 +58,11 @@ object HtlSearch {
 
     private fun XmlAttribute.getDataType(block: HtlBlock, implicitList: Boolean = false): String {
         return when {
-            block.type == HtlBlock.USE.type  -> this.getUseObjectType()
+            block.type == HtlBlock.USE.type -> this.getUseObjectType() ?: "Use object"
             block.type == HtlBlock.TEST.type -> "Test result"
             block.iterable -> if (implicitList) "Iterable" else "List element" // TODO: resolve Java type
             else -> ""
         }
-    }
-
-    private fun XmlAttribute.getUseObjectType(): String {
-        var useObjectType: String
-        val blockValue = this.valueElement ?: return DEFAULT_USE_OBJECT_TYPE
-        val htlFile = blockValue.containingFile.viewProvider.getPsi(HtlLanguage) ?: return DEFAULT_USE_OBJECT_TYPE
-        val htlExpressionStart = htlFile.findElementAt(blockValue.textOffset) ?: return DEFAULT_USE_OBJECT_TYPE
-        if (htlExpressionStart.isHtlExpressionToken()) {
-            val nextToken = PsiTreeUtil.nextVisibleLeaf(htlExpressionStart) ?: return DEFAULT_USE_OBJECT_TYPE
-            useObjectType = if (nextToken.isPartOfHtlString()) nextToken.text else ""
-        } else {
-            useObjectType = blockValue.text
-        }
-        useObjectType = useObjectType.trim('"', '\'', ' ')
-        if (useObjectType.isBlank()) {
-            return DEFAULT_USE_OBJECT_TYPE
-        }
-        return useObjectType
     }
 
 }

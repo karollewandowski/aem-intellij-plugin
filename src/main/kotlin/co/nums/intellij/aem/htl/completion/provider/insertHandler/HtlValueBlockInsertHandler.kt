@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.completion.provider.inserthandlers
+package co.nums.intellij.aem.htl.completion.provider.insertHandler
 
 import co.nums.intellij.aem.extensions.hasText
 import co.nums.intellij.aem.extensions.moveCaret
