@@ -1,13 +1,18 @@
-package co.nums.intellij.aem.htl.data.blocks
+package co.nums.intellij.aem.htl.definitions
 
-import co.nums.intellij.aem.htl.HtlBlocks
 import co.nums.intellij.aem.htl.completion.provider.inserthandlers.*
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.lookup.LookupElement
 
+const val HTL_BLOCK_PREFIX = "data-sly"
+
+private val htlIterableBlocksTypes = HtlBlock.values().filter { it.iterable }.map { it.type }.toSet()
+fun isHtlIterableBlock(blockType: String) = htlIterableBlocksTypes.contains(blockType)
+
 enum class HtlBlock(
         val type: String,
         val identifierType: BlockIdentifierType,
+        val iterable: Boolean = false,
         val insertHandler: InsertHandler<LookupElement>? = null,
         val doc: BlockDocumentation
 ) {
@@ -63,6 +68,7 @@ enum class HtlBlock(
     LIST(
             type = "data-sly-list",
             identifierType = BlockIdentifierType.BLOCK_VARIABLE,
+            iterable = true,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Iterates over the content of each item in the attribute value.",
@@ -75,6 +81,7 @@ enum class HtlBlock(
     REPEAT(
             type = "data-sly-repeat",
             identifierType = BlockIdentifierType.BLOCK_VARIABLE,
+            iterable = true,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Iterates over the content of each item in the attribute value and displays the containing element as many times as items in the attribute value.",
@@ -153,8 +160,6 @@ enum class HtlBlock(
                     attributeIdentifier = "optional; customised identifier name to access the instantiated logic"
             )
     );
-
-    fun isIterable() = HtlBlocks.ITERABLE.contains(type.toLowerCase())
 
 }
 

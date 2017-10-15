@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion
 
-import co.nums.intellij.aem.htl.data.expressions.HtlListProperty
+import co.nums.intellij.aem.htl.definitions.HtlListProperty
 
 class HtlListPropertiesCompletionTest : HtlCompletionTestBase() {
 

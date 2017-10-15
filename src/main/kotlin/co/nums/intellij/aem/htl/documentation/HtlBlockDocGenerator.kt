@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.documentation
 
-import co.nums.intellij.aem.htl.data.blocks.HtlBlock
+import co.nums.intellij.aem.htl.definitions.HtlBlock
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 

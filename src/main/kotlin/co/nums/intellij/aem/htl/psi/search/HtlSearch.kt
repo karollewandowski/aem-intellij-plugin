@@ -1,7 +1,8 @@
 package co.nums.intellij.aem.htl.psi.search
 
-import co.nums.intellij.aem.htl.*
-import co.nums.intellij.aem.htl.data.blocks.*
+import co.nums.intellij.aem.htl.HtlLanguage
+import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
+import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.psi.extensions.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
@@ -31,10 +32,10 @@ object HtlSearch {
     }
 
     private fun XmlAttribute.createHtlVariables(blockDefinition: HtlBlock): List<HtlBlockVariable> {
-        val identifier = this.getIdentifier(blockDefinition.isIterable()) ?: return emptyList()
+        val identifier = this.getIdentifier(blockDefinition.iterable) ?: return emptyList()
         val dataType = this.getDataType(blockDefinition)
         val variable = HtlBlockVariable(identifier, blockDefinition.identifierType, dataType, this)
-        if (blockDefinition.isIterable()) {
+        if (blockDefinition.iterable) {
             val listVariable = createImplicitListVariable(identifier, blockDefinition)
             return listOf(variable, listVariable)
         }
@@ -60,9 +61,9 @@ object HtlSearch {
 
     private fun XmlAttribute.getDataType(block: HtlBlock, implicitList: Boolean = false): String {
         return when {
-            HtlBlocks.USE == block.type -> this.getUseObjectType()
-            HtlBlocks.TEST == block.type -> "Test result"
-            block.isIterable() -> if (implicitList) "Iterable" else "List element" // TODO: resolve Java type
+            block.type == HtlBlock.USE.type  -> this.getUseObjectType()
+            block.type == HtlBlock.TEST.type -> "Test result"
+            block.iterable -> if (implicitList) "Iterable" else "List element" // TODO: resolve Java type
             else -> ""
         }
     }

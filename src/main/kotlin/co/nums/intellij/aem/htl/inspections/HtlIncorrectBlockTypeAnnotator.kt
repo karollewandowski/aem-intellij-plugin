@@ -1,7 +1,6 @@
 package co.nums.intellij.aem.htl.inspections
 
-import co.nums.intellij.aem.htl.HtlBlocks
-import co.nums.intellij.aem.htl.data.blocks.HtlBlock
+import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.highlighter.createReferenceErrorAnnotation
 import co.nums.intellij.aem.htl.psi.extensions.*
 import com.intellij.lang.annotation.*
@@ -12,7 +11,7 @@ import com.intellij.util.text.EditDistance
 class HtlIncorrectBlockTypeAnnotator : Annotator {
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        if (element.containingFile.isHtl() && element is XmlAttribute && element.name.toLowerCase().startsWith(HtlBlocks.PREFIX)) {
+        if (element.containingFile.isHtl() && element is XmlAttribute && element.name.toLowerCase().startsWith(HTL_BLOCK_PREFIX)) {
             if (!element.isHtlBlock()) {
                 highlightUnknownHtlBlockError(holder, element)
             }

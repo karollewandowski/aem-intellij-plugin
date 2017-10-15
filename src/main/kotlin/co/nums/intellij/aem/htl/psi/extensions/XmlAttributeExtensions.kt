@@ -1,12 +1,11 @@
 package co.nums.intellij.aem.htl.psi.extensions
 
-import co.nums.intellij.aem.htl.HtlBlocks
-import co.nums.intellij.aem.htl.data.blocks.HtlBlock
+import co.nums.intellij.aem.htl.definitions.HtlBlock
 import com.intellij.psi.xml.*
 
 private val htlBlockTypes = HtlBlock.values().map { it.type }
-private val htlVariableBlockTypes = HtlBlock.values().filter { HtlBlocks.VARIABLE_BLOCKS.contains(it.type) }.map { it.type }
-private val htlImplicitVariableBlockTypes = HtlBlock.values().filter { HtlBlocks.ITERABLE.contains(it.type) }.map { it.type }
+private val htlVariableBlockTypes = HtlBlock.values().filter { it.identifierType.isVariable() }.map { it.type }
+private val htlImplicitVariableBlockTypes = HtlBlock.values().filter { it.iterable }.map { it.type }
 
 fun XmlAttribute.isHtlBlock() = (firstChild as? XmlToken)?.isHtlBlock() ?: false
 

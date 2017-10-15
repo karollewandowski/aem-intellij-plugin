@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.data.expressions
+package co.nums.intellij.aem.htl.definitions
 
 enum class HtlListProperty(
         val identifier: String,

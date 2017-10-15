@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.data.expressions.HtlListProperty
+import co.nums.intellij.aem.htl.definitions.HtlListProperty
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.extensions.isListPropertyAccess
 import com.intellij.codeInsight.completion.*

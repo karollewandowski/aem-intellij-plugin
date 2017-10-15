@@ -1,17 +1,15 @@
 package co.nums.intellij.aem.htl.highlighter
 
-import co.nums.intellij.aem.htl.HtlBlocks
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
-import co.nums.intellij.aem.htl.psi.extensions.isHtlVariableDeclaration
-import com.intellij.lang.annotation.AnnotationHolder
-import com.intellij.lang.annotation.Annotator
+import co.nums.intellij.aem.htl.definitions.HTL_BLOCK_PREFIX
+import co.nums.intellij.aem.htl.psi.extensions.*
+import com.intellij.lang.annotation.*
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 
 class HtlBlocksHighlighter : Annotator {
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        if (element.containingFile.isHtl() && element is XmlAttribute && element.name.toLowerCase().startsWith(HtlBlocks.PREFIX)) {
+        if (element.containingFile.isHtl() && element is XmlAttribute && element.name.toLowerCase().startsWith(HTL_BLOCK_PREFIX)) {
             highlightHtlBlock(holder, element)
         }
     }

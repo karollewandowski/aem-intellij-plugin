@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.psi.extensions
 
-import co.nums.intellij.aem.htl.HtlBlocks
+import co.nums.intellij.aem.htl.definitions.isHtlIterableBlock
 import co.nums.intellij.aem.htl.psi.*
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import co.nums.intellij.aem.htl.service.HtlDefinitions
@@ -43,12 +43,12 @@ private fun PsiElement.declaresIterableVariable(variableIdentifier: String): Boo
 
 private fun XmlAttribute.isIterableVariableDeclaration(variableIdentifier: String): Boolean {
     val blockName = this.localName
-    if (variableIdentifier == "item" && HtlBlocks.ITERABLE.contains(blockName)) {
+    if (variableIdentifier == "item" && isHtlIterableBlock(blockName)) {
         return true
     }
     if (blockName.contains('.')) {
         val blockType = blockName.substringBefore('.')
-        if (HtlBlocks.ITERABLE.contains(blockType)) {
+        if (isHtlIterableBlock(blockType)) {
             return blockName.substringAfter('.') == variableIdentifier
         }
     }

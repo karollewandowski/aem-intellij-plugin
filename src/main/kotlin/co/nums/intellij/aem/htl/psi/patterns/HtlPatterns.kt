@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.psi.patterns
 
-import co.nums.intellij.aem.htl.HtlBlocks
+import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.patterns.ElementPattern
 import com.intellij.patterns.PlatformPatterns.psiElement
@@ -37,14 +37,14 @@ object HtlPatterns {
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement().inside(xmlAttributeValue().withLocalName(or(
-                    string().equalTo(HtlBlocks.USE),
-                    string().startsWith("${HtlBlocks.USE}."))))
+                    string().equalTo(HtlBlock.USE.type),
+                    string().startsWith("${HtlBlock.USE.type}."))))
 
     val expressionUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement()
                     .inside(psiElement(HtlTypes.STRING_LITERAL)
                             .afterLeafSkipping(psiElement(TokenType.WHITE_SPACE), psiElement(HtlTypes.EXPR_START))
-                            .inside(htlBlock(HtlBlocks.USE)))
+                            .inside(htlBlock(HtlBlock.USE.type)))
 
     fun htlBlock(name: String) = HtlPattern().block(name)
 
