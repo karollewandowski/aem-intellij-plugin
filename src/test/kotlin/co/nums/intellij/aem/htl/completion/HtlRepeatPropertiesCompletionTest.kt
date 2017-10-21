@@ -48,19 +48,19 @@ class HtlRepeatPropertiesCompletionTest : HtlCompletionTestBase() {
 
     fun testPropertyAccessAfterGlobalPropertiesObject() = checkByTextDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
-                $DOLLAR{properties}
+                $DOLLAR{properties.<caret>}
             </div>""",
             *allListProperties)
 
     fun testPropertyAccessAfterGlobalPagePropertiesObject() = checkByTextDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
-                $DOLLAR{pageProperties}
+                $DOLLAR{pageProperties.<caret>}
             </div>""",
             *allListProperties)
 
     fun testPropertyAccessAfterGlobalInheritedPagePropertiesObject() = checkByTextDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
-                $DOLLAR{inheritedPageProperties}
+                $DOLLAR{inheritedPageProperties.<caret>}
             </div>""",
             *allListProperties)
 
