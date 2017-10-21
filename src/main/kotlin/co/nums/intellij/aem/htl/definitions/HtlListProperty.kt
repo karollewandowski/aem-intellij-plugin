@@ -5,6 +5,7 @@ enum class HtlListProperty(
         val type: String,
         val description: String
 ) {
+
     INDEX(
             identifier = "index",
             type = "Number",
@@ -40,4 +41,5 @@ enum class HtlListProperty(
             type = "Boolean",
             description = "<code>true</code> if index is even"
     )
+
 }

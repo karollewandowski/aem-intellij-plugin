@@ -19,12 +19,10 @@ abstract class HtlTestBase : LightPlatformCodeInsightFixtureTestCase() {
     }
 
     protected fun testByText(before: String, after: String, action: () -> Unit) {
-        myFixture.configureByText(HtlFileType, before.trimIndent().replaceCaret())
+        myFixture.configureByText(HtlFileType, before.trimIndent())
         action()
-        myFixture.checkResult(after.trimIndent().replaceCaret())
+        myFixture.checkResult(after.trimIndent())
     }
-
-    private fun String.replaceCaret() = replace("__caret__", "<caret>")
 
     protected fun getFilePath() = "$relativeDataPath/${getTestName(true)}.html"
 
