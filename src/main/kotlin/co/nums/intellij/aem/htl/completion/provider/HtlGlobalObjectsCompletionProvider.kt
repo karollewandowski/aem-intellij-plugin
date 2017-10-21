@@ -3,11 +3,8 @@ package co.nums.intellij.aem.htl.completion.provider
 import co.nums.intellij.aem.htl.data.globalobjects.GlobalObject
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.service.HtlDefinitions
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
-import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElement
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.lookup.*
 import com.intellij.util.ProcessingContext
 
 object HtlGlobalObjectsCompletionProvider : CompletionProvider<CompletionParameters>() {
@@ -15,9 +12,9 @@ object HtlGlobalObjectsCompletionProvider : CompletionProvider<CompletionParamet
     private val globalObjectsElements = HtlDefinitions.globalObjects.map { it.toLookupElement() }
 
     private fun GlobalObject.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(this.name)
+        return LookupElementBuilder.create(name)
                 .withIcon(HtlIcons.HTL_GLOBAL_OBJECT)
-                .withTypeText(this.type)
+                .withTypeText(type)
                 .bold()
     }
 

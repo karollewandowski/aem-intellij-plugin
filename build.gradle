@@ -78,17 +78,19 @@ idea {
 }
 
 repositories {
+  mavenCentral()
   jcenter()
 }
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
-  testCompile 'org.junit.jupiter:junit-jupiter-params:5.0.1'
-  testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
-  testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.1'
-  testCompile 'org.mockito:mockito-core:2.2.21'
-  testCompile 'org.assertj:assertj-core:3.6.0'
+  compile "org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5"
+  testCompile "org.junit.jupiter:junit-jupiter-api:5.0.1"
+  testCompile "org.junit.jupiter:junit-jupiter-params:5.0.1"
+  testRuntime "org.junit.jupiter:junit-jupiter-engine:5.0.1"
+  testRuntime "org.junit.vintage:junit-vintage-engine:4.12.1"
+  testCompile "org.mockito:mockito-core:2.11.0"
+  testCompile "org.assertj:assertj-core:3.8.0"
 }
 
 lexerGenerationTask(project)

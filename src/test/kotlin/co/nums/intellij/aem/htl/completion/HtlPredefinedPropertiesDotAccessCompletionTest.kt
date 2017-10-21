@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.completion
 import co.nums.intellij.aem.htl.DOLLAR
 import co.nums.intellij.aem.htl.definitions.*
 
-class HtlPredefinedPropertiesCompletionTest : HtlCompletionTestBase() {
+class HtlPredefinedPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
 
     private val allPredefinedProperties = HtlPredefinedProperty.values()
             .filter { it.context == HtlPredefinedPropertyContext.GLOBAL_PROPERTIES_OBJECT }

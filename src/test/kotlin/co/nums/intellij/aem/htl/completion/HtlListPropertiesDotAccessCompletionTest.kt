@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.completion
 import co.nums.intellij.aem.htl.DOLLAR
 import co.nums.intellij.aem.htl.definitions.*
 
-class HtlListPropertiesCompletionTest : HtlCompletionTestBase() {
+class HtlListPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
 
     override val dataPath = "co/nums/intellij/aem/htl/completion/list/properties/fixtures"
 

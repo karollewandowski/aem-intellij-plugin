@@ -25,15 +25,18 @@ object HtlPatterns {
 
     val variable: ElementPattern<PsiElement> = psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.VARIABLE))
 
+    private val propertyIdentifierInDotPropertyAccess =
+            psiElement(HtlTypes.IDENTIFIER)
+                    .afterLeaf(psiElement(HtlTypes.DOT))
+                    .inside(psiElement(HtlTypes.DOT_PROPERTY_ACCESS))
+
+    private val propertyIdentifierInBracketPropertyAccess =
+            psiElement()
+                    .inside(psiElement(HtlTypes.STRING_LITERAL)
+                            .inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS)))
+
     val propertyIdentifier: ElementPattern<PsiElement> =
-            or(
-                    // FIXME:
-                    psiElement(HtlTypes.IDENTIFIER).afterLeaf(psiElement(HtlTypes.DOT))
-                            .inside(psiElement(HtlTypes.DOT_PROPERTY_ACCESS)),
-                    psiElement()
-                            .inside((psiElement(HtlTypes.STRING_LITERAL)).afterLeaf(psiElement(HtlTypes.LEFT_BRACKET)))
-                            .inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS))
-            )
+            or(propertyIdentifierInDotPropertyAccess, propertyIdentifierInBracketPropertyAccess)
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement().inside(xmlAttributeValue().withLocalName(or(

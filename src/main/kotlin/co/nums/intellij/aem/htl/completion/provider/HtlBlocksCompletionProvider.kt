@@ -14,11 +14,11 @@ object HtlBlocksCompletionProvider : UniqueIdentifiersProviderBase() {
     override val candidateLookupElements = HtlBlock.values().map { it.toLookupElement() }
 
     private fun HtlBlock.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(this.type)
+        return LookupElementBuilder.create(type)
                 .withIcon(HtlIcons.HTL_BLOCK)
                 .withTypeText("HTL block", true)
                 .bold()
-                .withInsertHandler(this.insertHandler)
+                .withInsertHandler(insertHandler)
     }
 
     override val identifiersContainerElementType: IElementType = XmlElementType.HTML_TAG

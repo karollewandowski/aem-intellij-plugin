@@ -56,8 +56,8 @@ object HtlPsiUtil {
      * @return referenced variable identifier or `null`
      */
     fun getReferencedVariableElement(htlPropertyIdentifier: PsiElement): PsiElement? {
-        val dotOrBracket = PsiTreeUtil.prevLeaf(htlPropertyIdentifier) ?: return null
-        val referencedElement = PsiTreeUtil.prevLeaf(dotOrBracket) ?: return null
+        val propertyAccess = PsiTreeUtil.getParentOfType(htlPropertyIdentifier, HtlPropertyAccess::class.java) ?: return null
+        val referencedElement = PsiTreeUtil.prevLeaf(propertyAccess) ?: return null
         if ((referencedElement as? LeafPsiElement)?.elementType === HtlTypes.IDENTIFIER && referencedElement.parent is HtlVariable) {
             return referencedElement
         }

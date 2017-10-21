@@ -56,6 +56,14 @@
         <postStartupActivity
                 implementation="co.nums.intellij.aem.version.SetAemVersionNotification"/>
 
+        <applicationService
+                serviceInterface="co.nums.intellij.aem.service.PluginInfoProvider"
+                serviceImplementation="co.nums.intellij.aem.service.PluginInfoProviderImpl"/>
+
+        <applicationService
+                serviceInterface="co.nums.intellij.aem.errorreports.GitHubIssueService"
+                serviceImplementation="co.nums.intellij.aem.errorreports.GitHubIssueServiceImpl"/>
+
         <projectService
                 serviceImplementation="co.nums.intellij.aem.settings.AemSettings"/>
 
@@ -143,6 +151,15 @@
                 implementationClass="co.nums.intellij.aem.htl.inspections.HtlIncorrectBlockTypeAnnotator"
                 order="after htlBlocksHighlighter"/>
 
+        <errorHandler implementation="co.nums.intellij.aem.errorreports.GitHubErrorReportSubmitter"/>
+
     </extensions>
+
+    <actions>
+        <action id="co.nums.intellij.aem.errorreports.TestExceptionAction"
+                class="co.nums.intellij.aem.errorreports.TestExceptionAction"
+                text="___ThrowTestException___">
+        </action>
+    </actions>
 
 </idea-plugin>

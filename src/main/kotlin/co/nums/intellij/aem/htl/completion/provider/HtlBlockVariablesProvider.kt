@@ -1,15 +1,12 @@
 package co.nums.intellij.aem.htl.completion.provider
 
+import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.BLOCK_VARIABLE
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.HOISTED_VARIABLE
-import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.search.HtlSearch
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
-import com.intellij.codeInsight.completion.CompletionResultSet
-import com.intellij.codeInsight.lookup.LookupElement
-import com.intellij.codeInsight.lookup.LookupElementBuilder
+import com.intellij.codeInsight.completion.*
+import com.intellij.codeInsight.lookup.*
 import com.intellij.lang.StdLanguages
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
@@ -47,9 +44,9 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
     }
 
     private fun HtlBlockVariable.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(this.identifier)
+        return LookupElementBuilder.create(identifier)
                 .bold()
-                .withTypeText(this.dataType)
+                .withTypeText(dataType)
                 .withIcon(HtlIcons.HTL_VARIABLE)
     }
 
