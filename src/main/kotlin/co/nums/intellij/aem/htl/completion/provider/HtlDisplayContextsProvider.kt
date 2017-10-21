@@ -1,18 +1,17 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.data.expressions.DisplayContext
+import co.nums.intellij.aem.htl.definitions.HtlDisplayContext
 import co.nums.intellij.aem.htl.icons.HtlIcons
-import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.*
 import com.intellij.util.ProcessingContext
 
 object HtlDisplayContextsProvider : CompletionProvider<CompletionParameters>() {
 
-    val displayContextElements = HtlDefinitions.displayContexts.map { it.toLookupElement() }
+    private val displayContextElements = HtlDisplayContext.values().map { it.toLookupElement() }
 
-    private fun DisplayContext.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(name)
+    private fun HtlDisplayContext.toLookupElement(): LookupElement {
+        return LookupElementBuilder.create(type)
                 .withIcon(HtlIcons.HTL_DISPLAY_CONTEXT)
                 .withTypeText("HTL display context", true)
                 .bold()
