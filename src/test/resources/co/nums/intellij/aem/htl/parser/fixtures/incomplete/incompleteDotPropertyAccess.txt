@@ -1,0 +1,16 @@
+HTL File: incompleteDotPropertyAccess.html
+  HtlExpressionImpl(EXPRESSION)
+    PsiElement(${)('${')
+    HtlLogicalOperationImpl(LOGICAL_OPERATION)
+      HtlLogicalOperandImpl(LOGICAL_OPERAND)
+        HtlVariableImpl(VARIABLE)
+          PsiElement(IDENTIFIER)('object')
+    PsiElement(.)('.')
+    PsiWhiteSpace(' ')
+    PsiErrorElement:IDENTIFIER expected, got '||'
+      PsiElement(||)('||')
+    PsiWhiteSpace(' ')
+    PsiElement(')(''')
+    PsiElement(STRING_CONTENT)('default value')
+    PsiElement(')(''')
+    PsiElement(})('}')
