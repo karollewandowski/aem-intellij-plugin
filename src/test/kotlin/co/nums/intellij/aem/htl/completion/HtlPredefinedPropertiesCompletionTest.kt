@@ -8,29 +8,30 @@ class HtlPredefinedPropertiesCompletionTest : HtlCompletionTestBase() {
     private val allPredefinedProperties = HtlPredefinedProperty.values()
             .filter { it.context == HtlPredefinedPropertyContext.GLOBAL_PROPERTIES_OBJECT }
             .map { it.identifier }
+            .toTypedArray()
 
     fun testPropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{properties.<caret></div>}", allPredefinedProperties)
+            checkByTextContainsAll("<div>$DOLLAR{properties.<caret></div>}", *allPredefinedProperties)
 
     fun testPagePropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{pageProperties.<caret></div>}", allPredefinedProperties)
+            checkByTextContainsAll("<div>$DOLLAR{pageProperties.<caret></div>}", *allPredefinedProperties)
 
     fun testInheritedPagePropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{inheritedPageProperties.<caret></div>}", allPredefinedProperties)
+            checkByTextContainsAll("<div>$DOLLAR{inheritedPageProperties.<caret></div>}", *allPredefinedProperties)
 
     fun testPropertiesGlobalObjectInAttributeProperty() =
-            checkByTextContainsAll("""<div style="$DOLLAR{properties.<caret>}"></div>""", allPredefinedProperties)
+            checkByTextContainsAll("""<div style="$DOLLAR{properties.<caret>}"></div>""", *allPredefinedProperties)
 
     fun testPredefinedPropertiesAfterImplicitListIdentifier() = checkByTextDoesNotContainAnyOf("""
         <div data-sly-list="$DOLLAR{anyList}">
             $DOLLAR{itemList.<caret>}
         </div>
-        """, allPredefinedProperties)
+        """, *allPredefinedProperties)
 
     fun testPredefinedPropertiesAfterExplicitListIdentifier() = checkByTextDoesNotContainAnyOf("""
         <div data-sly-list.product="$DOLLAR{anyList}">
             $DOLLAR{productList.<caret>}
         </div>
-        """, allPredefinedProperties)
+        """, *allPredefinedProperties)
 
 }

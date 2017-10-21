@@ -9,19 +9,19 @@ open class HtlCompletionTestBase : HtlTestBase() {
     protected fun checkContainsAll(vararg items: String) {
         myFixture.configureByFile(getFilePath())
         val variants = myFixture.completeBasic().map { it.lookupString }
-        assertThat(variants).`as`("completions").containsAll(items.asList())
+        assertThat(variants).`as`("completions").containsAll(items.asIterable())
     }
 
-    protected fun checkByTextContainsAll(text: String, items: List<String>) {
+    protected fun checkByTextContainsAll(text: String, vararg items: String) {
         myFixture.configureByText(HtlFileType, text)
         val variants = myFixture.completeBasic().map { it.lookupString }
-        assertThat(variants).`as`("completions").containsAll(items)
+        assertThat(variants).`as`("completions").containsAll(items.asIterable())
     }
 
-    protected fun checkByTextDoesNotContainAnyOf(text: String, items: List<String>) {
+    protected fun checkByTextDoesNotContainAnyOf(text: String, vararg items: String) {
         myFixture.configureByText(HtlFileType, text)
         val variants = myFixture.completeBasic().map { it.lookupString }
-        assertThat(variants).`as`("completions").doesNotContainAnyElementsOf(items)
+        assertThat(variants).`as`("completions").doesNotContainAnyElementsOf(items.asIterable())
     }
 
     protected fun checkAutoCompleted() = testByFile { myFixture.completeBasic() }
