@@ -104,21 +104,15 @@ comparison_operator ::= '>'
 
 property_access ::= bracket_property_access | dot_property_access
 
-bracket_property_access ::= '[' expr_node ']' {
-  pin=1
-}
+bracket_property_access ::= '[' expr_node ']'
 
-dot_property_access ::= '.' IDENTIFIER {
-  pin=1
-}
+dot_property_access ::= '.' IDENTIFIER
 
 private simple ::= atom
                  | array
                  | '(' expr_node ')'
 
-array ::= '[' value_list? ']' {
-  pin=1
-}
+array ::= '[' value_list? ']'
 
 private value_list ::= expr_node (',' expr_node)*
 
