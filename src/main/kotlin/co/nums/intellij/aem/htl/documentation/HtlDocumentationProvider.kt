@@ -27,7 +27,7 @@ class HtlDocumentationProvider : AbstractDocumentationProvider() {
         return when {
             element is XmlToken && element.isHtlBlock() -> HtlBlockDocGenerator.generateDoc(element)
             HtlPatterns.variable.accepts(element) -> HtlVariableDocGenerator.generateDoc(element)
-            HtlPatterns.propertyIdentifier.accepts(element) -> HtlPropertyDocGenerator.generateDoc(element)
+            HtlPatterns.propertyIdentifier.accepts(element) -> HtlPredefinedPropertyDocGenerator.generateDoc(element)
             HtlPatterns.optionIdentifier.accepts(element) -> HtlExpressionOptionDocGenerator.generateDoc(element)
             HtlPatterns.displayContextOptionValue.accepts(element) -> HtlDisplayContextDocGenerator.generateDoc(element)
             else -> null

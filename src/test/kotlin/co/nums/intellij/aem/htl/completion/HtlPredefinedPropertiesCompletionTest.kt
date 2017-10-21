@@ -1,11 +1,13 @@
 package co.nums.intellij.aem.htl.completion
 
 import co.nums.intellij.aem.htl.DOLLAR
-import co.nums.intellij.aem.htl.definitions.HtlPredefinedProperty
+import co.nums.intellij.aem.htl.definitions.*
 
 class HtlPredefinedPropertiesCompletionTest : HtlCompletionTestBase() {
 
-    private val allPredefinedProperties = HtlPredefinedProperty.values().map { it.identifier }
+    private val allPredefinedProperties = HtlPredefinedProperty.values()
+            .filter { it.context == HtlPredefinedPropertyContext.GLOBAL_PROPERTIES_OBJECT }
+            .map { it.identifier }
 
     fun testPropertiesGlobalObject() =
             checkByTextContainsAll("<div>$DOLLAR{properties.<caret></div>}", allPredefinedProperties)

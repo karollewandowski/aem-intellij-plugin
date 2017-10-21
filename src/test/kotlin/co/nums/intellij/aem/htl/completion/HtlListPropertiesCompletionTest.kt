@@ -1,12 +1,16 @@
 package co.nums.intellij.aem.htl.completion
 
-import co.nums.intellij.aem.htl.definitions.HtlListProperty
+import co.nums.intellij.aem.htl.DOLLAR
+import co.nums.intellij.aem.htl.definitions.*
 
 class HtlListPropertiesCompletionTest : HtlCompletionTestBase() {
 
     override val dataPath = "co/nums/intellij/aem/htl/completion/list/properties/fixtures"
 
-    private val allListProperties = HtlListProperty.values().map { it.identifier }.toTypedArray()
+    private val allListProperties = HtlPredefinedProperty.values()
+            .filter { it.context == HtlPredefinedPropertyContext.LIST }
+            .map { it.identifier }
+            .toTypedArray()
 
     fun testExplicitListVariableProperties() = checkContainsAll(*allListProperties)
     fun testExplicitNestedListVariableProperties() = checkContainsAll(*allListProperties)
@@ -14,5 +18,12 @@ class HtlListPropertiesCompletionTest : HtlCompletionTestBase() {
     fun testImplicitNestedListVariableProperties() = checkContainsAll(*allListProperties)
     fun testListVariablePropertiesFilteredBySingleLetterI() = checkContainsAll("index", "first", "middle")
     fun testMiddleListVariablePropertyAutoCompleted() = checkAutoCompleted()
+
+    fun testPropertyAccessAfterGlobalPropertiesObject() = checkByTextDoesNotContainAnyOf(
+            "$DOLLAR{properties}", allListProperties.asList())
+    fun testPropertyAccessAfterGlobalPagePropertiesObject() = checkByTextDoesNotContainAnyOf(
+            "$DOLLAR{pageProperties}", allListProperties.asList())
+    fun testPropertyAccessAfterGlobalInheritedPagePropertiesObject() = checkByTextDoesNotContainAnyOf(
+            "$DOLLAR{inheritedPageProperties}", allListProperties.asList())
 
 }
