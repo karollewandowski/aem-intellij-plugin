@@ -1,9 +1,8 @@
 package co.nums.intellij.aem.htl.psi.extensions
 
-import co.nums.intellij.aem.htl.definitions.isHtlIterableBlock
+import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.psi.*
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
-import co.nums.intellij.aem.htl.service.HtlDefinitions
 import com.intellij.lang.StdLanguages
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
@@ -17,10 +16,9 @@ fun PsiElement.isHtlExpressionToken() =
                 && (this.elementType === HtlTypes.EXPR_START
                 || this.elementType === HtlTypes.EXPR_END)
 
-
 fun PsiElement.isGlobalObjectPropertyAccess(): Boolean {
     val referencedVariable = HtlPsiUtil.getReferencedVariableElement(this) ?: return false
-    return HtlDefinitions.globalPropertyObjectsNames.contains(referencedVariable.text)
+    return HtlGlobalObject.predefinedPropertiesHoldersNames.contains(referencedVariable.text)
 }
 
 fun PsiElement.isListPropertyAccess(): Boolean {
