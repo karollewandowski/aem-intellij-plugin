@@ -9,4 +9,10 @@ open class HtlInsertHandlerTestBase : HtlTestBase() {
                 myFixture.completeBasic()
             }
 
+    protected fun testCompletionSelectFirstItem(before: String, after: String) =
+            testByText(before, after) {
+                myFixture.completeBasic()
+                myFixture.finishLookup('\n')
+            }
+
 }

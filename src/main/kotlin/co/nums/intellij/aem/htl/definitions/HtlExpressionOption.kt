@@ -16,108 +16,108 @@ enum class HtlExpressionOption(
     ),
     FORMAT(
             identifier = "format",
-            insertHandler = HtlExprOptionBracketsInsertHandler,
-            description = "Value(s) to apply on the formatting pattern provided in expression."
+            description = "Value(s) to apply on the formatting pattern provided in expression.",
+            insertHandler = HtlExprOptionBracketsInsertHandler
     ),
     SCHEME(
             identifier = "scheme",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the scheme part of URI provided in expression. Empty value removes the scheme."
+            description = "Sets the scheme part of URI provided in expression. Empty value removes the scheme.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     DOMAIN(
             identifier = "domain",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the domain part (host and port) of URI provided in expression."
+            description = "Sets the domain part (host and port) of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     LOCALE(
             identifier = "locale",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Overrides language from the source."
+            description = "Overrides language from the source.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     CONTEXT(
             identifier = "context",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Escaping policy to apply on expression value."
+            description = "Escaping policy to apply on expression value.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     HINT(
             identifier = "hint",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Information about the context for the translators."
+            description = "Information about the context for the translators.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     JOIN(
             identifier = "join",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Separator to use when joining array elements."
+            description = "Separator to use when joining array elements.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     PATH(
             identifier = "path",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets resource path of URI provided in expression."
+            description = "Sets resource path of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     PREPEND_PATH(
             identifier = "prependPath",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Path to add before resource path of URI provided in expression."
+            description = "Path to add before resource path of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     APPEND_PATH(
             identifier = "appendPath",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Path to add after resource path of URI provided in expression."
+            description = "Path to add after resource path of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     SELECTORS(
             identifier = "selectors",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets selectors part of URI provided in expression. Empty value removes all selectors."
+            description = "Sets selectors part of URI provided in expression. Empty value removes all selectors.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     ADD_SELECTORS(
             identifier = "addSelectors",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Selectors to add to URI provided in expression."
+            description = "Selectors to add to URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     REMOVE_SELECTORS(
             identifier = "removeSelectors",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Selectors to remove from URI provided in expression."
+            description = "Selectors to remove from URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     EXTENSION(
             identifier = "extension",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the extension of URI provided in expression. Empty value removes the extension."
+            description = "Sets the extension of URI provided in expression. Empty value removes the extension.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     SUFFIX(
             identifier = "suffix",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the suffix part of URI provided in expression. Empty value removes the suffix."
+            description = "Sets the suffix part of URI provided in expression. Empty value removes the suffix.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     PREPEND_SUFFIX(
             identifier = "prependSuffix",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Suffix to add before the suffix part of URI provided in expression."
+            description = "Suffix to add before the suffix part of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     APPEND_SUFFIX(
             identifier = "appendSuffix",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Suffix to add after the suffix part of URI provided in expression."
+            description = "Suffix to add after the suffix part of URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     QUERY(
             identifier = "query",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the query part of URI provided in expression. Value should be a map. Empty value removes the query part."
+            description = "Sets the query part of URI provided in expression. Value should be a map. Empty value removes the query part.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     ADD_QUERY(
             identifier = "addQuery",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Adds or extends the query part of URI provided in expression. Value should be a map."
+            description = "Adds or extends the query part of URI provided in expression. Value should be a map.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     REMOVE_QUERY(
             identifier = "removeQuery",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Identifiers of query parameters to remove from URI provided in expression."
+            description = "Identifiers of query parameters to remove from URI provided in expression.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     ),
     FRAGMENT(
             identifier = "fragment",
-            insertHandler = HtlExprOptionQuotesInsertHandler,
-            description = "Sets the fragment part of URI provided in expression. Empty value removes the fragment part."
+            description = "Sets the fragment part of URI provided in expression. Empty value removes the fragment part.",
+            insertHandler = HtlExprOptionQuotesInsertHandler
     )
 
 }
