@@ -25,7 +25,7 @@ class HtlCompletionContributor : CompletionContributor() {
         extend(
                 CompletionType.BASIC,
                 HtlPatterns.optionIdentifier,
-                HtlExprOptionsCompletionProvider
+                HtlExpressionOptionsCompletionProvider
         )
         extend(
                 CompletionType.BASIC,
