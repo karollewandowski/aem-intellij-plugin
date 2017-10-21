@@ -27,21 +27,21 @@ class HtlGlobalObjectsCompletionTest : HtlCompletionTestBase() {
             "<div>$DOLLAR{!<caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testInDotPropertyAccess() = checkByTextContainsAll(
+    fun testInDotPropertyAccess() = checkByTextDoesNotContainAnyOf(
             "<div>$DOLLAR{someValue.<caret>}</div>",
-            *emptyArray()) // only properties should be listed
+            *allGlobalObjectsNames)
 
-    fun testInStringInBracketPropertyAccess() = checkByTextContainsAll(
+    fun testInStringInBracketPropertyAccess() = checkByTextDoesNotContainAnyOf(
             "<div>$DOLLAR{someValue['<caret>']}</div>",
-            *emptyArray()) // only properties should be listed
+            *allGlobalObjectsNames)
 
     fun testInBracketPropertyAccess() = checkByTextContainsAll(
             "<div>$DOLLAR{someValue[<caret>]}</div>",
             *allGlobalObjectsNames)
 
-    fun testInOptionIdentifier() = checkByTextContainsAll(
+    fun testInOptionIdentifier() = checkByTextDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ <caret>}</div>",
-            *emptyArray()) // only options should be listed
+            *allGlobalObjectsNames)
 
     fun testInOptionValue() = checkByTextContainsAll(
             "<div>$DOLLAR{ @ option1=<caret>}</div>",

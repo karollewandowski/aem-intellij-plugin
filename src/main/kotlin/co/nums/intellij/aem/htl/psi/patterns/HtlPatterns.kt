@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.psi.patterns
 
 import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.psi.HtlTypes
-import com.intellij.patterns.ElementPattern
+import com.intellij.patterns.*
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.patterns.StandardPatterns.or
 import com.intellij.patterns.StandardPatterns.string
@@ -15,13 +15,11 @@ object HtlPatterns {
             psiElement(HtlTypes.IDENTIFIER)
                     .atStartOf(psiElement(HtlTypes.OPTION))
 
-    val displayContextOptionValue: ElementPattern<PsiElement> =
+    val displayContextOptionValue: PsiElementPattern.Capture<PsiElement> =
             psiElement()
-                    .inside(psiElement(HtlTypes.STRING_LITERAL).inside(psiElement(HtlTypes.OPTION)))
-                    .afterLeafSkipping(
-                            or(psiElement(HtlTypes.ASSIGN), psiElement(TokenType.WHITE_SPACE)),
-                            psiElement(HtlTypes.IDENTIFIER).withText("context")
-                    )
+                    .inside(psiElement(HtlTypes.STRING_LITERAL)
+                            .inside(psiElement(HtlTypes.OPTION)
+                                    .withChild(psiElement(HtlTypes.OPTION_NAME).withText("context"))))
 
     val variable: ElementPattern<PsiElement> = psiElement(HtlTypes.IDENTIFIER).inside(psiElement(HtlTypes.VARIABLE))
 
@@ -32,16 +30,14 @@ object HtlPatterns {
 
     private val propertyIdentifierInBracketPropertyAccess =
             psiElement()
-                    .inside(psiElement(HtlTypes.STRING_LITERAL)
-                            .inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS)))
+                    .inside(psiElement(HtlTypes.STRING_LITERAL).inside(psiElement(HtlTypes.BRACKET_PROPERTY_ACCESS)))
 
     val propertyIdentifier: ElementPattern<PsiElement> =
             or(propertyIdentifierInDotPropertyAccess, propertyIdentifierInBracketPropertyAccess)
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
-            psiElement().inside(xmlAttributeValue().withLocalName(or(
-                    string().equalTo(HtlBlock.USE.type),
-                    string().startsWith("${HtlBlock.USE.type}."))))
+            psiElement().inside(xmlAttributeValue().withLocalName(
+                    or(string().equalTo(HtlBlock.USE.type), string().startsWith("${HtlBlock.USE.type}."))))
 
     val expressionUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement()
