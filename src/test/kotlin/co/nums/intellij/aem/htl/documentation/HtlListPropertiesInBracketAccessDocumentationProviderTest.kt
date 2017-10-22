@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.DOLLAR
 
 class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentationProviderTest() {
 
-    fun testIndexPredefinedPropertyDoc() = doTest(
+    fun testIndexPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['index']}
                                   ^
@@ -12,7 +12,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Number</code><p>zero-based counter (<code>0..length-1</code>)</p>"
     )
 
-    fun testCountPredefinedPropertyDoc() = doTest(
+    fun testCountPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['count']}
                                   ^
@@ -20,7 +20,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Number</code><p>one-based counter (<code>1..length</code>)</p>"
     )
 
-    fun testFirstPredefinedPropertyDoc() = doTest(
+    fun testFirstPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['first']}
                                   ^
@@ -28,7 +28,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Boolean</code><p><code>true</code> for the first element being iterated</p>"
     )
 
-    fun testMiddlePredefinedPropertyDoc() = doTest(
+    fun testMiddlePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['middle']}
                                   ^
@@ -36,7 +36,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Boolean</code><p><code>true</code> if element being iterated is neither the first nor the last</p>"
     )
 
-    fun testLastPredefinedPropertyDoc() = doTest(
+    fun testLastPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['last']}
                                  ^
@@ -44,7 +44,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Boolean</code><p><code>true</code> for the last element being iterated</p>"
     )
 
-    fun testOddPredefinedPropertyDoc() = doTest(
+    fun testOddPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['odd']}
                                  ^
@@ -52,7 +52,7 @@ class HtlListPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentati
             "<code>Boolean</code><p><code>true</code> if index is odd</p>"
     )
 
-    fun testEvenPredefinedPropertyDoc() = doTest(
+    fun testEvenPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties['even']}
                                  ^

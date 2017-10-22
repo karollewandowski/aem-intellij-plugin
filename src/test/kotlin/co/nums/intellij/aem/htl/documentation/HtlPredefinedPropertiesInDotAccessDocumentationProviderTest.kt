@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.DOLLAR
 
 class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumentationProviderTest() {
 
-    fun testJcrTitlePredefinedPropertyDoc() = doTest(
+    fun testJcrTitlePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:title}
                                   ^
@@ -12,7 +12,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testJcrDescriptionPredefinedPropertyDoc() = doTest(
+    fun testJcrDescriptionPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:description}
                                     ^
@@ -20,7 +20,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testJcrLanguagePredefinedPropertyDoc() = doTest(
+    fun testJcrLanguagePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:language}
                                    ^
@@ -28,7 +28,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testJcrCreatedPredefinedPropertyDoc() = doTest(
+    fun testJcrCreatedPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:created}
                                    ^
@@ -36,7 +36,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>Date</code>"
     )
 
-    fun testJcrCreatedByPredefinedPropertyDoc() = doTest(
+    fun testJcrCreatedByPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:createdBy}
                                     ^
@@ -44,7 +44,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testJcrLastModifiedPredefinedPropertyDoc() = doTest(
+    fun testJcrLastModifiedPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:lastModified}
                                      ^
@@ -52,7 +52,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>Date</code>"
     )
 
-    fun testJcrLastModifiedByPredefinedPropertyDoc() = doTest(
+    fun testJcrLastModifiedByPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:lastModifiedBy}
                                        ^
@@ -60,7 +60,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testJcrPrimaryTypePredefinedPropertyDoc() = doTest(
+    fun testJcrPrimaryTypePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.jcr:primaryType}
                                     ^
@@ -68,7 +68,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testSlingKeyPredefinedPropertyDoc() = doTest(
+    fun testSlingKeyPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.sling:key}
                                  ^
@@ -76,7 +76,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testSlingMessagePredefinedPropertyDoc() = doTest(
+    fun testSlingMessagePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.sling:message}
                                     ^
@@ -84,7 +84,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testSlingResourceTypePredefinedPropertyDoc() = doTest(
+    fun testSlingResourceTypePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.sling:resourceType}
                                    ^
@@ -92,7 +92,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testSlingResourceSuperTypePredefinedPropertyDoc() = doTest(
+    fun testSlingResourceSuperTypePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.sling:resourceSuperType}
                                        ^
@@ -100,7 +100,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testCqLastModifiedPredefinedPropertyDoc() = doTest(
+    fun testCqLastModifiedPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.cq:lastModified}
                                     ^
@@ -108,7 +108,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>Date</code>"
     )
 
-    fun testCqLastModifiedByPredefinedPropertyDoc() = doTest(
+    fun testCqLastModifiedByPredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.cq:lastModifiedBy}
                                       ^
@@ -116,7 +116,7 @@ class HtlPredefinedPropertiesInDotAccessDocumentationProviderTest : HtlDocumenta
             "<code>String</code>"
     )
 
-    fun testCqTemplatePredefinedPropertyDoc() = doTest(
+    fun testCqTemplatePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties.cq:template}
                                      ^

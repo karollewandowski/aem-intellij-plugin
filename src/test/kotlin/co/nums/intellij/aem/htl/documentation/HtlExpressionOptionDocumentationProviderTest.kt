@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.DOLLAR
 
 class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTest() {
 
-    fun testI18nOptionDoc() = doTest(
+    fun testI18nOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ i18n='any'}
                         ^
@@ -12,7 +12,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Translates string to the resource language."
     )
 
-    fun testFormatOptionDoc() = doTest(
+    fun testFormatOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ format='any'}
                           ^
@@ -20,7 +20,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Value(s) to apply on the formatting pattern provided in expression."
     )
 
-    fun testSchemeOptionDoc() = doTest(
+    fun testSchemeOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ scheme='any'}
                           ^
@@ -28,7 +28,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets the scheme part of URI provided in expression. Empty value removes the scheme."
     )
 
-    fun testDomainOptionDoc() = doTest(
+    fun testDomainOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ domain='any'}
                          ^
@@ -36,7 +36,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets the domain part (host and port) of URI provided in expression."
     )
 
-    fun testLocaleOptionDoc() = doTest(
+    fun testLocaleOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ locale='any'}
                          ^
@@ -44,7 +44,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Overrides language from the source."
     )
 
-    fun testContextOptionDoc() = doTest(
+    fun testContextOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='any'}
                           ^
@@ -52,7 +52,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Escaping policy to apply on expression value."
     )
 
-    fun testHintOptionDoc() = doTest(
+    fun testHintOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ hint='any'}
                         ^
@@ -60,7 +60,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Information about the context for the translators."
     )
 
-    fun testJoinOptionDoc() = doTest(
+    fun testJoinOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ join='any'}
                         ^
@@ -68,7 +68,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Separator to use when joining array elements."
     )
 
-    fun testPathOptionDoc() = doTest(
+    fun testPathOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ path='any'}
                         ^
@@ -76,7 +76,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets resource path of URI provided in expression."
     )
 
-    fun testPrependPathOptionDoc() = doTest(
+    fun testPrependPathOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ prependPath='any'}
                             ^
@@ -84,7 +84,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Path to add before resource path of URI provided in expression."
     )
 
-    fun testAppendPathOptionDoc() = doTest(
+    fun testAppendPathOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ appendPath='any'}
                            ^
@@ -92,7 +92,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Path to add after resource path of URI provided in expression."
     )
 
-    fun testSelectorsOptionDoc() = doTest(
+    fun testSelectorsOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ selectors='any'}
                            ^
@@ -100,7 +100,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets selectors part of URI provided in expression. Empty value removes all selectors."
     )
 
-    fun testAddSelectorsOptionDoc() = doTest(
+    fun testAddSelectorsOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ addSelectors='any'}
                            ^
@@ -108,7 +108,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Selectors to add to URI provided in expression."
     )
 
-    fun testRemoveSelectorsOptionDoc() = doTest(
+    fun testRemoveSelectorsOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ removeSelectors='any'}
                             ^
@@ -116,7 +116,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Selectors to remove from URI provided in expression."
     )
 
-    fun testExtensionOptionDoc() = doTest(
+    fun testExtensionOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ extension='any'}
                            ^
@@ -124,7 +124,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets the extension of URI provided in expression. Empty value removes the extension."
     )
 
-    fun testSuffixOptionDoc() = doTest(
+    fun testSuffixOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ suffix='any'}
                          ^
@@ -132,7 +132,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets the suffix part of URI provided in expression. Empty value removes the suffix."
     )
 
-    fun testPrependSuffixOptionDoc() = doTest(
+    fun testPrependSuffixOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ prependSuffix='any'}
                             ^
@@ -140,7 +140,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Suffix to add before the suffix part of URI provided in expression."
     )
 
-    fun testAppendSuffixOptionDoc() = doTest(
+    fun testAppendSuffixOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ appendSuffix='any'}
                            ^
@@ -148,7 +148,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Suffix to add after the suffix part of URI provided in expression."
     )
 
-    fun testQueryOptionDoc() = doTest(
+    fun testQueryOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ query='any'}
                          ^
@@ -156,7 +156,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Sets the query part of URI provided in expression. Value should be a map. Empty value removes the query part."
     )
 
-    fun testAddQueryOptionDoc() = doTest(
+    fun testAddQueryOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ addQuery='any'}
                           ^
@@ -164,7 +164,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Adds or extends the query part of URI provided in expression. Value should be a map."
     )
 
-    fun testRemoveQueryOptionDoc() = doTest(
+    fun testRemoveQueryOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ removeQuery='any'}
                             ^
@@ -172,7 +172,7 @@ class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTes
             "Identifiers of query parameters to remove from URI provided in expression."
     )
 
-    fun testFragmentOptionDoc() = doTest(
+    fun testFragmentOptionDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ fragment='any'}
                           ^

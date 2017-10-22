@@ -12,14 +12,18 @@ const val CARET_MARKER = "^"
 abstract class HtlDocumentationProviderTest : HtlTestBase() {
 
     protected fun doTest(code: String, expected: String)
-            = doTest(code, expected, HtlDocumentationProvider::generateDoc)
+            = doTest(code, expected, HtlDocumentationProvider::generateDoc, dollarConstantUsed = false)
+
+    protected fun doTestWithDollarConstant(code: String, expected: String)
+            = doTest(code, expected, HtlDocumentationProvider::generateDoc, dollarConstantUsed = true)
 
     private inline fun doTest(code: String,
                               expected: String,
-                              block: HtlDocumentationProvider.(PsiElement, PsiElement?) -> String?) {
+                              block: HtlDocumentationProvider.(PsiElement, PsiElement?) -> String?,
+                              dollarConstantUsed: Boolean) {
         myFixture.configureByText(HtlFileType, code)
 
-        val (originalElement, _, offset) = findElementWithDataAndOffsetInEditor<PsiElement>()
+        val (originalElement, _, offset) = findElementWithDataAndOffsetInEditor<PsiElement>(dollarConstantUsed)
         val element = DocumentationManager.getInstance(project)
                 .findTargetElement(myFixture.editor, offset, myFixture.file, originalElement)!!
 
@@ -27,7 +31,7 @@ abstract class HtlDocumentationProviderTest : HtlTestBase() {
         assertSameLines(expected.trimIndent(), actual)
     }
 
-    protected inline fun <reified T : PsiElement> findElementWithDataAndOffsetInEditor(): Triple<T, String, Int> {
+    protected inline fun <reified T : PsiElement> findElementWithDataAndOffsetInEditor(dollarConstantUsed: Boolean): Triple<T, String, Int> {
         val (elementAtMarker, data, offset) = run {
             val text = myFixture.file.text
             val markerOffset = text.indexOf(CARET_MARKER)
@@ -37,7 +41,7 @@ abstract class HtlDocumentationProviderTest : HtlTestBase() {
             }
 
             val data = text.drop(markerOffset).removePrefix(CARET_MARKER).takeWhile { it != '\n' }.trim()
-            val logicalMarkerOffset = markerOffset + CARET_MARKER.length - "DOLLAR".length - 1  // "DOLLAR" because $DOLLAR is used to start exception
+            val logicalMarkerOffset = markerOffset + CARET_MARKER.length - (if (dollarConstantUsed) "DOLLAR" else "").length - 1
             val markerPosition = myFixture.editor.offsetToLogicalPosition(logicalMarkerOffset)
             val previousLine = LogicalPosition(markerPosition.line - 1, markerPosition.column)
             val elementOffset = myFixture.editor.logicalPositionToOffset(previousLine)

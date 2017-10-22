@@ -12,12 +12,12 @@ object HtlBlockDocGenerator {
                    <code>${this.type}</code>
                    <p>${this.doc.description}</p>
                    <ul>
-                     ${blockDetail("Element", this.doc.element)}
-                     ${blockDetail("Content of element", this.doc.elementContent)}
-                     ${blockDetail("Attribute value", this.doc.attributeValue)}
-                     ${blockDetail("Attribute identifier", this.doc.attributeIdentifier)}
+                   ${blockDetail("Element", this.doc.element)}
+                   ${blockDetail("Content of element", this.doc.elementContent)}
+                   ${blockDetail("Attribute value", this.doc.attributeValue)}
+                   ${blockDetail("Attribute identifier", this.doc.attributeIdentifier)}
                    </ul>
-                   """
+                   """.trimIndent()
 
     private fun blockDetail(name: String, value: String?) =
             if (value != null && value.isNotBlank()) "<li><strong>$name:</strong> $value</li>"

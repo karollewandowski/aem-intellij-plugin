@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.DOLLAR
 
 class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest() {
 
-    fun testPropertiesGlobalObjectDoc() = doTest(
+    fun testPropertiesGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{properties}
                         ^
@@ -12,7 +12,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.resource.ValueMap</code><p>List of properties of the current resource.</p>"
     )
 
-    fun testPagePropertiesGlobalObjectDoc() = doTest(
+    fun testPagePropertiesGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{pageProperties}
                         ^
@@ -20,7 +20,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.resource.ValueMap</code><p>List of page properties of the current page.</p>"
     )
 
-    fun testInheritedPagePropertiesGlobalObjectDoc() = doTest(
+    fun testInheritedPagePropertiesGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{inheritedPageProperties}
                         ^
@@ -28,7 +28,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.resource.ValueMap</code><p>List of inherited page properties of the current page.</p>"
     )
 
-    fun testComponentGlobalObjectDoc() = doTest(
+    fun testComponentGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{component}
                         ^
@@ -36,7 +36,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.components.Component</code><p>The current AEM component object of the current resource.</p>"
     )
 
-    fun testComponentContextGlobalObjectDoc() = doTest(
+    fun testComponentContextGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{componentContext}
                         ^
@@ -44,7 +44,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.components.ComponentContext</code><p>The current component context object of the request.</p>"
     )
 
-    fun testCurrentDesignGlobalObjectDoc() = doTest(
+    fun testCurrentDesignGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{currentDesign}
                         ^
@@ -52,7 +52,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.designer.Design</code><p>The current design object of the current page.</p>"
     )
 
-    fun testCurrentNodeGlobalObjectDoc() = doTest(
+    fun testCurrentNodeGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{currentNode}
                         ^
@@ -60,7 +60,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>javax.jcr.Node</code><p>The current JCR node object.</p>"
     )
 
-    fun testCurrentPageGlobalObjectDoc() = doTest(
+    fun testCurrentPageGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{currentPage}
                         ^
@@ -68,7 +68,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.Page</code><p>The current AEM WCM page object.</p>"
     )
 
-    fun testCurrentSessionGlobalObjectDoc() = doTest(
+    fun testCurrentSessionGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{currentSession}
                         ^
@@ -76,7 +76,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>javax.servlet.http.HttpSession</code><p>The current HTTP session object.</p>"
     )
 
-    fun testCurrentStyleGlobalObjectDoc() = doTest(
+    fun testCurrentStyleGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{currentStyle}
                         ^
@@ -84,7 +84,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.designer.Style</code><p>The current style object of the current cell.</p>"
     )
 
-    fun testDesignerGlobalObjectDoc() = doTest(
+    fun testDesignerGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{designer}
                         ^
@@ -92,7 +92,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.designer.Designer</code><p>The designer object used to access design information.</p>"
     )
 
-    fun testEditContextGlobalObjectDoc() = doTest(
+    fun testEditContextGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{editContext}
                         ^
@@ -100,7 +100,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.components.EditContext</code><p>The edit context object of the AEM component.</p>"
     )
 
-    fun testLogGlobalObjectDoc() = doTest(
+    fun testLogGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{log}
                      ^
@@ -108,7 +108,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.slf4j.Logger</code>"
     )
 
-    fun testOutGlobalObjectDoc() = doTest(
+    fun testOutGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{out}
                      ^
@@ -116,7 +116,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>java.io.PrintWriter</code>"
     )
 
-    fun testPageManagerGlobalObjectDoc() = doTest(
+    fun testPageManagerGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{pageManager}
                         ^
@@ -124,7 +124,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.PageManager</code><p>The page manager object for page level operations.</p>"
     )
 
-    fun testReaderGlobalObjectDoc() = doTest(
+    fun testReaderGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{reader}
                         ^
@@ -132,7 +132,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>java.io.BufferedReader</code>"
     )
 
-    fun testRequestGlobalObjectDoc() = doTest(
+    fun testRequestGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{request}
                         ^
@@ -140,7 +140,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.SlingHttpServletRequest</code><p>The current Sling HTTP request object.</p>"
     )
 
-    fun testResolverGlobalObjectDoc() = doTest(
+    fun testResolverGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{resolver}
                         ^
@@ -148,7 +148,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.resource.ResourceResolver</code><p>The Sling resource resolver object.</p>"
     )
 
-    fun testResourceGlobalObjectDoc() = doTest(
+    fun testResourceGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{resource}
                         ^
@@ -156,7 +156,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.resource.Resource</code><p>The current Sling resource object.</p>"
     )
 
-    fun testResourceDesignGlobalObjectDoc() = doTest(
+    fun testResourceDesignGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{resourceDesign}
                         ^
@@ -164,7 +164,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.designer.Design</code><p>The design object of the resource page.</p>"
     )
 
-    fun testResourcePageGlobalObjectDoc() = doTest(
+    fun testResourcePageGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{resourcePage}
                         ^
@@ -172,7 +172,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.day.cq.wcm.api.Page</code><p>The resource page object.</p>"
     )
 
-    fun testResponseGlobalObjectDoc() = doTest(
+    fun testResponseGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{response}
                         ^
@@ -180,7 +180,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.SlingHttpServletResponse</code><p>The current Sling HTTP response object.</p>"
     )
 
-    fun testSlingGlobalObjectDoc() = doTest(
+    fun testSlingGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{sling}
                       ^
@@ -188,7 +188,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>org.apache.sling.api.scripting.SlingScriptHelper</code><p>The Sling script helper object.</p>"
     )
 
-    fun testSlyWcmHelperGlobalObjectDoc() = doTest(
+    fun testSlyWcmHelperGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{slyWcmHelper}
                         ^
@@ -196,7 +196,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.adobe.cq.sightly.WCMScriptHelper</code>"
     )
 
-    fun testWcmmodeGlobalObjectDoc() = doTest(
+    fun testWcmmodeGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{wcmmode}
                         ^
@@ -204,7 +204,7 @@ class HtlGlobalObjectsDocumentationProviderTest : HtlDocumentationProviderTest()
             "<code>com.adobe.cq.sightly.SightlyWCMMode</code><p>Object containing information about current WCM mode.</p>"
     )
 
-    fun testXssAPIGlobalObjectDoc() = doTest(
+    fun testXssAPIGlobalObjectDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{xssAPI}
                       ^

@@ -4,7 +4,7 @@ import co.nums.intellij.aem.htl.DOLLAR
 
 class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest() {
 
-    fun testAttributeDisplayContextDoc() = doTest(
+    fun testAttributeDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='attribute'}
                                     ^
@@ -12,7 +12,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Applies HTML attribute value escaping."
     )
 
-    fun testAttributeNameDisplayContextDoc() = doTest(
+    fun testAttributeNameDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='attributeName'}
                                      ^
@@ -20,7 +20,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs nothing if the value doesn't correspond to the HTML attribute name syntax. Doesn't allow <code>style</code> and <code>on*</code> attributes."
     )
 
-    fun testCommentDisplayContextDoc() = doTest(
+    fun testCommentDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='comment'}
                                    ^
@@ -28,7 +28,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Applies HTML comment escaping."
     )
 
-    fun testElementNameDisplayContextDoc() = doTest(
+    fun testElementNameDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='elementName'}
                                      ^
@@ -36,7 +36,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Allows only element names that are white-listed, outputs <code>div</code> otherwise."
     )
 
-    fun testHtmlDisplayContextDoc() = doTest(
+    fun testHtmlDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='html'}
                                  ^
@@ -44,7 +44,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Removes markup that may contain XSS risks."
     )
 
-    fun testNumberDisplayContextDoc() = doTest(
+    fun testNumberDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='number'}
                                   ^
@@ -52,7 +52,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs zero if the value is not a number."
     )
 
-    fun testScriptCommentDisplayContextDoc() = doTest(
+    fun testScriptCommentDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='scriptComment'}
                                      ^
@@ -60,7 +60,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs nothing if value is trying to break out of the JavaScript comment context."
     )
 
-    fun testScriptRegExpDisplayContextDoc() = doTest(
+    fun testScriptRegExpDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='scriptRegExp'}
                                      ^
@@ -68,7 +68,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Applies JavaScript regular expression escaping."
     )
 
-    fun testScriptStringDisplayContextDoc() = doTest(
+    fun testScriptStringDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='scriptString'}
                                      ^
@@ -76,7 +76,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Applies JavaScript string escaping."
     )
 
-    fun testScriptTokenDisplayContextDoc() = doTest(
+    fun testScriptTokenDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='scriptToken'}
                                      ^
@@ -84,7 +84,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs nothing if the value doesn't correspond to the JavaScript token syntax."
     )
 
-    fun testStyleCommentDisplayContextDoc() = doTest(
+    fun testStyleCommentDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='styleComment'}
                                     ^
@@ -92,7 +92,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs nothing if value is trying to break out of the CSS comment context."
     )
 
-    fun testStyleStringDisplayContextDoc() = doTest(
+    fun testStyleStringDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='styleString'}
                                     ^
@@ -100,7 +100,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Applies CSS string escaping."
     )
 
-    fun testStyleTokenDisplayContextDoc() = doTest(
+    fun testStyleTokenDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='styleToken'}
                                     ^
@@ -108,7 +108,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Outputs nothing if the value doesn't correspond to the CSS token syntax."
     )
 
-    fun testTextDisplayContextDoc() = doTest(
+    fun testTextDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='text'}
                                  ^
@@ -116,7 +116,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Escapes all HTML tokens."
     )
 
-    fun testUnsafeDisplayContextDoc() = doTest(
+    fun testUnsafeDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='unsafe'}
                                   ^
@@ -124,7 +124,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             "Disables XSS protection."
     )
 
-    fun testUriDisplayContextDoc() = doTest(
+    fun testUriDisplayContextDoc() = doTestWithDollarConstant(
             """
             $DOLLAR{ @ context='uri'}
                                  ^
