@@ -6,7 +6,10 @@ import com.intellij.psi.PsiElement
 
 object HtlPredefinedPropertyDocGenerator {
 
-    private val predefinedPropertiesDocs = HtlPredefinedProperty.values().associate { Pair(it.identifier, it.description) }
+    private val predefinedPropertiesDocs = HtlPredefinedProperty.values().associate { Pair(it.identifier, it.getDocString()) }
+
+    private fun HtlPredefinedProperty.getDocString() =
+            "<code>$type</code>${if (description != null) "<p>$description</p>" else "" }"
 
     fun generateDoc(element: PsiElement): String? {
         return when {

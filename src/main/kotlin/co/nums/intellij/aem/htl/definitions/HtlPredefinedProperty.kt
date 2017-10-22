@@ -7,7 +7,7 @@ enum class HtlPredefinedProperty(
         val context: HtlPredefinedPropertyContext,
         val identifier: String,
         val type: String,
-        val description: String? = "<code>$type</code>"
+        val description: String? = null
 ) {
 
     JCR_TITLE(
