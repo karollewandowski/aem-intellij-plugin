@@ -2,14 +2,22 @@ package co.nums.intellij.aem.htl.psi.patterns
 
 import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.psi.HtlTypes
+import co.nums.intellij.aem.htl.psi.patterns.HtlBlockPattern.Companion.htlBlock
 import com.intellij.patterns.*
 import com.intellij.patterns.PlatformPatterns.psiElement
 import com.intellij.patterns.StandardPatterns.or
 import com.intellij.patterns.StandardPatterns.string
+import com.intellij.patterns.XmlPatterns.xmlAttribute
 import com.intellij.patterns.XmlPatterns.xmlAttributeValue
 import com.intellij.psi.*
+import com.intellij.psi.xml.XmlTokenType
 
 object HtlPatterns {
+
+    val xmlAttributeInHtlFile: PsiElementPattern.Capture<PsiElement> =
+            psiElement(XmlTokenType.XML_NAME)
+                    .inside(xmlAttribute())
+                    .inFile(HtlFilePattern.htlFile())
 
     val optionIdentifier: ElementPattern<PsiElement> =
             psiElement(HtlTypes.IDENTIFIER)
@@ -44,7 +52,5 @@ object HtlPatterns {
                     .inside(psiElement(HtlTypes.STRING_LITERAL)
                             .afterLeafSkipping(psiElement(TokenType.WHITE_SPACE), psiElement(HtlTypes.EXPR_START))
                             .inside(htlBlock(HtlBlock.USE.type)))
-
-    fun htlBlock(name: String) = HtlPattern().block(name)
 
 }

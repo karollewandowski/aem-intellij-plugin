@@ -12,6 +12,12 @@ open class HtlCompletionTestBase : HtlTestBase() {
         assertThat(variants).`as`("completions").containsAll(items.asIterable())
     }
 
+    protected fun checkDoesNotContainAnyOf(vararg items: String) {
+        myFixture.configureByFile(getFilePath())
+        val variants = myFixture.completeBasic().map { it.lookupString }
+        assertThat(variants).`as`("completions").doesNotContainAnyElementsOf(items.asIterable())
+    }
+
     protected fun checkByTextContainsAll(text: String, vararg items: String) {
         myFixture.configureByText(HtlFileType, text)
         val variants = myFixture.completeBasic().map { it.lookupString }
