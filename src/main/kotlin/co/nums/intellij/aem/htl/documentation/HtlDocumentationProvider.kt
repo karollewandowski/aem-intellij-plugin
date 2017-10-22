@@ -4,9 +4,7 @@ import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
 import co.nums.intellij.aem.htl.psi.patterns.HtlPatterns
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.openapi.editor.Editor
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiManager
+import com.intellij.psi.*
 import com.intellij.psi.xml.XmlToken
 
 class HtlDocumentationProvider : AbstractDocumentationProvider() {
@@ -32,10 +30,6 @@ class HtlDocumentationProvider : AbstractDocumentationProvider() {
             HtlPatterns.displayContextOptionValue.accepts(element) -> HtlDisplayContextDocGenerator.generateDoc(element)
             else -> null
         }
-    }
-
-    override fun getDocumentationElementForLookupItem(psiManager: PsiManager?, `object`: Any?, element: PsiElement?): PsiElement? {
-        return super.getDocumentationElementForLookupItem(psiManager, `object`, element)
     }
 
 }
