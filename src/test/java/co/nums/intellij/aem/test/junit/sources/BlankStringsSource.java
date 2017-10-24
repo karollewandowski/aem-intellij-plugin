@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @CsvSource({
-		",", // simulates null in first CSV column
-		"''",
-		"'   '"
+        ",", // simulates null in first CSV column
+        "''",
+        "'   '"
 })
 public @interface BlankStringsSource {
 }
