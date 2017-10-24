@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.file
 
 import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.highlighter.HtlTemplateHighlighter
-import co.nums.intellij.aem.htl.icons.HtlIcons
+import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.openapi.fileTypes.*
 
 object HtlFileType : LanguageFileType(HtlLanguage), TemplateLanguageFileType {
@@ -17,7 +17,7 @@ object HtlFileType : LanguageFileType(HtlLanguage), TemplateLanguageFileType {
 
     override fun getDescription() = "HTML Template Language file"
 
-    override fun getDefaultExtension() = "htl" // what about html?
+    override fun getDefaultExtension() = "htl" // must be other than html, to be properly substituted
 
     override fun getIcon() = HtlIcons.HTL_FILE
 

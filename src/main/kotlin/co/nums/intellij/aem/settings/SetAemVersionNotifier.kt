@@ -1,27 +1,31 @@
-package co.nums.intellij.aem.version
+package co.nums.intellij.aem.settings
 
-import co.nums.intellij.aem.settings.*
+import co.nums.intellij.aem.icons.AemIcons
+import co.nums.intellij.aem.service.AemFilesDetector
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.*
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.options.ShowSettingsUtil
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupActivity
 
 private const val VERSION_NOTIFICATION_DISABLED_PROPERTY_NAME = "aem-intellij-plugin.notifications.version.disabled"
 
-class SetAemVersionNotification : StartupActivity {
+class SetAemVersionNotifier : StartupActivity {
 
     private val aemPluginNotifications = NotificationGroup("AEM IntelliJ Plugin", NotificationDisplayType.STICKY_BALLOON, false)
 
     override fun runActivity(project: Project) {
-        if (notificationShouldBeShown(project)) {
+        val aemFilesDetector = ServiceManager.getService(AemFilesDetector::class.java)
+                ?: throw IllegalStateException("Failed to get ${AemFilesDetector::class.java.name}")
+        if (aemFilesDetector.hasAemFiles(project) && notificationNotShownYet(project)) {
             showVersionNotification(project)
         }
     }
 
-    private fun notificationShouldBeShown(project: Project) =
+    private fun notificationNotShownYet(project: Project) =
             !PropertiesComponent.getInstance(project).getBoolean(VERSION_NOTIFICATION_DISABLED_PROPERTY_NAME)
 
     private fun showVersionNotification(project: Project) {
@@ -32,6 +36,7 @@ class SetAemVersionNotification : StartupActivity {
                 NotificationType.INFORMATION,
                 null)
         notification
+                .setIcon(AemIcons.AEM_LOGO)
                 .setImportant(true)
                 .addAction(OpenSettings(project, notification))
                 .addAction(SuppressNotification(project, notification))

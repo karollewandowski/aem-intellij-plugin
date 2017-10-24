@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.htl.icons.HtlIcons
+import co.nums.intellij.aem.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.search.HtlJavaSearch
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElement

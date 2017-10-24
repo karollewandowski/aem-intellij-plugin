@@ -54,7 +54,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity
-                implementation="co.nums.intellij.aem.version.SetAemVersionNotification"/>
+                implementation="co.nums.intellij.aem.settings.SetAemVersionNotifier"/>
+
+        <applicationService
+                serviceInterface="co.nums.intellij.aem.service.AemFilesDetector"
+                serviceImplementation="co.nums.intellij.aem.service.AemFilesDetectorImpl"/>
 
         <applicationService
                 serviceInterface="co.nums.intellij.aem.service.PluginInfoProvider"

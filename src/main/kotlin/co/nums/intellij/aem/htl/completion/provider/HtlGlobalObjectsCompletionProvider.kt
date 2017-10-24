@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.completion.provider
 
 import co.nums.intellij.aem.htl.definitions.HtlGlobalObject
-import co.nums.intellij.aem.htl.icons.HtlIcons
+import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.util.ProcessingContext

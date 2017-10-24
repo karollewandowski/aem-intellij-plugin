@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.completion.provider
 import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.BLOCK_VARIABLE
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.HOISTED_VARIABLE
-import co.nums.intellij.aem.htl.icons.HtlIcons
+import co.nums.intellij.aem.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.search.HtlSearch
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.*

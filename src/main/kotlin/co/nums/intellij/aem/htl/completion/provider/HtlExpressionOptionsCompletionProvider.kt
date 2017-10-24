@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.completion.provider
 
 import co.nums.intellij.aem.htl.definitions.HtlExpressionOption
-import co.nums.intellij.aem.htl.icons.HtlIcons
+import co.nums.intellij.aem.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.HtlTypes
 import com.intellij.codeInsight.lookup.*
 import com.intellij.psi.tree.IElementType

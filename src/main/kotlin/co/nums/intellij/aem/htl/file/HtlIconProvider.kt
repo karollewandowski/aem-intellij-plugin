@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.file
 
-import co.nums.intellij.aem.htl.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.HtlFile
+import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.ide.IconProvider
 import com.intellij.openapi.util.Iconable
 import com.intellij.psi.PsiElement
