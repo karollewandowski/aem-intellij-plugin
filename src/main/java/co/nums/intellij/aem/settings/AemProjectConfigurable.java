@@ -52,7 +52,8 @@ public class AemProjectConfigurable implements Configurable {
         boolean aemSupportEnabled = aemSettings.getAemSupportEnabled();
         enableAemSupportCheckBox.setSelected(aemSupportEnabled);
         updateAemSupportDependantFields(aemSupportEnabled);
-        enableAemSupportCheckBox.addItemListener(event -> updateAemSupportDependantFields(aemSupportEnabled));
+        enableAemSupportCheckBox.addItemListener(
+                event -> updateAemSupportDependantFields(enableAemSupportCheckBox.isSelected()));
     }
 
     private void updateAemSupportDependantFields(boolean enabled) {
@@ -118,11 +119,12 @@ public class AemProjectConfigurable implements Configurable {
 
     @Override
     public void apply() throws ConfigurationException {
+        boolean restartRequired = isRestartRequired();
         aemSettings.setAemSupportEnabled(enableAemSupportCheckBox.isSelected());
         aemSettings.setManualVersionsEnabled(enableManualVersionsCheckBox.isSelected());
         aemSettings.setAemVersion(getVersion(aemVersion, "AEM version is null"));
         aemSettings.setHtlVersion(getVersion(htlVersion, "HTL version is null"));
-        if (isRestartRequired()) {
+        if (restartRequired) {
             ApplicationRestarter.INSTANCE.askForApplicationRestart();
         }
     }
