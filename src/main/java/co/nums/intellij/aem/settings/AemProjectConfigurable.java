@@ -1,13 +1,9 @@
 package co.nums.intellij.aem.settings;
 
-import co.nums.intellij.aem.messages.AemPluginBundle;
-import com.intellij.ide.IdeBundle;
-import com.intellij.openapi.application.ApplicationNamesInfo;
-import com.intellij.openapi.application.ex.ApplicationManagerEx;
+import co.nums.intellij.aem.service.ApplicationRestarter;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -35,7 +31,7 @@ public class AemProjectConfigurable implements Configurable {
     private final AemSettings aemSettings;
 
     public AemProjectConfigurable(Project project) {
-        this.aemSettings = AemSettingsKt.getAemSettings(project);
+        aemSettings = AemSettingsKt.getAemSettings(project);
     }
 
     @Override
@@ -56,8 +52,7 @@ public class AemProjectConfigurable implements Configurable {
         boolean aemSupportEnabled = aemSettings.getAemSupportEnabled();
         enableAemSupportCheckBox.setSelected(aemSupportEnabled);
         updateAemSupportDependantFields(aemSupportEnabled);
-        enableAemSupportCheckBox.addItemListener(
-                event -> updateAemSupportDependantFields(enableAemSupportCheckBox.isSelected()));
+        enableAemSupportCheckBox.addItemListener(event -> updateAemSupportDependantFields(aemSupportEnabled));
     }
 
     private void updateAemSupportDependantFields(boolean enabled) {
@@ -109,6 +104,11 @@ public class AemProjectConfigurable implements Configurable {
     }
 
     @Override
+    public String getDisplayName() {
+        return DISPLAY_NAME;
+    }
+
+    @Override
     public boolean isModified() {
         return aemSettings.getAemSupportEnabled() != enableAemSupportCheckBox.isSelected()
                 || aemSettings.getManualVersionsEnabled() != enableManualVersionsCheckBox.isSelected()
@@ -118,13 +118,12 @@ public class AemProjectConfigurable implements Configurable {
 
     @Override
     public void apply() throws ConfigurationException {
-        boolean restartRequired = isRestartRequired();
         aemSettings.setAemSupportEnabled(enableAemSupportCheckBox.isSelected());
         aemSettings.setManualVersionsEnabled(enableManualVersionsCheckBox.isSelected());
         aemSettings.setAemVersion(getVersion(aemVersion, "AEM version is null"));
         aemSettings.setHtlVersion(getVersion(htlVersion, "HTL version is null"));
-        if (restartRequired && showRestartDialog() == Messages.YES) {
-            ApplicationManagerEx.getApplicationEx().restart(true);
+        if (isRestartRequired()) {
+            ApplicationRestarter.INSTANCE.askForApplicationRestart();
         }
     }
 
@@ -132,21 +131,6 @@ public class AemProjectConfigurable implements Configurable {
         return aemSettings.getAemSupportEnabled() != enableAemSupportCheckBox.isSelected()
                 || !aemSettings.getAemVersion().equals(aemVersion.getSelectedItem())
                 || !aemSettings.getHtlVersion().equals(htlVersion.getSelectedItem());
-    }
-
-    @Messages.YesNoResult
-    private int showRestartDialog() {
-        String action = IdeBundle.message(ApplicationManagerEx.getApplicationEx()
-                .isRestartCapable() ? "ide.restart.action" : "ide.shutdown.action");
-        String message = AemPluginBundle.message("ide.restart.required.message",
-                ApplicationNamesInfo.getInstance().getFullProductName());
-        return Messages.showYesNoDialog(
-                message,
-                AemPluginBundle.messageOrDefault("ide.restart.required.title", "AEM IntelliJ Plugin Update"),
-                action,
-                IdeBundle.message("ide.postpone.action"),
-                Messages.getQuestionIcon()
-        );
     }
 
     private static String getVersion(JComboBox<String> version, String exceptionMessage) throws ConfigurationException {
@@ -165,11 +149,6 @@ public class AemProjectConfigurable implements Configurable {
     @Override
     public void disposeUIResources() {
         // nothing to dispose
-    }
-
-    @Override
-    public String getDisplayName() {
-        return DISPLAY_NAME;
     }
 
     @Override
