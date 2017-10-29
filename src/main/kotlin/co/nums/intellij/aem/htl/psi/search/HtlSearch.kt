@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.psi.search
 
 import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.definitions.HtlBlock
-import co.nums.intellij.aem.htl.psi.extensions.*
+import co.nums.intellij.aem.htl.extensions.*
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.*

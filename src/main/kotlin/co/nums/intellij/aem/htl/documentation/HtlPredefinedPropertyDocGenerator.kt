@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.documentation
 
 import co.nums.intellij.aem.htl.definitions.HtlPredefinedProperty
-import co.nums.intellij.aem.htl.psi.extensions.*
+import co.nums.intellij.aem.htl.extensions.*
 import com.intellij.psi.PsiElement
 
 object HtlPredefinedPropertyDocGenerator {

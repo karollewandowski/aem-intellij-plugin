@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.highlighter
 
 import co.nums.intellij.aem.htl.definitions.HTL_BLOCK_PREFIX
-import co.nums.intellij.aem.htl.psi.extensions.*
+import co.nums.intellij.aem.htl.extensions.*
 import com.intellij.lang.annotation.*
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute

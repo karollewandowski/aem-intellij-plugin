@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider.insertHandler
 
-import co.nums.intellij.aem.htl.psi.extensions.getUseObjectType
+import co.nums.intellij.aem.htl.extensions.getUseObjectType
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.daemon.impl.quickfix.EmptyExpression
 import com.intellij.codeInsight.lookup.*

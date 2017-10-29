@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.editor.actions.backspace
 
-import co.nums.intellij.aem.htl.psi.extensions.isHtlExpressionToken
+import co.nums.intellij.aem.htl.extensions.isHtlExpressionToken
 import com.intellij.psi.PsiFile
 
 class HtlExpressionBackspaceHandler : AbstractBackspaceHandler() {

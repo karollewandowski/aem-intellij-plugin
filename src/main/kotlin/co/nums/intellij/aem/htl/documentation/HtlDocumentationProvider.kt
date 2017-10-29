@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.documentation
 
-import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
+import co.nums.intellij.aem.htl.extensions.isHtlBlock
 import co.nums.intellij.aem.htl.psi.patterns.HtlPatterns
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.openapi.editor.Editor

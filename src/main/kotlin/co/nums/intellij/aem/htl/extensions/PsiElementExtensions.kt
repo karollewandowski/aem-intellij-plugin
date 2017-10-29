@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.psi.extensions
+package co.nums.intellij.aem.htl.extensions
 
 import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.psi.*

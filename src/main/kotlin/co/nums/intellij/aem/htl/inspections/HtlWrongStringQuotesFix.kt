@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.extensions.canBeEdited
-import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
+import co.nums.intellij.aem.htl.extensions.isPartOfHtlString
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project

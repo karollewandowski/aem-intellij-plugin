@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.settings
 
 import co.nums.intellij.aem.icons.AemIcons
-import co.nums.intellij.aem.service.AemFilesDetector
+import co.nums.intellij.aem.service.JcrRoots
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.*
 import com.intellij.openapi.actionSystem.*
@@ -18,9 +18,9 @@ class SetAemVersionNotifier : StartupActivity {
     private val aemPluginNotifications = NotificationGroup("AEM IntelliJ Plugin", NotificationDisplayType.STICKY_BALLOON, false)
 
     override fun runActivity(project: Project) {
-        val aemFilesDetector = ServiceManager.getService(AemFilesDetector::class.java)
-                ?: throw IllegalStateException("Failed to get ${AemFilesDetector::class.java.name}")
-        if (aemFilesDetector.hasAemFiles(project) && notificationNotShownYet(project)) {
+        val jcrRoots = ServiceManager.getService(project, JcrRoots::class.java)
+                ?: throw IllegalStateException("Failed to get ${JcrRoots::class.java.name}")
+        if (jcrRoots.isNotEmpty() && notificationNotShownYet(project)) {
             showVersionNotification(project)
         }
     }

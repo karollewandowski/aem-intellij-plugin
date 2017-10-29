@@ -1,7 +1,7 @@
 package co.nums.intellij.aem.htl.editor.actions.backspace
 
 import co.nums.intellij.aem.extensions.removeText
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
+import co.nums.intellij.aem.htl.extensions.isHtl
 import com.intellij.codeInsight.editorActions.BackspaceHandlerDelegate
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile

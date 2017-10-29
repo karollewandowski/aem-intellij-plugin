@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.psi.extensions
+package co.nums.intellij.aem.htl.extensions
 
 import co.nums.intellij.aem.htl.HtlLanguage
 import com.intellij.psi.PsiFile

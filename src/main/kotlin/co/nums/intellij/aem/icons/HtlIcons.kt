@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.icons
 
-object HtlIcons : AbstractIcons(iconsFolderName = "htl") {
+object HtlIcons : AbstractIcons(iconsDirectory = "htl") {
 
     val HTL_FILE = loadIcon("htl-file")
     val HTL_BLOCK = loadIcon("htl-block")

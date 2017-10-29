@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.psi.patterns
 
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
+import co.nums.intellij.aem.htl.extensions.isHtl
 import com.intellij.patterns.*
 import com.intellij.patterns.PlatformPatterns.psiFile
 import com.intellij.psi.PsiFile

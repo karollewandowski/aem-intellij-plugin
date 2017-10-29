@@ -1,8 +1,8 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.htl.definitions.*
+import co.nums.intellij.aem.htl.extensions.*
 import co.nums.intellij.aem.htl.highlighter.createReferenceErrorAnnotation
-import co.nums.intellij.aem.htl.psi.extensions.*
 import com.intellij.lang.annotation.*
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute

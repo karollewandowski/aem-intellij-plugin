@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.editor.actions.backspace
 
-import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
+import co.nums.intellij.aem.htl.extensions.isPartOfHtlString
 import com.intellij.psi.PsiFile
 
 class HtlSingleQuotedStringBackspaceHandler : HtlStringBackspaceHandler('\'')
