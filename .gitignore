@@ -1,4 +1,5 @@
 .sandbox/
+out/
 
 # IDEA project files
 .idea/
