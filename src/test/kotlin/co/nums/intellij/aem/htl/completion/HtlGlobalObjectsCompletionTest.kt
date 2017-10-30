@@ -7,43 +7,43 @@ class HtlGlobalObjectsCompletionTest : HtlCompletionTestBase() {
 
     private val allGlobalObjectsNames = HtlGlobalObject.values().map { it.identifier }.toTypedArray()
 
-    fun testSimpleExpression() = checkByTextContainsAll(
+    fun testSimpleExpression() = checkContainsAll(
             "<div>$DOLLAR{<caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testFilteredByNamePart() = checkByTextContainsAll(
+    fun testFilteredByNamePart() = checkContainsAll(
             "<div>$DOLLAR{pa<caret>}</div>",
             "pageManager", "pageProperties", "currentPage", "inheritedPageProperties", "resourcePage")
 
-    fun testInLogicalOperator() = checkByTextContainsAll(
+    fun testInLogicalOperator() = checkContainsAll(
             "<div>$DOLLAR{someValue || <caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testInComparison() = checkByTextContainsAll(
+    fun testInComparison() = checkContainsAll(
             "<div>$DOLLAR{someValue > <caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testAfterNegation() = checkByTextContainsAll(
+    fun testAfterNegation() = checkContainsAll(
             "<div>$DOLLAR{!<caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testInDotPropertyAccess() = checkByTextDoesNotContainAnyOf(
+    fun testInDotPropertyAccess() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{someValue.<caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testInStringInBracketPropertyAccess() = checkByTextDoesNotContainAnyOf(
+    fun testInStringInBracketPropertyAccess() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{someValue['<caret>']}</div>",
             *allGlobalObjectsNames)
 
-    fun testInBracketPropertyAccess() = checkByTextContainsAll(
+    fun testInBracketPropertyAccess() = checkContainsAll(
             "<div>$DOLLAR{someValue[<caret>]}</div>",
             *allGlobalObjectsNames)
 
-    fun testInOptionIdentifier() = checkByTextDoesNotContainAnyOf(
+    fun testInOptionIdentifier() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ <caret>}</div>",
             *allGlobalObjectsNames)
 
-    fun testInOptionValue() = checkByTextContainsAll(
+    fun testInOptionValue() = checkContainsAll(
             "<div>$DOLLAR{ @ option1=<caret>}</div>",
             *allGlobalObjectsNames)
 

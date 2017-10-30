@@ -1,27 +1,70 @@
 package co.nums.intellij.aem.htl.inspections
 
+import co.nums.intellij.aem.htl.DOLLAR
 import co.nums.intellij.aem.htl.HtlAnnotatorTestBase
 
 class HtlWrongStringQuotesQuickFixTest : HtlAnnotatorTestBase() {
 
-    override val dataPath = "co/nums/intellij/aem/htl/inspections/wrong_string_quotes/fixes/fixtures"
+    fun testEmptySingleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{<caret>''}'></div>""",
+            """<div data-sly-text='$DOLLAR{<caret>""}'></div>"""
+    )
 
-    fun testEmptySingleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix()
-    fun testEmptySingleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix()
-    fun testEmptySingleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix()
+    fun testEmptySingleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{'<caret>'}'></div>""",
+            """<div data-sly-text='$DOLLAR{"<caret>"}'></div>"""
+    )
 
-    fun testEmptyDoubleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix()
-    fun testEmptyDoubleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix()
-    fun testEmptyDoubleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix()
+    fun testEmptySingleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{''<caret>}'></div>""",
+            """<div data-sly-text='$DOLLAR{""<caret>}'></div>"""
+    )
 
-    fun testNotEmptySingleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix()
-    fun testNotEmptySingleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix()
-    fun testNotEmptySingleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix()
+    fun testEmptyDoubleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{<caret>""}"></div>""",
+            """<div data-sly-text="$DOLLAR{<caret>''}"></div>"""
+    )
 
-    fun testNotEmptyDoubleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix()
-    fun testNotEmptyDoubleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix()
-    fun testNotEmptyDoubleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix()
+    fun testEmptyDoubleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{"<caret>"}"></div>""",
+            """<div data-sly-text="$DOLLAR{'<caret>'}"></div>"""
+    )
 
-    private fun checkFixQuotesQuickFix() = checkQuickFix("Fix quotes")
+    fun testEmptyDoubleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{""<caret>}"></div>""",
+            """<div data-sly-text="$DOLLAR{''<caret>}"></div>"""
+    )
+
+    fun testNotEmptySingleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{<caret>'not empty string'}'></div>""",
+            """<div data-sly-text='$DOLLAR{<caret>"not empty string"}'></div>"""
+    )
+
+    fun testNotEmptySingleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{'not emp<caret>ty string'}'></div>""",
+            """<div data-sly-text='$DOLLAR{"not emp<caret>ty string"}'></div>"""
+    )
+
+    fun testNotEmptySingleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix(
+            """<div data-sly-text='$DOLLAR{'not empty string'<caret>}'></div>""",
+            """<div data-sly-text='$DOLLAR{"not empty string"<caret>}'></div>"""
+    )
+
+    fun testNotEmptyDoubleQuotedStringCaretAtBeginning() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{<caret>"not empty string"}"></div>""",
+            """<div data-sly-text="$DOLLAR{<caret>'not empty string'}"></div>"""
+    )
+
+    fun testNotEmptyDoubleQuotedStringCaretInMiddle() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{"not emp<caret>ty string"}"></div>""",
+            """<div data-sly-text="$DOLLAR{'not emp<caret>ty string'}"></div>"""
+    )
+
+    fun testNotEmptyDoubleQuotedStringCaretAtEnd() = checkFixQuotesQuickFix(
+            """<div data-sly-text="$DOLLAR{"not empty string"<caret>}"></div>""",
+            """<div data-sly-text="$DOLLAR{'not empty string'<caret>}"></div>"""
+    )
+
+    private fun checkFixQuotesQuickFix(before: String, after: String) = checkQuickFix("Fix quotes", before, after)
 
 }
