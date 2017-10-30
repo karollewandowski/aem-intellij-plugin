@@ -22,7 +22,7 @@ enum class HtlBlock(
             identifierType = BlockIdentifierType.ATTRIBUTE_NAME,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
-                    description = "Sets an attribute or a group of attributes on the current element.",
+                    description = "Sets an attribute or a group of attributes on the current element (<code>style</code> and <code>on*</code> attributes are not supported due to XSS vulnerability).",
                     element = "always shown",
                     elementContent = "always shown",
                     attributeValue = "optional; <code>String</code> for setting attribute content, or <code>Boolean</code> for setting boolean attributes, or <code>Object</code> for setting multiple attributes; removes the attribute if the value is omitted.",

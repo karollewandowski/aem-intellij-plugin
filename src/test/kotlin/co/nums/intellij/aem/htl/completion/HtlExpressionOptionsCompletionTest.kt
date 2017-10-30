@@ -9,19 +9,19 @@ class HtlExpressionOptionsCompletionTest : HtlCompletionTestBase() {
             .map { it.identifier }
             .toTypedArray()
 
-    fun testExpressionOption() = checkByTextContainsAll(
+    fun testExpressionOption() = checkContainsAll(
             "<div>$DOLLAR{ @ <caret>}</div>",
             *allOptions)
 
-    fun testMultipleExpressionOptions() = checkByTextContainsAll(
+    fun testMultipleExpressionOptions() = checkContainsAll(
             "<div>$DOLLAR{ @ option1='test value', <caret>}</div>",
             *allOptions)
 
-    fun testIdentifierInExpressionPart() = checkByTextDoesNotContainAnyOf(
+    fun testIdentifierInExpressionPart() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{<caret>}</div>",
             *allOptions)
 
-    fun testIdentifierInOptionValue() = checkByTextDoesNotContainAnyOf(
+    fun testIdentifierInOptionValue() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ option1=<caret>}</div>",
             *allOptions)
 

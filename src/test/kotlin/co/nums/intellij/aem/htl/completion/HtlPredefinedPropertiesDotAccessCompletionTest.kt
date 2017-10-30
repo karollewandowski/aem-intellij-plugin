@@ -11,24 +11,24 @@ class HtlPredefinedPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
             .toTypedArray()
 
     fun testPropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{properties.<caret></div>}", *allPredefinedProperties)
+            checkContainsAll("<div>$DOLLAR{properties.<caret></div>}", *allPredefinedProperties)
 
     fun testPagePropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{pageProperties.<caret></div>}", *allPredefinedProperties)
+            checkContainsAll("<div>$DOLLAR{pageProperties.<caret></div>}", *allPredefinedProperties)
 
     fun testInheritedPagePropertiesGlobalObject() =
-            checkByTextContainsAll("<div>$DOLLAR{inheritedPageProperties.<caret></div>}", *allPredefinedProperties)
+            checkContainsAll("<div>$DOLLAR{inheritedPageProperties.<caret></div>}", *allPredefinedProperties)
 
     fun testPropertiesGlobalObjectInAttributeProperty() =
-            checkByTextContainsAll("""<div style="$DOLLAR{properties.<caret>}"></div>""", *allPredefinedProperties)
+            checkContainsAll("""<div style="$DOLLAR{properties.<caret>}"></div>""", *allPredefinedProperties)
 
-    fun testPredefinedPropertiesAfterImplicitListIdentifier() = checkByTextDoesNotContainAnyOf("""
+    fun testPredefinedPropertiesAfterImplicitListIdentifier() = checkDoesNotContainAnyOf("""
         <div data-sly-list="$DOLLAR{anyList}">
             $DOLLAR{itemList.<caret>}
         </div>
         """, *allPredefinedProperties)
 
-    fun testPredefinedPropertiesAfterExplicitListIdentifier() = checkByTextDoesNotContainAnyOf("""
+    fun testPredefinedPropertiesAfterExplicitListIdentifier() = checkDoesNotContainAnyOf("""
         <div data-sly-list.product="$DOLLAR{anyList}">
             $DOLLAR{productList.<caret>}
         </div>

@@ -8,7 +8,7 @@ class HtlBlocksDocumentationProviderTest : HtlDocumentationProviderTest() {
                       ^
             """, """
             <code>data-sly-attribute</code>
-            <p>Sets an attribute or a group of attributes on the current element.</p>
+            <p>Sets an attribute or a group of attributes on the current element (<code>style</code> and <code>on*</code> attributes are not supported due to XSS vulnerability).</p>
             <ul>
             <li><strong>Element:</strong> always shown</li>
             <li><strong>Content of element:</strong> always shown</li>

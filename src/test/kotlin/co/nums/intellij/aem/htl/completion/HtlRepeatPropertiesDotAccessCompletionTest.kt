@@ -5,20 +5,18 @@ import co.nums.intellij.aem.htl.definitions.*
 
 class HtlRepeatPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
 
-    override val dataPath = "co/nums/intellij/aem/htl/completion/repeat/properties/fixtures"
-
     private val allListProperties = HtlPredefinedProperty.values()
             .filter { it.context == HtlPredefinedPropertyContext.LIST }
             .map { it.identifier }
             .toTypedArray()
 
-    fun testExplicitListVariableProperties() = checkByTextContainsAll("""
+    fun testExplicitListVariableProperties() = checkContainsAll("""
             <div data-sly-repeat.element="$DOLLAR{anyList}">
                 $DOLLAR{elementList.<caret>}
             </div>""",
             *allListProperties)
 
-    fun testExplicitNestedListVariableProperties() = checkByTextContainsAll("""
+    fun testExplicitNestedListVariableProperties() = checkContainsAll("""
             <div data-sly-repeat.element="$DOLLAR{anyList}">
                 <div data-sly-repeat="$DOLLAR{anyList.anySublist}">
                     $DOLLAR{elementList.<caret>}
@@ -26,13 +24,13 @@ class HtlRepeatPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
             </div>""",
             *allListProperties)
 
-    fun testImplicitListVariableProperties() = checkByTextContainsAll("""
+    fun testImplicitListVariableProperties() = checkContainsAll("""
             <div data-sly-repeat="$DOLLAR{anyList}">
                 $DOLLAR{itemList.<caret>}
             </div>""",
             *allListProperties)
 
-    fun testImplicitNestedListVariableProperties() = checkByTextContainsAll("""
+    fun testImplicitNestedListVariableProperties() = checkContainsAll("""
             <div data-sly-repeat="$DOLLAR{anyList}">
                 <div data-sly-repeat.element="$DOLLAR{anyList.anySublist}">
                     $DOLLAR{itemList.<caret>}
@@ -40,30 +38,38 @@ class HtlRepeatPropertiesDotAccessCompletionTest : HtlCompletionTestBase() {
             </div>""",
             *allListProperties)
 
-    fun testListVariablePropertiesFilteredBySingleLetterI() = checkByTextContainsAll("""
+    fun testListVariablePropertiesFilteredBySingleLetterI() = checkContainsAll("""
             <div data-sly-repeat.element="$DOLLAR{anyList}">
                 $DOLLAR{elementList.i<caret>}
             </div>""",
             "index", "first", "middle")
 
-    fun testPropertyAccessAfterGlobalPropertiesObject() = checkByTextDoesNotContainAnyOf("""
+    fun testPropertyAccessAfterGlobalPropertiesObject() = checkDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
                 $DOLLAR{properties.<caret>}
             </div>""",
             *allListProperties)
 
-    fun testPropertyAccessAfterGlobalPagePropertiesObject() = checkByTextDoesNotContainAnyOf("""
+    fun testPropertyAccessAfterGlobalPagePropertiesObject() = checkDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
                 $DOLLAR{pageProperties.<caret>}
             </div>""",
             *allListProperties)
 
-    fun testPropertyAccessAfterGlobalInheritedPagePropertiesObject() = checkByTextDoesNotContainAnyOf("""
+    fun testPropertyAccessAfterGlobalInheritedPagePropertiesObject() = checkDoesNotContainAnyOf("""
             <div data-sly-repeat="$DOLLAR{anyList}">
                 $DOLLAR{inheritedPageProperties.<caret>}
             </div>""",
             *allListProperties)
 
-    fun testMiddleListVariablePropertyAutoCompleted() = checkAutoCompleted()
+    fun testMiddleListVariablePropertyAutoCompleted() = checkAutoCompleted("""
+            <div data-sly-repeat.element="$DOLLAR{anyList}">
+                $DOLLAR{elementList.mid<caret>}
+            </div>
+            """, """
+            <div data-sly-repeat.element="$DOLLAR{anyList}">
+                $DOLLAR{elementList.middle<caret>}
+            </div>
+            """)
 
 }

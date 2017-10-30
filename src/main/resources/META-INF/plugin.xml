@@ -150,6 +150,10 @@
                 language="HTML"
                 implementationClass="co.nums.intellij.aem.htl.inspections.HtlIncorrectBlockTypeAnnotator"
                 order="after htlBlocksHighlighter"/>
+        <annotator
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.inspections.DisallowedHtlAttributeBlockAnnotator"
+                order="after htlBlocksHighlighter"/>
 
         <errorHandler implementation="co.nums.intellij.aem.errorreports.GitHubErrorReportSubmitter"/>
 

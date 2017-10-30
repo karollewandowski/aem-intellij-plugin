@@ -1,21 +1,61 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.extensions.canBeEdited
+import co.nums.intellij.aem.htl.psi.HtlStringLiteral
 import co.nums.intellij.aem.htl.psi.extensions.isPartOfHtlString
+import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import com.intellij.codeInsight.intention.IntentionAction
+import com.intellij.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.Annotator
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.*
+import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 
-private const val NAME = "Fix quotes"
+/**
+ * Annotates HTL string literals with the same quotes as outer HTML attribute.
+ */
+class HtlWrongStringQuotesAnnotator : Annotator {
+
+    private val MESSAGE = "Quotes must differ from outer attribute's quotes"
+
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
+        if (element is HtlStringLiteral && element.hasWrongQuotes()) {
+            holder.createErrorAnnotation(element.getTextRange(), MESSAGE)
+                    .registerFix(stringQuotesFixFor(element))
+        }
+    }
+
+    private fun PsiElement.hasWrongQuotes(): Boolean {
+        val htlStringQuote = this.text[0]
+        val outerHtmlAttributeQuote = HtlPsiUtil.getOuterHtmlAttributeQuote(this)
+        return htlStringQuote == outerHtmlAttributeQuote
+    }
+
+    private fun stringQuotesFixFor(htlStringLiteral: HtlStringLiteral): HtlStringQuotesFix {
+        val htlStringQuote = htlStringLiteral.text[0]
+        return when (htlStringQuote) {
+            '\'' -> HtlStringSingleQuotesFix
+            '"' -> HtlStringDoubleQuotesFix
+            else -> throw IllegalStateException("Found invalid string quote character: $htlStringQuote")
+        }
+    }
+
+}
+
+
 private const val SINGLE_QUOTE = '\''
 private const val DOUBLE_QUOTE = '"'
 
 object HtlStringSingleQuotesFix : HtlStringQuotesFix(SINGLE_QUOTE)
 object HtlStringDoubleQuotesFix : HtlStringQuotesFix(DOUBLE_QUOTE)
 
+
 open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
+
+    private val fixName = "Fix quotes" // FIXME: move to messages bundle
 
     private val quoteToInsert: Char
         get() = if (quoteToFix == DOUBLE_QUOTE) SINGLE_QUOTE else DOUBLE_QUOTE
@@ -23,7 +63,7 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
     override fun invoke(project: Project, editor: Editor, file: PsiFile) {
         val currentElement = file.findElementAt(editor.caretModel.offset) ?: return
         val stringLiteralToFix = getStringLiteralToFix(currentElement)
-        if (stringLiteralToFix != null && stringLiteralToFix.canBeEdited()) {
+        if (stringLiteralToFix?.canBeEdited() == true) {
             fixQuotes(project, file, stringLiteralToFix)
         }
     }
@@ -52,9 +92,9 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
             currentText.length > 1
                     && currentText.endsWith(Character.toString(quoteToFix)) && !replacement.endsWith("\\" + quoteToFix)
 
-    override fun getText() = NAME
+    override fun getText() = fixName
 
-    override fun getFamilyName() = NAME
+    override fun getFamilyName() = fixName
 
     override fun startInWriteAction() = true
 

@@ -7,23 +7,23 @@ class HtlDisplayContextsCompletionTest : HtlCompletionTestBase() {
 
     private val allDisplayContextsNames = HtlDisplayContext.values().map { it.type }.toTypedArray()
 
-    fun testAfterContextOptionNotInString() = checkByTextDoesNotContainAnyOf(
+    fun testAfterContextOptionNotInString() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ context=<caret>}</div>",
             *allDisplayContextsNames)
 
-    fun testAfterContextOptionInString() = checkByTextContainsAll(
+    fun testAfterContextOptionInString() = checkContainsAll(
             "<div>$DOLLAR{ @ context='<caret>'}</div>",
             *allDisplayContextsNames)
 
-    fun testInDefaultStringContextOption() = checkByTextContainsAll(
+    fun testInDefaultStringContextOption() = checkContainsAll(
             "<div>$DOLLAR{ @ context=someValue || '<caret>'}</div>",
             *allDisplayContextsNames)
 
-    fun testAfterNotContextOption() = checkByTextDoesNotContainAnyOf(
+    fun testAfterNotContextOption() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ somethingElse=<caret>}</div>",
             *allDisplayContextsNames)
 
-    fun testAfterOptionIncludingContextInName() = checkByTextDoesNotContainAnyOf(
+    fun testAfterOptionIncludingContextInName() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{ @ notContext=<caret>}</div>",
             *allDisplayContextsNames)
 
