@@ -32,30 +32,24 @@ class MarkAsJcrRootAction : DumbAwareAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         if (!event.presentation.isEnabledAndVisible) return
+        val project = event.project ?: return
         val dirs = event.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY) ?: return
-        if (dirs.all { it.isDirectory }) {
-            var actionPerformed = false
-            val project = event.project ?: return
-            val jcrRoots = project.jcrRoots
-            val filesToReparse: MutableList<VirtualFile> = LinkedList()
-            when {
-                dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> dirs.forEach {
-                    jcrRoots.markAsJcrRoot(it)
-                    it.refresh(true, true)
-                    it.collectHtmlFilesToReparse(filesToReparse)
-                    actionPerformed = true
-                }
-                dirs.allCanBeUnmarkedAsJcrRoots(jcrRoots) -> dirs.forEach {
-                    jcrRoots.unmarkAsJcrRoot(it)
-                    it.refresh(true, true)
-                    it.collectHtmlFilesToReparse(filesToReparse)
-                    actionPerformed = true
-                }
-            }
-            if (actionPerformed) {
-                refresh(project, filesToReparse)
-            }
+        if (!dirs.all { it.isDirectory }) return
+        val jcrRoots = project.jcrRoots
+        when {
+            dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> doAction(project, dirs, jcrRoots::markAsJcrRoot)
+            dirs.allCanBeUnmarkedAsJcrRoots(jcrRoots) -> doAction(project, dirs, jcrRoots::unmarkAsJcrRoot)
         }
+    }
+
+    private fun doAction(project: Project, dirs: Array<out VirtualFile>, action: (file: VirtualFile) -> Unit) {
+        val filesToReparse: MutableList<VirtualFile> = LinkedList()
+        dirs.forEach {
+            action(it)
+            it.refresh(true, true)
+            it.collectHtmlFilesToReparse(filesToReparse)
+        }
+        refresh(project, filesToReparse)
     }
 
     private fun VirtualFile.collectHtmlFilesToReparse(filesToReparse: MutableList<VirtualFile>) {

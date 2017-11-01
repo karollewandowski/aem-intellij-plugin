@@ -9,6 +9,16 @@ import com.intellij.openapi.vfs.VfsUtilCore.visitChildrenRecursively
 import com.intellij.util.xmlb.XmlSerializerUtil
 import java.util.*
 
+
+private val jcrDetectableDirectories = setOf(
+        "apps",
+        "conf",
+        "content",
+        "etc",
+        "home",
+        "libs")
+
+
 @State(name = "JcrRoots")
 class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots.State> {
 
@@ -19,15 +29,6 @@ class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots
         var unmarkedJcrContentRoots: MutableSet<String> = HashSet()
     }
 
-    private val jcrDetectableDirectories = setOf(
-            "apps",
-            "conf",
-            "content",
-            "etc",
-            "home",
-            "libs"
-    )
-
     private val detectedJcrContentRoots = findPotentialRoots(project)
             .filter { it.name == JCR_ROOT_DIRECTORY_NAME || it.hasContentXmlFile() }
             .map { it.getProjectRelativePath(project) }
@@ -35,35 +36,9 @@ class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots
 
     private fun findPotentialRoots(project: Project): MutableSet<VirtualFile> {
         val potentialRoots: MutableSet<VirtualFile> = HashSet()
-        visitChildrenRecursively(project.baseDir, object : VirtualFileVisitor<VirtualFile>() {
-            override fun visitFileEx(file: VirtualFile): Result {
-                if (file.isDirectory) {
-                    if (file.name == JCR_ROOT_DIRECTORY_NAME) {
-                        potentialRoots.add(file)
-                        return SKIP_CHILDREN
-                    } else if (jcrDetectableDirectories.contains(file.name)) {
-                        return addNonStandardJcrRoot(file)
-                    }
-                }
-                return CONTINUE
-            }
-
-            private fun addNonStandardJcrRoot(file: VirtualFile): Result {
-                if (file.isJcrRootDirectoryNamedAsContent()) {
-                    potentialRoots.add(file)
-                } else {
-                    potentialRoots.add(file.parent)
-                }
-                return SKIP_CHILDREN
-            }
-        })
+        visitChildrenRecursively(project.baseDir, JcrRootsCollector(potentialRoots))
         return potentialRoots
     }
-
-    private fun VirtualFile.isJcrRootDirectoryNamedAsContent() =
-            this.name == "content" && this.children
-                    .map(VirtualFile::getName)
-                    .any { jcrDetectableDirectories.contains(it) }
 
     private fun VirtualFile.hasContentXmlFile(): Boolean {
         var contentXmlFound = false
@@ -93,17 +68,45 @@ class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots
 
     override fun loadState(state: State) = XmlSerializerUtil.copyBean(state, myState)
 
-    fun markAsJcrRoot(file: VirtualFile) {
-        val newJcrRootPath = file.getProjectRelativePath(project)
-        myState.markedJcrContentRoots.add(newJcrRootPath)
-        myState.unmarkedJcrContentRoots.remove(newJcrRootPath)
+    fun markAsJcrRoot(file: VirtualFile) = file.move(myState.unmarkedJcrContentRoots, myState.markedJcrContentRoots)
+
+    fun unmarkAsJcrRoot(file: VirtualFile) = file.move(myState.markedJcrContentRoots, myState.unmarkedJcrContentRoots)
+
+    private fun VirtualFile.move(from: MutableSet<String>, to: MutableSet<String>) {
+        val newJcrRootPath = this.getProjectRelativePath(project)
+        to.add(newJcrRootPath)
+        from.remove(newJcrRootPath)
     }
 
-    fun unmarkAsJcrRoot(file: VirtualFile) {
-        val newJcrRootPath = file.getProjectRelativePath(project)
-        myState.unmarkedJcrContentRoots.add(newJcrRootPath)
-        myState.markedJcrContentRoots.remove(newJcrRootPath)
+}
+
+private class JcrRootsCollector(private val potentialRoots: MutableSet<VirtualFile>): VirtualFileVisitor<VirtualFile>() {
+
+    override fun visitFileEx(file: VirtualFile): Result {
+        if (file.isDirectory) {
+            if (file.name == JCR_ROOT_DIRECTORY_NAME) {
+                potentialRoots.add(file)
+                return SKIP_CHILDREN
+            } else if (jcrDetectableDirectories.contains(file.name)) {
+                return addNonStandardJcrRoot(file)
+            }
+        }
+        return CONTINUE
     }
+
+    private fun addNonStandardJcrRoot(file: VirtualFile): Result {
+        if (file.isJcrRootDirectoryNamedAsContent()) {
+            potentialRoots.add(file)
+        } else {
+            potentialRoots.add(file.parent)
+        }
+        return SKIP_CHILDREN
+    }
+
+    private fun VirtualFile.isJcrRootDirectoryNamedAsContent() =
+            this.name == "content" && this.children
+                    .map(VirtualFile::getName)
+                    .any { jcrDetectableDirectories.contains(it) }
 
 }
 
