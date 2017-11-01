@@ -66,8 +66,7 @@
                 serviceImplementation="co.nums.intellij.aem.errorreports.GitHubIssueServiceImpl"/>
 
         <projectService
-                serviceInterface="co.nums.intellij.aem.service.JcrRoots"
-                serviceImplementation="co.nums.intellij.aem.service.JcrRootsImpl"/>
+                serviceImplementation="co.nums.intellij.aem.service.JcrRoots"/>
 
         <projectService
                 serviceImplementation="co.nums.intellij.aem.settings.AemSettings"/>
@@ -164,12 +163,21 @@
                 implementationClass="co.nums.intellij.aem.htl.inspections.DisallowedHtlAttributeBlockAnnotator"
                 order="after htlBlocksHighlighter"/>
 
-        <errorHandler implementation="co.nums.intellij.aem.errorreports.GitHubErrorReportSubmitter"/>
+        <errorHandler
+                implementation="co.nums.intellij.aem.errorreports.GitHubErrorReportSubmitter"/>
 
     </extensions>
 
     <actions>
-        <action id="co.nums.intellij.aem.errorreports.TestExceptionAction"
+        <action
+                id="co.nums.intellij.aem.action.MarkAsJcrRootAction"
+                class="co.nums.intellij.aem.action.MarkAsJcrRootAction"
+                text="JCR Root">
+            <add-to-group group-id="MarkRootGroup" anchor="last"/>
+        </action>
+
+        <action
+                id="co.nums.intellij.aem.errorreports.TestExceptionAction"
                 class="co.nums.intellij.aem.errorreports.TestExceptionAction"
                 text="___ThrowTestException___">
         </action>

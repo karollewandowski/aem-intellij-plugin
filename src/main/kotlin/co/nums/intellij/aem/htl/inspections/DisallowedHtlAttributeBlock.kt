@@ -1,20 +1,14 @@
 package co.nums.intellij.aem.htl.inspections
 
-import co.nums.intellij.aem.extensions.canBeEdited
-import co.nums.intellij.aem.extensions.removeText
-import co.nums.intellij.aem.extensions.replaceString
+import co.nums.intellij.aem.extensions.*
 import co.nums.intellij.aem.htl.definitions.HtlBlock
-import co.nums.intellij.aem.htl.psi.extensions.isHtl
-import co.nums.intellij.aem.htl.psi.extensions.isHtlBlock
+import co.nums.intellij.aem.htl.extensions.*
 import com.intellij.codeInsight.intention.IntentionAction
-import com.intellij.lang.annotation.AnnotationHolder
-import com.intellij.lang.annotation.Annotator
+import com.intellij.lang.annotation.*
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlToken
+import com.intellij.psi.*
+import com.intellij.psi.xml.*
 
 private val htlAttributeBlockType: String = HtlBlock.ATTRIBUTE.type
 

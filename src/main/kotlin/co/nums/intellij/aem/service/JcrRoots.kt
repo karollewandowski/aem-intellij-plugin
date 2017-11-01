@@ -2,20 +2,22 @@ package co.nums.intellij.aem.service
 
 import co.nums.intellij.aem.constants.JCR_ROOT_DIRECTORY_NAME
 import co.nums.intellij.aem.extensions.getProjectRelativePath
-import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.*
 import com.intellij.openapi.vfs.VfsUtilCore.visitChildrenRecursively
+import com.intellij.util.xmlb.XmlSerializerUtil
 import java.util.*
 
-interface JcrRoots {
-    fun isJcrContentRoot(path: String): Boolean
-    fun isNotEmpty(): Boolean
-    fun contains(file: VirtualFile): Boolean
-}
+@State(name = "JcrRoots")
+class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots.State> {
 
+    private val myState = State()
 
-class JcrRootsImpl(private val project: Project) : JcrRoots {
+    class State {
+        var markedJcrContentRoots: MutableSet<String> = HashSet()
+        var unmarkedJcrContentRoots: MutableSet<String> = HashSet()
+    }
 
     private val jcrDetectableDirectories = setOf(
             "apps",
@@ -27,12 +29,9 @@ class JcrRootsImpl(private val project: Project) : JcrRoots {
     )
 
     private val detectedJcrContentRoots = findPotentialRoots(project)
-            .filter { it.hasContentXmlFile() }
+            .filter { it.name == JCR_ROOT_DIRECTORY_NAME || it.hasContentXmlFile() }
             .map { it.getProjectRelativePath(project) }
             .toHashSet()
-
-    private val markedJcrContentRoots: MutableSet<String> = HashSet()
-    private val unmarkedJcrContentRoots: MutableSet<String> = HashSet()
 
     private fun findPotentialRoots(project: Project): MutableSet<VirtualFile> {
         val potentialRoots: MutableSet<VirtualFile> = HashSet()
@@ -43,15 +42,19 @@ class JcrRootsImpl(private val project: Project) : JcrRoots {
                         potentialRoots.add(file)
                         return SKIP_CHILDREN
                     } else if (jcrDetectableDirectories.contains(file.name)) {
-                        if (file.isJcrRootDirectoryNamedAsContent()) {
-                            potentialRoots.add(file)
-                        } else {
-                            potentialRoots.add(file.parent)
-                        }
-                        return SKIP_CHILDREN
+                        return addNonStandardJcrRoot(file)
                     }
                 }
                 return CONTINUE
+            }
+
+            private fun addNonStandardJcrRoot(file: VirtualFile): Result {
+                if (file.isJcrRootDirectoryNamedAsContent()) {
+                    potentialRoots.add(file)
+                } else {
+                    potentialRoots.add(file.parent)
+                }
+                return SKIP_CHILDREN
             }
         })
         return potentialRoots
@@ -76,13 +79,31 @@ class JcrRootsImpl(private val project: Project) : JcrRoots {
         return contentXmlFound
     }
 
-    override fun isJcrContentRoot(path: String) = effectiveJcrRoots().contains(path)
+    fun isJcrContentRoot(file: VirtualFile) = effectiveJcrRoots().contains(file.getProjectRelativePath(project))
 
-    override fun isNotEmpty() = effectiveJcrRoots().isNotEmpty()
+    fun isNotEmpty() = effectiveJcrRoots().isNotEmpty()
 
-    override fun contains(file: VirtualFile) = effectiveJcrRoots().any { file.getProjectRelativePath(project).startsWith(it) }
+    fun contains(file: VirtualFile) = effectiveJcrRoots().any { file.getProjectRelativePath(project).startsWith(it) }
 
-    private fun effectiveJcrRoots() = detectedJcrContentRoots.minus(unmarkedJcrContentRoots).plus(markedJcrContentRoots)
+    private fun effectiveJcrRoots() = detectedJcrContentRoots
+            .plus(myState.markedJcrContentRoots)
+            .minus(myState.unmarkedJcrContentRoots)
+
+    override fun getState() = myState
+
+    override fun loadState(state: State) = XmlSerializerUtil.copyBean(state, myState)
+
+    fun markAsJcrRoot(file: VirtualFile) {
+        val newJcrRootPath = file.getProjectRelativePath(project)
+        myState.markedJcrContentRoots.add(newJcrRootPath)
+        myState.unmarkedJcrContentRoots.remove(newJcrRootPath)
+    }
+
+    fun unmarkAsJcrRoot(file: VirtualFile) {
+        val newJcrRootPath = file.getProjectRelativePath(project)
+        myState.unmarkedJcrContentRoots.add(newJcrRootPath)
+        myState.markedJcrContentRoots.remove(newJcrRootPath)
+    }
 
 }
 
