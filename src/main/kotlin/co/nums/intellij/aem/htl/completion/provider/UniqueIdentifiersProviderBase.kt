@@ -1,12 +1,9 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import com.intellij.codeInsight.completion.CompletionParameters
-import com.intellij.codeInsight.completion.CompletionProvider
-import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.psi.impl.source.tree.TreeUtil
-import com.intellij.psi.tree.IElementType
-import com.intellij.psi.tree.TokenSet
+import com.intellij.psi.tree.*
 import com.intellij.util.ProcessingContext
 
 abstract class UniqueIdentifiersProviderBase : CompletionProvider<CompletionParameters>() {
@@ -18,7 +15,7 @@ abstract class UniqueIdentifiersProviderBase : CompletionProvider<CompletionPara
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet) {
         val existingIdentifiers = findExistingIdentifiers(parameters)
         candidateLookupElements
-                .filterNot { existingIdentifiers.contains(it.lookupString) }
+                .filterNot { it.lookupString in existingIdentifiers }
                 .forEach { result.addElement(it) }
     }
 

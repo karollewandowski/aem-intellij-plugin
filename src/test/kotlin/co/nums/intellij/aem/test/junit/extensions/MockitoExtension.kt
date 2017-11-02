@@ -14,7 +14,6 @@ class MockitoExtension : TestInstancePostProcessor, ParameterResolver {
     override fun supportsParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext) =
             parameterContext.parameter.isAnnotationPresent(Mock::class.java)
 
-
     override fun resolveParameter(parameterContext: ParameterContext, extensionContext: ExtensionContext) =
             getMock(parameterContext.parameter, extensionContext)
 
@@ -31,12 +30,11 @@ class MockitoExtension : TestInstancePostProcessor, ParameterResolver {
 
     private fun getMockName(parameter: Parameter): String? {
         val explicitMockName = parameter.getAnnotation(Mock::class.java).name.trim()
-        if (!explicitMockName.isEmpty()) {
-            return explicitMockName
-        } else if (parameter.isNamePresent) {
-            return parameter.name
+        return when {
+            !explicitMockName.isEmpty() -> explicitMockName
+            parameter.isNamePresent -> parameter.name
+            else -> null
         }
-        return null
     }
 
 }

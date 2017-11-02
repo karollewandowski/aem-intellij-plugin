@@ -13,14 +13,14 @@ fun XmlAttribute.isHtlBlock() = (firstChild as? XmlToken)?.isHtlBlock() ?: false
 
 fun XmlAttribute.isHtlVariableBlock(): Boolean {
     val blockType = (firstChild as? XmlToken)?.text?.substringBefore(".")?.toLowerCase()
-    return htlVariableBlockTypes.contains(blockType)
+    return blockType in htlVariableBlockTypes
 }
 
 fun XmlAttribute.isHtlVariableDeclaration(): Boolean {
     val blockName = (firstChild as? XmlToken)?.text ?: return false
     val blockType = blockName.substringBefore(".").toLowerCase()
-    return htlVariableBlockTypes.contains(blockType)
-            && (htlImplicitVariableBlockTypes.contains(blockType) || blockHasIdentifier(blockName))
+    return blockType in htlVariableBlockTypes
+            && (blockType in htlImplicitVariableBlockTypes || blockHasIdentifier(blockName))
 }
 
 private fun blockHasIdentifier(blockName: String): Boolean {

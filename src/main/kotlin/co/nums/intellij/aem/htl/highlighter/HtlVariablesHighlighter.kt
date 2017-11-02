@@ -11,7 +11,7 @@ class HtlVariablesHighlighter : Annotator {
 
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element is HtlVariable) {
-            val isGlobal = globalVariableNames.contains(element.text)
+            val isGlobal = element.text in globalVariableNames
             val color = if (isGlobal) HtlHighlighterColors.GLOBAL_OBJECT else HtlHighlighterColors.BLOCK_VARIABLE
             holder.highlightText(element.textRange, color)
         }

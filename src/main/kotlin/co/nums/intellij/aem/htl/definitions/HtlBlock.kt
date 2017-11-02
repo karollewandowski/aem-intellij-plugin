@@ -7,7 +7,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 const val HTL_BLOCK_PREFIX = "data-sly"
 
 private val htlIterableBlocksTypes = HtlBlock.values().filter { it.iterable }.map { it.type }.toSet()
-fun isHtlIterableBlock(blockType: String) = htlIterableBlocksTypes.contains(blockType)
+fun isHtlIterableBlock(blockType: String) = blockType in htlIterableBlocksTypes
 
 enum class HtlBlock(
         val type: String,
