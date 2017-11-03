@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
-class JcrRootsDetectorTest {
+class JcrRootsDetectorImplTest {
 
     private val testBaseDir = "MOCK_ROOT:/projectRoot"
 
-    private val cut = JcrRootsDetector
+    private val sut = JcrRootsDetectorImpl()
 
     @Test
     fun shouldNotDetectJcrRootsWhenGivenRootIsEmpty() {
         val projectRoot = directory("projectRoot")
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot)
 
         assertThat(detectJcrRoots).isEmpty()
     }
@@ -28,7 +28,7 @@ class JcrRootsDetectorTest {
                 directory("projectRoot").withChildren(
                         directory("jcr_root"))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly("/jcr_root")
     }
@@ -39,7 +39,7 @@ class JcrRootsDetectorTest {
                 directory("projectRoot").withChildren(
                         directory("sources").withChildren(directory("jcr_root")))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly("/sources/jcr_root")
     }
@@ -53,7 +53,7 @@ class JcrRootsDetectorTest {
                         directory("sources2").withChildren(
                                 directory("jcr_root")))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly(
                 "/sources1/jcr_root",
@@ -67,7 +67,7 @@ class JcrRootsDetectorTest {
                         directory("jcr_root"),
                         directory("sources").withChildren(directory("jcr_root")))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly(
                 "/jcr_root",
@@ -81,7 +81,7 @@ class JcrRootsDetectorTest {
                         directory("jcr_root")
                                 .withChildren(directory("jcr_root")))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly("/jcr_root")
     }
@@ -95,7 +95,7 @@ class JcrRootsDetectorTest {
                                 directory("apps").withChildren(
                                         file(".content.xml"))))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly("/non_standard_root")
     }
@@ -108,7 +108,7 @@ class JcrRootsDetectorTest {
                         directory("non_standard_root").withChildren(
                                 directory("apps"))) // no .content.xml file inside
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).isEmpty()
     }
@@ -121,7 +121,7 @@ class JcrRootsDetectorTest {
                                 directory("not-jcr-specific-dir").withChildren(
                                         file(".content.xml"))))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).isEmpty()
     }
@@ -134,7 +134,7 @@ class JcrRootsDetectorTest {
                                 directory("content").withChildren(
                                         file(".content.xml"))))
 
-        val detectJcrRoots = cut.detectJcrRoots(projectRoot, testBaseDir)
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
 
         assertThat(detectJcrRoots).containsOnly("/content")
     }

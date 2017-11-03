@@ -2,14 +2,18 @@ package co.nums.intellij.aem.service
 
 import co.nums.intellij.aem.constants.*
 import com.intellij.openapi.vfs.*
-import java.util.*
 
-object JcrRootsDetector {
+interface JcrRootsDetector {
+    fun detectJcrRoots(root: VirtualFile, basePath: String? = ""): Set<String>
+}
 
-    fun detectJcrRoots(root: VirtualFile, basePath: String? = "") = findPotentialRoots(root)
-                .filter { it.name == JCR_ROOT_DIRECTORY_NAME || it.hasContentXmlFile() }
-                .map { it.path.removePrefix(basePath ?: "") }
-                .toHashSet()
+class JcrRootsDetectorImpl : JcrRootsDetector {
+
+    override fun detectJcrRoots(root: VirtualFile, basePath: String?) =
+            findPotentialRoots(root)
+                    .filter { it.name == JCR_ROOT_DIRECTORY_NAME || it.hasContentXmlFile() }
+                    .map { it.path.removePrefix(basePath ?: "") }
+                    .toHashSet()
 
     private fun findPotentialRoots(root: VirtualFile): MutableSet<VirtualFile> {
         val potentialRoots: MutableSet<VirtualFile> = HashSet()

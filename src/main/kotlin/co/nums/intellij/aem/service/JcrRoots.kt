@@ -8,20 +8,32 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import java.util.*
 
 @State(name = "JcrRoots")
-class JcrRoots(private val project: Project) : PersistentStateComponent<JcrRoots.State> {
+class JcrRoots : PersistentStateComponent<JcrRoots.State> {
+
+    private val project: Project
+    private val jcrRootsDetector: JcrRootsDetector
 
     private val myState = State()
-
     class State {
         var markedJcrContentRoots: MutableSet<String> = HashSet()
         var unmarkedJcrContentRoots: MutableSet<String> = HashSet()
     }
 
-    private val detectedJcrContentRoots = JcrRootsDetector.detectJcrRoots(project.baseDir, project.basePath)
+    private val detectedJcrContentRoots: Set<String>
+
+    @SuppressWarnings("unused")
+    constructor(project: Project) : this(project, JcrRootsDetectorImpl())
+
+    // only for tests
+    internal constructor(project: Project, jcrRootsDetector: JcrRootsDetector) {
+        this.project = project
+        this.jcrRootsDetector = jcrRootsDetector
+        this.detectedJcrContentRoots = jcrRootsDetector.detectJcrRoots(project.baseDir, project.basePath)
+    }
 
     fun isJcrContentRoot(file: VirtualFile) = effectiveJcrRoots().contains(file.getProjectRelativePath(project))
 
-    fun isNotEmpty() = effectiveJcrRoots().isNotEmpty()
+    fun isEmpty() = effectiveJcrRoots().isEmpty()
 
     fun contains(file: VirtualFile) = effectiveJcrRoots().any { file.getProjectRelativePath(project).startsWith(it) }
 
