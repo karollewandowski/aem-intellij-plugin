@@ -24,6 +24,17 @@ tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
 }
 
+compileKotlin {
+  kotlinOptions {
+    apiVersion = "1.1"
+  }
+}
+compileTestKotlin {
+  kotlinOptions {
+    apiVersion = "1.1"
+  }
+}
+
 sourceSets {
   main {
     java.srcDirs += 'src/main/java'

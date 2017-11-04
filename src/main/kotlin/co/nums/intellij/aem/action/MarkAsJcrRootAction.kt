@@ -3,7 +3,8 @@ package co.nums.intellij.aem.action
 import co.nums.intellij.aem.extensions.*
 import co.nums.intellij.aem.icons.AemIcons
 import co.nums.intellij.aem.service.*
-import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys.VIRTUAL_FILE_ARRAY
 import com.intellij.openapi.project.*
 import com.intellij.openapi.vfs.*
 import com.intellij.util.FileContentUtil
@@ -12,10 +13,10 @@ import java.util.*
 class MarkAsJcrRootAction : DumbAwareAction() {
 
     override fun update(event: AnActionEvent) {
-        val dirs = event.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY)
+        val dirs = event.getData(VIRTUAL_FILE_ARRAY)
         val project = event.project
-        if (dirs != null && project != null && dirs.all { it.isDirectory }) {
-            val jcrRoots = project.jcrRoots
+        if (dirs?.isNotEmpty() == true && project != null && dirs.all { it.isDirectory }) {
+        val jcrRoots = project.jcrRoots
             when {
                 dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> event.presentation.icon = AemIcons.JCR_ROOT_DIR
                 dirs.allCanBeUnmarkedAsJcrRoots(jcrRoots) -> event.presentation.text = "Unmark as JCR Root"
@@ -33,8 +34,8 @@ class MarkAsJcrRootAction : DumbAwareAction() {
     override fun actionPerformed(event: AnActionEvent) {
         if (!event.presentation.isEnabledAndVisible) return
         val project = event.project ?: return
-        val dirs = event.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY) ?: return
-        if (!dirs.all { it.isDirectory }) return
+        val dirs = event.getData(VIRTUAL_FILE_ARRAY) ?: return
+        if (dirs.isEmpty() || !dirs.all { it.isDirectory }) return
         val jcrRoots = project.jcrRoots
         when {
             dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> doAction(project, dirs, jcrRoots::markAsJcrRoot)
