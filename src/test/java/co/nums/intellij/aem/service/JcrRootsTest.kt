@@ -3,6 +3,7 @@ package co.nums.intellij.aem.service
 import co.nums.intellij.aem.test.util.*
 import com.intellij.openapi.project.Project
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.*
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
@@ -226,9 +227,71 @@ class JcrRootsTest {
         assertThat(sut.contains(child)).isFalse()
     }
 
-    // TODO: add tests for marking
+    @Test
+    fun shouldMarkDirectoryAsJcrRoot() {
+        val testDirectory = directory("test_root")
 
-    // TODO: add tests for unmarking
+        sut = createSut()
+        sut.markAsJcrRoot(testDirectory)
+
+        assertThat(sut.isJcrContentRoot(testDirectory)).isTrue()
+    }
+
+    @Test
+    fun shouldMarkNestedDirectoryAsJcrRoot() {
+        val nestedRoot = directory("nested_root")
+        directory("test_dir").withChildren(nestedRoot)
+
+        sut = createSut()
+        sut.markAsJcrRoot(nestedRoot)
+
+        assertThat(sut.isJcrContentRoot(nestedRoot)).isTrue()
+    }
+
+    @Test
+    fun shouldThrowExceptionWhenMarkingNotDirectoryAsJcrRoot() {
+        val notDirectory = file("test_file")
+
+        sut = createSut()
+
+        assertThatThrownBy { sut.markAsJcrRoot(notDirectory) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("File ${notDirectory.path} is not directory")
+    }
+
+    @Test
+    fun shouldThrowExceptionWhenMarkingAlreadyMarkedDirectory() {
+        val detectedAlready = directory("test_dir")
+        `when`(jcrRootsDetector.detectJcrRoots(testDir, testBasePath)).thenReturn(setOf("/test_dir"))
+
+        sut = createSut()
+
+        assertThatThrownBy { sut.markAsJcrRoot(detectedAlready) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("Directory ${detectedAlready.path} or its parent is already marked as JCR Root")
+    }
+
+    @Test
+    fun shouldUnmarkDirectoryAsJcrRoot() {
+        val testDirectory = directory("test_dir")
+        `when`(jcrRootsDetector.detectJcrRoots(testDir, testBasePath)).thenReturn(setOf("/test_dir"))
+
+        sut = createSut()
+        sut.unmarkAsJcrRoot(testDirectory)
+
+        assertThat(sut.isJcrContentRoot(testDirectory)).isFalse()
+    }
+
+    @Test
+    fun shouldThrowExceptionWhenUnmarkDirectoryWhichIsNotJcrRoot() {
+        val notJcrRoot = directory("not_jcr_root")
+
+        sut = createSut()
+
+        assertThatThrownBy { sut.unmarkAsJcrRoot(notJcrRoot) }
+                .isInstanceOf(IllegalArgumentException::class.java)
+                .hasMessage("${notJcrRoot.path} is not JCR Root")
+    }
 
     private fun createSut(): JcrRoots {
         val sut = JcrRoots(project, jcrRootsDetector)

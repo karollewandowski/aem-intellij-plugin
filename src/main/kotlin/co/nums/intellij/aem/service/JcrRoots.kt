@@ -14,6 +14,7 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
     private val jcrRootsDetector: JcrRootsDetector
 
     private val myState = State()
+
     class State {
         var markedJcrContentRoots: MutableSet<String> = HashSet()
         var unmarkedJcrContentRoots: MutableSet<String> = HashSet()
@@ -21,7 +22,7 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
 
     private val detectedJcrContentRoots: Set<String>
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // used implicitly by platform
     constructor(project: Project) : this(project, JcrRootsDetectorImpl())
 
     // only for tests
@@ -45,9 +46,16 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
 
     override fun loadState(state: State) = XmlSerializerUtil.copyBean(state, myState)
 
-    fun markAsJcrRoot(file: VirtualFile) = file.move(from = myState.unmarkedJcrContentRoots, to = myState.markedJcrContentRoots)
+    fun markAsJcrRoot(dir: VirtualFile) {
+        if (!dir.isDirectory) throw IllegalArgumentException("File ${dir.path} is not directory")
+        if (this.contains(dir)) throw IllegalArgumentException("Directory ${dir.path} or its parent is already marked as JCR Root")
+        dir.move(from = myState.unmarkedJcrContentRoots, to = myState.markedJcrContentRoots)
+    }
 
-    fun unmarkAsJcrRoot(file: VirtualFile) = file.move(from = myState.markedJcrContentRoots, to = myState.unmarkedJcrContentRoots)
+    fun unmarkAsJcrRoot(dir: VirtualFile) {
+        if (!this.isJcrContentRoot(dir)) throw IllegalArgumentException("${dir.path} is not JCR Root")
+        dir.move(from = myState.markedJcrContentRoots, to = myState.unmarkedJcrContentRoots)
+    }
 
     private fun VirtualFile.move(from: MutableSet<String>, to: MutableSet<String>) {
         val newJcrRootPath = this.getProjectRelativePath(project)
