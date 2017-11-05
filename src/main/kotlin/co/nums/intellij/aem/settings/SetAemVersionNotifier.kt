@@ -1,6 +1,7 @@
 package co.nums.intellij.aem.settings
 
 import co.nums.intellij.aem.icons.AemIcons
+import co.nums.intellij.aem.messages.AemPluginBundle
 import co.nums.intellij.aem.service.jcrRoots
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.*
@@ -27,9 +28,8 @@ class SetAemVersionNotifier : StartupActivity {
 
     private fun showVersionNotification(project: Project) {
         val notification = aemPluginNotifications.createNotification(
-                "AEM IntelliJ Plugin",
-                "AEM version is set to <b>${project.aemSettings.aemVersion}</b>. " +
-                        "Set actually used version to make plugin fully compatible with your AEM.",
+                AemPluginBundle.message("plugin.name"),
+                AemPluginBundle.message("notification.aem.version.text", project.aemSettings.aemVersion),
                 NotificationType.INFORMATION,
                 null)
         notification
@@ -42,7 +42,7 @@ class SetAemVersionNotifier : StartupActivity {
 
 }
 
-private class OpenSettings(private val project: Project, private val notification: Notification) : AnAction("Change version") {
+private class OpenSettings(private val project: Project, private val notification: Notification) : AnAction(AemPluginBundle.message("notification.aem.version.action.change")) {
 
     override fun actionPerformed(event: AnActionEvent?) {
         project.disableVersionNotification()
@@ -54,7 +54,7 @@ private class OpenSettings(private val project: Project, private val notificatio
 
 }
 
-private class SuppressNotification(private val project: Project, private val notification: Notification) : AnAction("Don't show again") {
+private class SuppressNotification(private val project: Project, private val notification: Notification) : AnAction(AemPluginBundle.message("notification.action.do.not.show.again")) {
 
     override fun actionPerformed(event: AnActionEvent?) {
         project.disableVersionNotification()
