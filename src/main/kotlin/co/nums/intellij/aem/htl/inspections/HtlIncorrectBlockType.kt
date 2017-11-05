@@ -4,6 +4,7 @@ import co.nums.intellij.aem.extensions.canBeEdited
 import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.extensions.*
 import co.nums.intellij.aem.htl.highlighter.createReferenceErrorAnnotation
+import co.nums.intellij.aem.messages.HtlInspectionsBundle.message
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.*
 import com.intellij.openapi.editor.Editor
@@ -25,7 +26,7 @@ class HtlIncorrectBlockTypeAnnotator : Annotator {
     private fun highlightUnknownHtlBlockError(holder: AnnotationHolder, element: XmlAttribute) {
         val blockType = element.localName.substringBefore('.')
         val suggestedBlockType = blockStartingWith(blockType) ?: closestLevenshteinDistance(blockType)
-        val errorMessage = "Unknown HTL block: $blockType. Did you mean $suggestedBlockType?"
+        val errorMessage = message("inspection.htl.incorrect.block.type.annotation", blockType, suggestedBlockType)
         holder.createReferenceErrorAnnotation(element.nameElement.textRange, errorMessage)
                 .registerFix(HtlIncorrectBlockTypeFix(suggestedBlockType))
     }
@@ -62,9 +63,9 @@ class HtlIncorrectBlockTypeFix(private val blockType: String) : IntentionAction 
         }
     }
 
-    override fun getFamilyName() = "Fix incorrect HTL block type"
+    override fun getFamilyName() = message("inspection.htl.family")
 
-    override fun getText() = "Change to '$blockType'"
+    override fun getText() = message("inspection.htl.incorrect.block.type.fix.change", blockType)
 
     override fun startInWriteAction() = true
 

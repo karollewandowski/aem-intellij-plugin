@@ -17,7 +17,7 @@ class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest
             $DOLLAR{ @ context='attributeName'}
                                      ^
             """,
-            "Outputs nothing if the value doesn't correspond to the HTML attribute name syntax. Doesn't allow <code>style</code> and <code>on*</code> attributes."
+            "Outputs nothing if the value doesn't correspond to the HTML attribute name syntax. Doesn't allow <code>style</code> and <code>on</code>* attributes."
     )
 
     fun testCommentDisplayContextDoc() = doTestWithDollarConstant(

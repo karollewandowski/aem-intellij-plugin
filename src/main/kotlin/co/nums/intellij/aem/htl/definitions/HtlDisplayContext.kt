@@ -11,7 +11,7 @@ enum class HtlDisplayContext(
     ),
     ATTRIBUTE_NAME(
             type = "attributeName",
-            description = "Outputs nothing if the value doesn't correspond to the HTML attribute name syntax. Doesn't allow <code>style</code> and <code>on*</code> attributes."
+            description = "Outputs nothing if the value doesn't correspond to the HTML attribute name syntax. Doesn't allow <code>style</code> and <code>on</code>* attributes."
     ),
     COMMENT(
             type = "comment",

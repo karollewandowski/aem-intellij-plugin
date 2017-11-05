@@ -19,7 +19,7 @@ object ApplicationRestarter {
         val action = if (ApplicationManagerEx.getApplicationEx().isRestartCapable) "restart" else "shutdown"
         return Messages.showYesNoDialog(
                 AemPluginBundle.message("ide.restart.required.message", ApplicationNamesInfo.getInstance().fullProductName),
-                AemPluginBundle.messageOrDefault("ide.restart.required.title", "AEM IntelliJ Plugin Update"),
+                AemPluginBundle.message("ide.restart.required.title"),
                 IdeBundle.message("ide.$action.action"),
                 IdeBundle.message("ide.postpone.action"),
                 Messages.getQuestionIcon()

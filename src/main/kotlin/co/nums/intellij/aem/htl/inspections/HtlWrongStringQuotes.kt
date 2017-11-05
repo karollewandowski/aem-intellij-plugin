@@ -4,6 +4,7 @@ import co.nums.intellij.aem.extensions.canBeEdited
 import co.nums.intellij.aem.htl.extensions.isPartOfHtlString
 import co.nums.intellij.aem.htl.psi.HtlStringLiteral
 import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
+import co.nums.intellij.aem.messages.HtlInspectionsBundle.message
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.*
 import com.intellij.openapi.editor.Editor
@@ -16,11 +17,9 @@ import com.intellij.psi.util.PsiTreeUtil
  */
 class HtlWrongStringQuotesAnnotator : Annotator {
 
-    private val MESSAGE = "Quotes must differ from outer attribute's quotes"
-
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element is HtlStringLiteral && element.hasWrongQuotes()) {
-            holder.createErrorAnnotation(element.getTextRange(), MESSAGE)
+            holder.createErrorAnnotation(element.getTextRange(), message("inspections.htl.wrong.string.quotes.annotation"))
                     .registerFix(stringQuotesFixFor(element))
         }
     }
@@ -51,8 +50,6 @@ object HtlStringDoubleQuotesFix : HtlStringQuotesFix(DOUBLE_QUOTE)
 
 
 open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
-
-    private val fixName = "Fix quotes" // FIXME: move to messages bundle
 
     private val quoteToInsert: Char
         get() = if (quoteToFix == DOUBLE_QUOTE) SINGLE_QUOTE else DOUBLE_QUOTE
@@ -89,9 +86,9 @@ open class HtlStringQuotesFix(private val quoteToFix: Char) : IntentionAction {
             currentText.length > 1
                     && currentText.endsWith(Character.toString(quoteToFix)) && !replacement.endsWith("\\" + quoteToFix)
 
-    override fun getText() = fixName
+    override fun getText() = message("inspections.htl.wrong.string.quotes.fix")
 
-    override fun getFamilyName() = fixName
+    override fun getFamilyName() = message("inspection.htl.family")
 
     override fun startInWriteAction() = true
 

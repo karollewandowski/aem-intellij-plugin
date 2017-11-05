@@ -3,6 +3,7 @@ package co.nums.intellij.aem.htl.inspections
 import co.nums.intellij.aem.extensions.*
 import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.extensions.*
+import co.nums.intellij.aem.messages.HtlInspectionsBundle.message
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.*
 import com.intellij.openapi.editor.Editor
@@ -18,8 +19,9 @@ class DisallowedHtlAttributeBlockAnnotator : Annotator {
         if (element.containingFile.isHtl() && element is XmlAttribute && element.isHtlBlock()) {
             val disallowedName = element.getDisallowedName()
             if (disallowedName != null) {
-                val annotation = holder.createErrorAnnotation(element.nameElement.textRange,
-                        "The '$disallowedName' attribute cannot be generated with 'data-sly-attribute' due to XSS vulnerability.")
+                val annotation = holder.createErrorAnnotation(
+                        element.nameElement.textRange,
+                        message("inspection.htl.disallowed.attribute.block.annotation", disallowedName))
                 annotation.registerFix(DisallowedHtlAttributeBlockToPlainAttributeFix(disallowedName))
                 annotation.registerFix(RemoveDisallowedHtmlAttributeBlockFix(disallowedName))
             }
@@ -48,9 +50,9 @@ class DisallowedHtlAttributeBlockToPlainAttributeFix(private val disallowedAttri
         }
     }
 
-    override fun getText() = "Change 'data-sly-attribute.$disallowedAttributeName' to '$disallowedAttributeName'"
+    override fun getText() = message("inspection.htl.disallowed.attribute.block.fix.change.attribute", disallowedAttributeName)
 
-    override fun getFamilyName() = "HTL inspections" // TODO: add to messages bundle and use in others
+    override fun getFamilyName() = message("inspection.htl.family")
 
     override fun startInWriteAction() = true
 
@@ -69,9 +71,9 @@ class RemoveDisallowedHtmlAttributeBlockFix(private val disallowedAttributeName:
         }
     }
 
-    override fun getText() = "Remove 'data-sly-attribute.$disallowedAttributeName' attribute"
+    override fun getText() = message("inspection.htl.disallowed.attribute.block.fix.remove.attribute", disallowedAttributeName)
 
-    override fun getFamilyName() = "HTL inspections" // TODO: add to messages bundle and use in others
+    override fun getFamilyName() = message("inspection.htl.family")
 
     override fun startInWriteAction() = true
 
