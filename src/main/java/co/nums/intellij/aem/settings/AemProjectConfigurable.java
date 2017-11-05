@@ -1,5 +1,6 @@
 package co.nums.intellij.aem.settings;
 
+import co.nums.intellij.aem.messages.AemPluginBundle;
 import co.nums.intellij.aem.service.ApplicationRestarter;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
@@ -10,8 +11,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class AemProjectConfigurable implements Configurable {
-
-    public static final String DISPLAY_NAME = "AEM IntelliJ Plugin";
 
     private JPanel mainPanel;
     private JCheckBox enableAemSupportCheckBox;
@@ -63,7 +62,7 @@ public class AemProjectConfigurable implements Configurable {
 
     @Override
     public String getDisplayName() {
-        return DISPLAY_NAME;
+        return AemPluginBundle.message("plugin.name");
     }
 
     @Override

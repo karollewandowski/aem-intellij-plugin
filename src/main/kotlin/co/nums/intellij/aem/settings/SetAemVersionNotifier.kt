@@ -48,7 +48,7 @@ private class OpenSettings(private val project: Project, private val notificatio
         project.disableVersionNotification()
         notification.expire()
         ApplicationManager.getApplication().invokeLater {
-            ShowSettingsUtil.getInstance().showSettingsDialog(project, AemProjectConfigurable.DISPLAY_NAME)
+            ShowSettingsUtil.getInstance().showSettingsDialog(project, AemPluginBundle.message("plugin.name"))
         }
     }
 
