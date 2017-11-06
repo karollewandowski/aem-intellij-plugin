@@ -1,7 +1,6 @@
 package co.nums.intellij.aem.htl.completion.provider.insertHandler
 
 import co.nums.intellij.aem.htl.extensions.getUseObjectType
-import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.daemon.impl.quickfix.EmptyExpression
 import com.intellij.codeInsight.lookup.*
 import com.intellij.codeInsight.template.*
@@ -9,18 +8,12 @@ import com.intellij.codeInsight.template.impl.TemplateImpl
 import com.intellij.psi.codeStyle.NameUtil
 import com.intellij.psi.xml.XmlAttribute
 
-object HtlUseBlockInsertHandler : InsertHandler<LookupElement> {
+object HtlUseBlockInsertHandler : AbstractHtlLiveTemplateBlockInsertHandler() {
 
-    private val useBlockTemplate = TemplateImpl("", ".\$VAR_NAME\$=\"\$USE_TARGET\$\"\$END\$", "").apply {
+    override val template = TemplateImpl("", ".\$VAR_NAME\$=\"\$USE_TARGET\$\"\$END\$", "").apply {
         addVariable("USE_TARGET", "complete()", "", true)
         addVariable("VAR_NAME", UseVariableNames(), EmptyExpression(), true)
-        isToIndent = false
-        isToReformat = false
-        isToShortenLongNames = false
     }
-
-    override fun handleInsert(context: InsertionContext, item: LookupElement?) =
-            TemplateManager.getInstance(context.project).startTemplate(context.editor, useBlockTemplate)
 
 }
 

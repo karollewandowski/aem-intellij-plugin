@@ -4,32 +4,25 @@ import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.htl.definitions.HtlGlobalObject
 import co.nums.intellij.aem.htl.extensions.getSingularHtlForm
 import co.nums.intellij.aem.htl.psi.*
-import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.daemon.impl.quickfix.EmptyExpression
-import com.intellij.codeInsight.lookup.*
+import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.codeInsight.template.*
 import com.intellij.codeInsight.template.impl.TemplateImpl
 import com.intellij.psi.codeStyle.NameUtil
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 
-object HtlListBlockInsertHandler : InsertHandler<LookupElement> {
+object HtlListBlockInsertHandler : AbstractHtlLiveTemplateBlockInsertHandler() {
 
     /*
      * TODO (when references will be implemented)
      * make complete() return all iterable properties of objects available in current context, eg:
      * there is `model` use object with `products` property - in content assist add `model.products` at the top
      */
-    private val listBlockTemplate = TemplateImpl("", ".\$VAR_NAME\$=\"${'$'}{\$LIST_EXPRESSION\$}\"\$END\$", "").apply {
+    override val template = TemplateImpl("", ".\$VAR_NAME\$=\"${'$'}{\$LIST_EXPRESSION\$}\"\$END\$", "").apply {
         addVariable("LIST_EXPRESSION", "complete()", "", true)
         addVariable("VAR_NAME", ListItemVariableNames(), EmptyExpression(), true)
-        isToIndent = false
-        isToReformat = false
-        isToShortenLongNames = false
     }
-
-    override fun handleInsert(context: InsertionContext, item: LookupElement?) =
-            TemplateManager.getInstance(context.project).startTemplate(context.editor, listBlockTemplate)
 
 }
 
