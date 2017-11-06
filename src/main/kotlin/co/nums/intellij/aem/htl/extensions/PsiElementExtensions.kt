@@ -18,7 +18,7 @@ fun PsiElement.isHtlExpressionToken() =
 
 fun PsiElement.isGlobalObjectPropertyAccess(): Boolean {
     val referencedVariable = HtlPsiUtil.getReferencedVariableElement(this) ?: return false
-    return HtlGlobalObject.predefinedPropertiesHoldersNames.contains(referencedVariable.text)
+    return HtlGlobalObject.predefinedPropertiesHoldersIdentifiers.contains(referencedVariable.text)
 }
 
 fun PsiElement.isListPropertyAccess(): Boolean {

@@ -137,9 +137,14 @@ enum class HtlGlobalObject(
     );
 
     companion object {
-        val predefinedPropertiesHoldersNames = HtlGlobalObject.values()
+
+        val allIdentifiers = HtlGlobalObject.values()
+                .map { it.identifier }
+
+        val predefinedPropertiesHoldersIdentifiers = HtlGlobalObject.values()
                 .filter { it.predefinedPropertiesHolder }
                 .map { it.identifier }
+
     }
 
 }

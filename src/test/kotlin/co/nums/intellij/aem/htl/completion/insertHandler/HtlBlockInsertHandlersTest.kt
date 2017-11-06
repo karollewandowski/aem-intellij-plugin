@@ -31,13 +31,13 @@ class HtlBlockInsertHandlersTest : HtlInsertHandlerTestBase() {
     fun testListCompletion() = testCompletion("""
         <div data-sly-list<caret>
     """, """
-        <div data-sly-list="$DOLLAR{<caret>}"
+        <div data-sly-list.="$DOLLAR{}"<caret>
     """)
 
     fun testRepeatCompletion() = testCompletion("""
         <div data-sly-repeat<caret>
     """, """
-        <div data-sly-repeat="$DOLLAR{<caret>}"
+        <div data-sly-repeat.="$DOLLAR{}"<caret>
     """)
 
     fun testResourceCompletion() = testCompletion("""

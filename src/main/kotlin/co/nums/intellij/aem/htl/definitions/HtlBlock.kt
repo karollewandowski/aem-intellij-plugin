@@ -69,7 +69,7 @@ enum class HtlBlock(
             type = "data-sly-list",
             identifierType = BlockIdentifierType.BLOCK_VARIABLE,
             iterable = true,
-            insertHandler = HtlExprBlockInsertHandler,
+            insertHandler = HtlListBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Iterates over the content of each item in the attribute value.",
                     element = "shown only if the number of items from the attribute value is greater than 0, or if the attribute value is a string or number",
@@ -82,7 +82,7 @@ enum class HtlBlock(
             type = "data-sly-repeat",
             identifierType = BlockIdentifierType.BLOCK_VARIABLE,
             iterable = true,
-            insertHandler = HtlExprBlockInsertHandler,
+            insertHandler = HtlListBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Iterates over the content of each item in the attribute value and displays the containing element as many times as items in the attribute value.",
                     element = "shown only if the number of items from the attribute value is greater than 0, or if the attribute value is a string or number",

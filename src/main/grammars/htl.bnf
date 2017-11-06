@@ -55,6 +55,7 @@
     COMMENT_CONTENT='regexp:.*'
   ]
 
+  extends("bracket_property_access|dot_property_access")=property_access
   mixin("template_comment")="co.nums.intellij.aem.htl.psi.mixins.HtlCommentMixin"
 }
 
@@ -76,7 +77,7 @@ option ::= option_name ['=' expr_node]
 
 option_name ::= IDENTIFIER
 
-private expr_node ::= ternary_operator | logical_operation
+expr_node ::= ternary_operator | logical_operation
 
 ternary_operator ::= logical_operation '?' logical_operation ':' logical_operation {
   pin=2
@@ -108,9 +109,9 @@ bracket_property_access ::= '[' expr_node ']'
 
 dot_property_access ::= '.' IDENTIFIER
 
-private simple ::= atom
-                 | array
-                 | '(' expr_node ')'
+simple ::= atom
+         | array
+         | '(' expr_node ')'
 
 array ::= '[' value_list? ']'
 
