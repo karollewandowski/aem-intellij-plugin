@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.htl.documentation
 
-class HtlBlocksDocumentationProviderTest : HtlDocumentationProviderTest() {
+class HtlBlocksDocumentationProviderTest : HtlDocumentationProviderTestBase() {
 
     fun testAttributeBlockDoc() = doTest(
             """

@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.documentation
 
 import co.nums.intellij.aem.htl.DOLLAR
 
-class HtlListPropertiesInDotAccessDocumentationProviderTest : HtlDocumentationProviderTest() {
+class HtlListPropertiesInDotAccessDocumentationProviderTest : HtlDocumentationProviderTestBase() {
 
     fun testIndexPredefinedPropertyDoc() = doTestWithDollarConstant(
             """

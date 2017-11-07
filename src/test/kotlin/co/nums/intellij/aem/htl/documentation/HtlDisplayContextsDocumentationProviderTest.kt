@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.documentation
 
 import co.nums.intellij.aem.htl.DOLLAR
 
-class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTest() {
+class HtlDisplayContextsDocumentationProviderTest : HtlDocumentationProviderTestBase() {
 
     fun testAttributeDisplayContextDoc() = doTestWithDollarConstant(
             """

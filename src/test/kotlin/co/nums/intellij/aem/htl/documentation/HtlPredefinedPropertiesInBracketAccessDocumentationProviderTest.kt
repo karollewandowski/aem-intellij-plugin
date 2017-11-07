@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.documentation
 
 import co.nums.intellij.aem.htl.DOLLAR
 
-class HtlPredefinedPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentationProviderTest() {
+class HtlPredefinedPropertiesInBracketAccessDocumentationProviderTest : HtlDocumentationProviderTestBase() {
 
     fun testJcrTitlePredefinedPropertyDoc() = doTestWithDollarConstant(
             """
@@ -122,6 +122,14 @@ class HtlPredefinedPropertiesInBracketAccessDocumentationProviderTest : HtlDocum
                                       ^
             """,
             "<code>String</code>"
+    )
+
+    fun testNotGlobalObjectUnknownPropertyDoc() = doTestWithDollarConstant(
+            """
+            $DOLLAR{notGlobalObject['unknown']}
+                                         ^
+            """,
+            null
     )
 
 }

@@ -6,19 +6,21 @@ import com.intellij.codeInsight.documentation.DocumentationManager
 import com.intellij.openapi.editor.LogicalPosition
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
+import junit.framework.TestCase
+import junit.framework.TestCase.assertEquals
 
 const val CARET_MARKER = "^"
 
-abstract class HtlDocumentationProviderTest : HtlTestBase() {
+abstract class HtlDocumentationProviderTestBase : HtlTestBase() {
 
     protected fun doTest(code: String, expected: String)
             = doTest(code, expected, HtlDocumentationProvider::generateDoc, dollarConstantUsed = false)
 
-    protected fun doTestWithDollarConstant(code: String, expected: String)
+    protected fun doTestWithDollarConstant(code: String, expected: String?)
             = doTest(code, expected, HtlDocumentationProvider::generateDoc, dollarConstantUsed = true)
 
     private inline fun doTest(code: String,
-                              expected: String,
+                              expected: String?,
                               block: HtlDocumentationProvider.(PsiElement, PsiElement?) -> String?,
                               dollarConstantUsed: Boolean) {
         myFixture.configureByText(HtlFileType, code)
@@ -28,7 +30,11 @@ abstract class HtlDocumentationProviderTest : HtlTestBase() {
                 .findTargetElement(myFixture.editor, offset, myFixture.file, originalElement)!!
 
         val actual = HtlDocumentationProvider().block(element, originalElement)?.trim()
-        assertSameLines(expected.trimIndent(), actual)
+        if (expected == null) {
+            TestCase.assertEquals(expected, actual)
+        } else {
+            assertSameLines(expected.trimIndent(), actual)
+        }
     }
 
     protected inline fun <reified T : PsiElement> findElementWithDataAndOffsetInEditor(dollarConstantUsed: Boolean): Triple<T, String, Int> {

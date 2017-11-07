@@ -5,7 +5,7 @@ import co.nums.intellij.aem.htl.file.HtlFileType
 import com.intellij.ide.highlighter.HtmlFileType
 import org.assertj.core.api.Assertions.assertThat
 
-open class HtlCompletionTestBase : HtlTestBase() {
+abstract class HtlCompletionTestBase : HtlTestBase() {
 
     protected fun checkContainsAll(text: String, vararg items: String) {
         myFixture.configureByText(HtlFileType, text)

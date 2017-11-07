@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.documentation
 
 import co.nums.intellij.aem.htl.DOLLAR
 
-class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTest() {
+class HtlExpressionOptionDocumentationProviderTest : HtlDocumentationProviderTestBase() {
 
     fun testI18nOptionDoc() = doTestWithDollarConstant(
             """
