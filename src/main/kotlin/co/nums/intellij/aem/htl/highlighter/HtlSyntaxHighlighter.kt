@@ -13,7 +13,6 @@ import com.intellij.psi.tree.IElementType
 object HtlSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val ATTRIBUTES = mapOf(
-            HtlTypes.BOOLEAN_LITERAL to KEYWORD,
             HtlTypes.EXPR_START to KEYWORD,
             HtlTypes.EXPR_END to KEYWORD,
             HtlTypes.OPTIONS_SEPARATOR to KEYWORD,
@@ -22,6 +21,7 @@ object HtlSyntaxHighlighter : SyntaxHighlighterBase() {
             HtlTypes.STRING_CONTENT to STRING,
             HtlTypes.INTEGER_NUMBER to NUMBER,
             HtlTypes.FLOAT_NUMBER to NUMBER,
+            HtlTypes.BOOLEAN_LITERAL to KEYWORD,
             HtlTypes.COMMENT_START to HTML_COMMENT,
             HtlTypes.COMMENT_CONTENT to HTML_COMMENT,
             HtlTypes.COMMENT_END to HTML_COMMENT

@@ -9,10 +9,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.util.Consumer
 
 class SubmitFeedbackTask internal constructor(project: Project?,
-                                              title: String?,
+                                              title: String,
                                               private val error: GitHubErrorBean,
-                                              private val callback: Consumer<SubmittedReportInfo>)
-    : Backgroundable(project, title ?: "Submitting error report...", true) {
+                                              private val callback: Consumer<SubmittedReportInfo>) : Backgroundable(project, title, true) {
 
     override fun run(indicator: ProgressIndicator) {
         indicator.isIndeterminate = true

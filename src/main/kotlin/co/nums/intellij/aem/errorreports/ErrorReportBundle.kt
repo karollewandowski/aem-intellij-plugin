@@ -7,7 +7,7 @@ private const val BUNDLE = "messages.ErrorReportingBundle"
 
 object ErrorReportingBundle : AbstractBundle(BUNDLE) {
 
-    @JvmStatic fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, vararg params: Any?): String? =
-            getMessage(key, *params)
+    @JvmStatic
+    fun message(@PropertyKey(resourceBundle = BUNDLE) key: String, vararg params: Any?): String = getMessage(key, *params)
 
 }
