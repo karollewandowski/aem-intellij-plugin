@@ -18,4 +18,8 @@ class HtlBlocksCompletionTest : HtlCompletionTestBase() {
             """<div te<caret>""",
             "data-sly-template", "data-sly-test", "data-sly-text", "data-sly-attribute")
 
+    fun testShouldNotCompleteAlreadyTypedBlocks() = checkContainsAll(
+            """<div data-sly-text="any" te<caret>""",
+            "data-sly-template", "data-sly-test", "data-sly-attribute")
+
 }

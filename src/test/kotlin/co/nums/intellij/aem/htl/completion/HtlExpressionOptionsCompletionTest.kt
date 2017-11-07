@@ -17,6 +17,10 @@ class HtlExpressionOptionsCompletionTest : HtlCompletionTestBase() {
             "<div>$DOLLAR{ @ option1='test value', <caret>}</div>",
             *allOptions)
 
+    fun testShouldNotCompleteAlreadyExistingOptions() = checkContainsAll(
+            "<div>$DOLLAR{ @ context='any', <caret>}</div>",
+            *(allOptions.asList() - HtlExpressionOption.CONTEXT.identifier).toTypedArray())
+
     fun testIdentifierInExpressionPart() = checkDoesNotContainAnyOf(
             "<div>$DOLLAR{<caret>}</div>",
             *allOptions)
