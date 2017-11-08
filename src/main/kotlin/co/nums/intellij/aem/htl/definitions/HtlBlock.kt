@@ -67,7 +67,7 @@ enum class HtlBlock(
     ),
     LIST(
             type = "data-sly-list",
-            identifierType = BlockIdentifierType.BLOCK_VARIABLE,
+            identifierType = BlockIdentifierType.ELEMENT_CHILDREN_SCOPE_VARIABLE,
             iterable = true,
             insertHandler = HtlListBlockInsertHandler,
             doc = BlockDocumentation(
@@ -80,7 +80,7 @@ enum class HtlBlock(
     ),
     REPEAT(
             type = "data-sly-repeat",
-            identifierType = BlockIdentifierType.BLOCK_VARIABLE,
+            identifierType = BlockIdentifierType.ELEMENT_SCOPE_VARIABLE,
             iterable = true,
             insertHandler = HtlListBlockInsertHandler,
             doc = BlockDocumentation(
@@ -116,7 +116,7 @@ enum class HtlBlock(
     ),
     TEST(
             type = "data-sly-test",
-            identifierType = BlockIdentifierType.HOISTED_VARIABLE,
+            identifierType = BlockIdentifierType.GLOBAL_VARIABLE,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Keeps, or removes the element depending on the attribute value.",
@@ -151,7 +151,7 @@ enum class HtlBlock(
     ),
     USE(
             type = "data-sly-use",
-            identifierType = BlockIdentifierType.HOISTED_VARIABLE,
+            identifierType = BlockIdentifierType.GLOBAL_VARIABLE,
             insertHandler = HtlUseBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Exposes logic to the template.",
@@ -176,9 +176,11 @@ enum class BlockIdentifierType {
     NONE,
     ATTRIBUTE_NAME,
     TEMPLATE_NAME,
-    BLOCK_VARIABLE,
-    HOISTED_VARIABLE;
+    GLOBAL_VARIABLE,
+    ELEMENT_SCOPE_VARIABLE,
+    ELEMENT_CHILDREN_SCOPE_VARIABLE;
 
-    fun isVariable() = (this == HOISTED_VARIABLE || this == BLOCK_VARIABLE)
+    fun isVariable() =
+            this == GLOBAL_VARIABLE || this == ELEMENT_SCOPE_VARIABLE || this == ELEMENT_CHILDREN_SCOPE_VARIABLE
 
 }
