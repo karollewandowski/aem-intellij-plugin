@@ -1,9 +1,8 @@
 package co.nums.intellij.aem.htl.completion.provider
 
-import co.nums.intellij.aem.icons.HtlIcons
 import co.nums.intellij.aem.htl.psi.search.HtlJavaSearch
+import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.codeInsight.completion.*
-import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiClass
 import com.intellij.util.ProcessingContext
@@ -20,11 +19,10 @@ object HtlJavaUseApiClassesProvider : CompletionProvider<CompletionParameters>()
         return parameters.position.text.substring(0, offsetInCurrentElement)
     }
 
-    private fun javaUseApiClasses(project: Project, typedPrefix: String): Collection<LookupElement> {
-        return (HtlJavaSearch.useApiImplementers(project) + HtlJavaSearch.slingModels(project))
-                .filter { it.matches(typedPrefix) }
-                .map { it.toLookupElement() }
-    }
+    private fun javaUseApiClasses(project: Project, typedPrefix: String) =
+            (HtlJavaSearch.useApiImplementers(project) + HtlJavaSearch.slingModels(project))
+                    .filter { it.matches(typedPrefix) }
+                    .map { it.toLookupElement() }
 
     private fun PsiClass.matches(typedPrefix: String) =
             this.qualifiedName?.startsWith(typedPrefix) ?: false || this.name?.startsWith(typedPrefix) ?: false

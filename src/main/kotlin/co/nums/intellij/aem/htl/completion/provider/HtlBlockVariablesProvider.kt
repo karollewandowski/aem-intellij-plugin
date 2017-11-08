@@ -7,7 +7,7 @@ import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.GLOBAL_VARIABLE
 import co.nums.intellij.aem.htl.psi.search.HtlSearch
 import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.codeInsight.completion.*
-import com.intellij.codeInsight.lookup.*
+import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.StdLanguages
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.*
@@ -24,14 +24,13 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
         result.addAllElements(variableElements)
     }
 
-    private fun HtlBlockVariable.hasApplicableScopeFor(currentElement: PsiElement): Boolean {
-        return when (this.identifierType) {
-            GLOBAL_VARIABLE -> currentElement.isInsideOrAfterDeclarationBlockElement(this)
-            ELEMENT_SCOPE_VARIABLE -> currentElement.isInBlockElement(this)
-            ELEMENT_CHILDREN_SCOPE_VARIABLE -> currentElement.isInBlockElementChildren(this)
-            else -> false
-        }
-    }
+    private fun HtlBlockVariable.hasApplicableScopeFor(currentElement: PsiElement) =
+            when (this.identifierType) {
+                GLOBAL_VARIABLE -> currentElement.isInsideOrAfterDeclarationBlockElement(this)
+                ELEMENT_SCOPE_VARIABLE -> currentElement.isInBlockElement(this)
+                ELEMENT_CHILDREN_SCOPE_VARIABLE -> currentElement.isInBlockElementChildren(this)
+                else -> false
+            }
 
     private fun PsiElement.isInsideOrAfterDeclarationBlockElement(variable: HtlBlockVariable): Boolean {
         val blockRangeStart = (variable.definer.context as? XmlTag)?.textRange?.startOffset ?: return false
@@ -56,11 +55,10 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
         return childrenScopeStart < currentElementStartOffset && currentElementStartOffset < outerTag.textRange.endOffset
     }
 
-    private fun HtlBlockVariable.toLookupElement(): LookupElement {
-        return LookupElementBuilder.create(identifier)
-                .bold()
-                .withTypeText(dataType)
-                .withIcon(HtlIcons.HTL_VARIABLE)
-    }
+    private fun HtlBlockVariable.toLookupElement() =
+            LookupElementBuilder.create(identifier)
+                    .bold()
+                    .withTypeText(dataType)
+                    .withIcon(HtlIcons.HTL_VARIABLE)
 
 }
