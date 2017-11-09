@@ -35,13 +35,14 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
     private fun PsiElement.isInsideOrAfterDeclarationBlockElement(variable: HtlBlockVariable): Boolean {
         val blockRangeStart = (variable.definer.context as? XmlTag)?.textRange?.startOffset ?: return false
         val currentElementStartOffset = this.textRange.startOffset
-        return currentElementStartOffset > blockRangeStart
+        return currentElementStartOffset > blockRangeStart && !variable.definer.textRange.contains(currentElementStartOffset)
     }
 
     private fun PsiElement.isInBlockElement(variable: HtlBlockVariable): Boolean {
         val outerTagRange = (variable.definer.context as? XmlTag)?.textRange ?: return false
         val currentElementStartOffset = this.textRange.startOffset
         return outerTagRange.startOffset < currentElementStartOffset && currentElementStartOffset < outerTagRange.endOffset
+                && !variable.definer.textRange.contains(currentElementStartOffset)
     }
 
     private fun PsiElement.isInBlockElementChildren(variable: HtlBlockVariable): Boolean {
