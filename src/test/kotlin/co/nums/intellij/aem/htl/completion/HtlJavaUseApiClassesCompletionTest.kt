@@ -114,4 +114,38 @@ class HtlJavaUseApiClassesCompletionTest : HtlCompletionTestBase() {
         )
     }
 
+    fun testShouldNotCompleteInBlockOtherThanUse() {
+        myFixture.addAemClass("org.apache.sling.models.annotations.Model.java")
+        myFixture.addClass("""
+            package test;
+
+            import org.apache.sling.models.annotations.Model;
+
+            @Model
+            public class TestModel  {}
+            """)
+
+        checkDoesNotContainAnyOf(
+                """<div data-sly-test="<caret>"></div>""",
+                "TestModel"
+        )
+    }
+
+    fun testShouldNotCompleteInExpressionOfBlockOtherThanUse() {
+        myFixture.addAemClass("org.apache.sling.models.annotations.Model.java")
+        myFixture.addClass("""
+            package test;
+
+            import org.apache.sling.models.annotations.Model;
+
+            @Model
+            public class TestModel  {}
+            """)
+
+        checkDoesNotContainAnyOf(
+                """<div data-sly-test="$DOLLAR{'<caret>'}"></div>""",
+                "TestModel"
+        )
+    }
+
 }

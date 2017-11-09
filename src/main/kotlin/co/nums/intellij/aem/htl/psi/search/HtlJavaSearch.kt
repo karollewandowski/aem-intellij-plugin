@@ -10,13 +10,15 @@ object HtlJavaSearch {
     private val USE_INTERFACES = arrayOf("io.sightly.java.api.Use", "org.apache.sling.scripting.sightly.pojo.Use")
     private val SLING_MODEL_ANNOTATION = "org.apache.sling.models.annotations.Model"
 
-    fun useApiImplementers(project: Project): Collection<PsiClass> =
+    fun useApiClasses(project: Project) = useApiImplementers(project) + slingModels(project)
+
+    private fun useApiImplementers(project: Project): Collection<PsiClass> =
             USE_INTERFACES
                     .mapNotNull { it.toPsiClass(project) }
                     .flatMap { project.findImplementers(it) }
                     .filterNot { it.hasModifierProperty(PsiModifier.ABSTRACT) }
 
-    fun slingModels(project: Project): Collection<PsiClass> =
+    private fun slingModels(project: Project): Collection<PsiClass> =
             SLING_MODEL_ANNOTATION
                     .toPsiClass(project)
                     ?.let { project.findAnnotatedClasses(it) }
