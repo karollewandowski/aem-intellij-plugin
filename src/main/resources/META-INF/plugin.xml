@@ -83,6 +83,9 @@
         <fileTypeFactory
                 implementation="co.nums.intellij.aem.htl.file.HtlFileTypeFactory"/>
 
+        <fileBasedIndex
+                implementation="co.nums.intellij.aem.htl.index.HtlTemplatesIndex"/>
+
         <iconProvider
                 implementation="co.nums.intellij.aem.htl.file.HtlIconProvider"/>
 

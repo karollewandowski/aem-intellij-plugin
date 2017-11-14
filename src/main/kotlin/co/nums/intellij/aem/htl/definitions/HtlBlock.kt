@@ -18,7 +18,7 @@ enum class HtlBlock(
 ) {
 
     ATTRIBUTE(
-            type = "data-sly-attribute",
+            type = "$HTL_BLOCK_PREFIX-attribute",
             identifierType = BlockIdentifierType.ATTRIBUTE_NAME,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
@@ -30,19 +30,19 @@ enum class HtlBlock(
             )
     ),
     CALL(
-            type = "data-sly-call",
+            type = "$HTL_BLOCK_PREFIX-call",
             identifierType = BlockIdentifierType.NONE,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
                     description = "Calls a declared HTML block, passing parameters to it.",
                     element = "always shown",
-                    elementContent = "replaced with the content of the called <code>data-sly-template</code> element",
+                    elementContent = "replaced with the content of the called <code>$HTL_BLOCK_PREFIX-template</code> element",
                     attributeValue = "optional; an expression defining the template identifier and the parameters to pass",
                     attributeIdentifier = "none"
             )
     ),
     ELEMENT(
-            type = "data-sly-element",
+            type = "$HTL_BLOCK_PREFIX-element",
             identifierType = BlockIdentifierType.NONE,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
@@ -54,7 +54,7 @@ enum class HtlBlock(
             )
     ),
     INCLUDE(
-            type = "data-sly-include",
+            type = "$HTL_BLOCK_PREFIX-include",
             identifierType = BlockIdentifierType.NONE,
             insertHandler = HtlSimpleBlockInsertHandler,
             doc = BlockDocumentation(
@@ -66,7 +66,7 @@ enum class HtlBlock(
             )
     ),
     LIST(
-            type = "data-sly-list",
+            type = "$HTL_BLOCK_PREFIX-list",
             identifierType = BlockIdentifierType.ELEMENT_CHILDREN_SCOPE_VARIABLE,
             iterable = true,
             insertHandler = HtlListBlockInsertHandler,
@@ -79,7 +79,7 @@ enum class HtlBlock(
             )
     ),
     REPEAT(
-            type = "data-sly-repeat",
+            type = "$HTL_BLOCK_PREFIX-repeat",
             identifierType = BlockIdentifierType.ELEMENT_SCOPE_VARIABLE,
             iterable = true,
             insertHandler = HtlListBlockInsertHandler,
@@ -92,7 +92,7 @@ enum class HtlBlock(
             )
     ),
     RESOURCE(
-            type = "data-sly-resource",
+            type = "$HTL_BLOCK_PREFIX-resource",
             identifierType = BlockIdentifierType.NONE,
             insertHandler = HtlSimpleBlockInsertHandler,
             doc = BlockDocumentation(
@@ -104,18 +104,18 @@ enum class HtlBlock(
             )
     ),
     TEMPLATE(
-            type = "data-sly-template",
+            type = "$HTL_BLOCK_PREFIX-template",
             identifierType = BlockIdentifierType.TEMPLATE_NAME,
             doc = BlockDocumentation(
                     description = "Declares an HTML block, naming it with an identifier and defining the parameters it can get.",
                     element = "never shown",
-                    elementContent = "shown upon calling the template with <code>data-sly-call</code>",
+                    elementContent = "shown upon calling the template with <code>$HTL_BLOCK_PREFIX-call</code>",
                     attributeValue = "optional; an expression with only options, defining the parameters it can get",
                     attributeIdentifier = "required; the template identifier to declare"
             )
     ),
     TEST(
-            type = "data-sly-test",
+            type = "$HTL_BLOCK_PREFIX-test",
             identifierType = BlockIdentifierType.GLOBAL_VARIABLE,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
@@ -127,7 +127,7 @@ enum class HtlBlock(
             )
     ),
     TEXT(
-            type = "data-sly-text",
+            type = "$HTL_BLOCK_PREFIX-text",
             identifierType = BlockIdentifierType.NONE,
             insertHandler = HtlExprBlockInsertHandler,
             doc = BlockDocumentation(
@@ -139,7 +139,7 @@ enum class HtlBlock(
             )
     ),
     UNWRAP(
-            type = "data-sly-unwrap",
+            type = "$HTL_BLOCK_PREFIX-unwrap",
             identifierType = BlockIdentifierType.NONE,
             doc = BlockDocumentation(
                     description = "Unwraps the element.",
@@ -150,7 +150,7 @@ enum class HtlBlock(
             )
     ),
     USE(
-            type = "data-sly-use",
+            type = "$HTL_BLOCK_PREFIX-use",
             identifierType = BlockIdentifierType.GLOBAL_VARIABLE,
             insertHandler = HtlUseBlockInsertHandler,
             doc = BlockDocumentation(

@@ -4,9 +4,7 @@ import co.nums.intellij.aem.htl.HtlLanguage
 import co.nums.intellij.aem.service.JcrRoots
 import co.nums.intellij.aem.settings.AemSettings
 import co.nums.intellij.aem.test.util.whenGetService
-import com.intellij.ide.highlighter.HtmlFileType
 import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.PlainTextFileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import org.assertj.core.api.Assertions.assertThat
@@ -52,7 +50,7 @@ class HtlLanguageSubstitutorTest {
     )
     fun testSubstitution(aemSupportEnabled: Boolean, htmlFile: Boolean, fileUnderJcrRoot: Boolean, @ConvertWith(LanguageArgumentConverter::class) expectedLanguage: Language?) {
         `when`(aemSettings.aemSupportEnabled).thenReturn(aemSupportEnabled)
-        `when`(testFile.fileType).thenReturn(if (htmlFile) HtmlFileType.INSTANCE else PlainTextFileType.INSTANCE)
+        `when`(testFile.extension).thenReturn(if (htmlFile) "html" else "txt")
         `when`(jcrRoots.contains(testFile)).thenReturn(fileUnderJcrRoot)
 
         val actualLanguage = sut.getLanguage(testFile, project)

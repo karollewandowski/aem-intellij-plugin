@@ -1,6 +1,7 @@
 package co.nums.intellij.aem.action
 
 import co.nums.intellij.aem.extensions.*
+import co.nums.intellij.aem.htl.index.HtlTemplatesIndex
 import co.nums.intellij.aem.icons.AemIcons
 import co.nums.intellij.aem.service.*
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -72,6 +73,7 @@ class MarkAsJcrRootAction : DumbAwareAction() {
         project.psiManager.apply {
             FileContentUtil.reparseFiles(filesToReparse)
         }
+        HtlTemplatesIndex.rebuild()
     }
 
 }

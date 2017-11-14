@@ -63,6 +63,8 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
         from.remove(newJcrRootPath)
     }
 
+    fun getAll() = effectiveJcrRoots()
+
 }
 
 val Project.jcrRoots: JcrRoots

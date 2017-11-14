@@ -13,6 +13,7 @@ HTL File: numberBracketPropertyAccess.html
               HtlLogicalOperationImpl(LOGICAL_OPERATION)
                 HtlLogicalOperandImpl(LOGICAL_OPERAND)
                   HtlSimpleImpl(SIMPLE)
-                    PsiElement(INTEGER_NUMBER)('1')
+                    HtlLiteralImpl(LITERAL)
+                      PsiElement(INTEGER_NUMBER)('1')
             PsiElement(])(']')
     PsiElement(})('}')

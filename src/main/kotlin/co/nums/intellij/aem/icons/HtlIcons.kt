@@ -9,6 +9,7 @@ object HtlIcons : AbstractIcons(iconsDirectory = "htl") {
     val HTL_GLOBAL_OBJECT = loadIcon("htl-global-object")
     val HTL_PREDEFINED_PROPERTY = loadIcon("htl-predefined-property")
     val HTL_USE_OBJECT = loadIcon("htl-use-object")
+    val HTL_TEMPLATE = loadIcon("htl-template")
     val HTL_VARIABLE = loadIcon("htl-variable")
 
 }
