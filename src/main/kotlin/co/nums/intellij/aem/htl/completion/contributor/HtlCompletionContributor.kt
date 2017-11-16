@@ -32,6 +32,11 @@ class HtlCompletionContributor : CompletionContributor() {
                 HtlPatterns.displayContextOptionValue,
                 HtlDisplayContextsProvider
         )
+        extend(
+                CompletionType.BASIC,
+                HtlPatterns.expressionUseObjectDeclaration,
+                HtlTemplatesFilesProvider
+        )
     }
 
 }
