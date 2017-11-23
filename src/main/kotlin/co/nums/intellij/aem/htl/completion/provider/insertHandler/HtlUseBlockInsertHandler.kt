@@ -7,6 +7,7 @@ import com.intellij.codeInsight.template.*
 import com.intellij.codeInsight.template.impl.TemplateImpl
 import com.intellij.psi.codeStyle.NameUtil
 import com.intellij.psi.xml.XmlAttribute
+import org.apache.commons.lang.WordUtils
 
 object HtlUseBlockInsertHandler : AbstractHtlLiveTemplateBlockInsertHandler() {
 
@@ -46,6 +47,11 @@ private class UseVariableNames : Expression() {
     }
 
     private fun String.hasExtension(extension: String) = endsWith(".$extension", ignoreCase = true)
-    private fun String.getUseName() = substringAfterLast('/').substringBeforeLast('.')
+    private fun String.getUseName(): String {
+        val userFileName = substringAfterLast('/').substringBeforeLast('.')
+        return WordUtils.capitalizeFully(userFileName, charArrayOf('-', '_'))
+                .replace("-", "")
+                .replace("_", "")
+    }
 
 }
