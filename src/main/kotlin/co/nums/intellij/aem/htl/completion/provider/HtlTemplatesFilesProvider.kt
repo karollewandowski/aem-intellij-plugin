@@ -21,15 +21,15 @@ object HtlTemplatesFilesProvider : CompletionProvider<CompletionParameters>() {
         val currentFilePath = parameters.originalFile.virtualFile.path
         val basePath = parameters.position.project.basePath ?: ""
         val jcrRoots = parameters.position.project.jcrRoots.getAll()
-        val currentFileDirPath = currentFilePath.substringBeforeLast('/').normalizePath(basePath, jcrRoots)
+        val currentFileDirPath = currentFilePath.normalizedCurrentDirPath(basePath, jcrRoots)
         return FileBasedIndex.getInstance().getAllKeys(HtlTemplatesIndex.NAME, parameters.position.project)
                 .filter { it != currentFilePath }
-                .map { it.normalizePath(basePath, jcrRoots) }
+                .map { it.normalizedCurrentDirPath(basePath, jcrRoots) }
                 .map { it.toLookupElement(currentFileDirPath) }
     }
 
-    private fun String.normalizePath(basePath: String, jcrRoots: Set<String>): String {
-        var jcrRootRelativePath = removePrefix(basePath)
+    private fun String.normalizedCurrentDirPath(basePath: String, jcrRoots: Set<String>): String {
+        var jcrRootRelativePath = substringBeforeLast('/').removePrefix(basePath)
         for (jcrRoot in jcrRoots) {
             jcrRootRelativePath = jcrRootRelativePath.removePrefix(jcrRoot)
         }
