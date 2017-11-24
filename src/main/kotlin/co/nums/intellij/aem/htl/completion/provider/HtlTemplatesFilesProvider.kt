@@ -44,12 +44,14 @@ object HtlTemplatesFilesProvider : CompletionProvider<CompletionParameters>() {
                 .withIcon(HtlIcons.HTL_TEMPLATE)
                 .withTailText(tailText, true)
                 .withInsertHandler(HtlTemplateFileInsertHandler)
-        val insertionString =
-                if (templatesFileDir == currentFileDirPath) ""
-                else templatesFileDir.removePrefix("/apps/").removePrefix("/libs/") + "/"
+        val insertionString = getTemplatePathToInsert(templatesFileDir, currentFileDirPath)
         lookupElement.putUserData(insertionStringKey, insertionString)
         return lookupElement
     }
+
+    private fun getTemplatePathToInsert(templatesFileDir: String, currentFileDirPath: String) =
+            if (templatesFileDir == currentFileDirPath) ""
+            else templatesFileDir.removePrefix("/apps/").removePrefix("/libs/") + "/"
 
     private object HtlTemplateFileInsertHandler : InsertHandler<LookupElement> {
 

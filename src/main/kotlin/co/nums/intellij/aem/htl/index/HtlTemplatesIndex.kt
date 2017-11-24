@@ -6,7 +6,7 @@ import co.nums.intellij.aem.htl.definitions.HtlBlock
 import co.nums.intellij.aem.htl.extensions.asHtmlFile
 import co.nums.intellij.aem.htl.file.HtlFileType
 import co.nums.intellij.aem.htl.psi.*
-import com.intellij.psi.PsiElement
+import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.util.indexing.*
@@ -43,10 +43,14 @@ class HtlTemplatesIndex : FileBasedIndexExtension<String, List<HtlTemplate>>() {
         override fun map(inputData: FileContent): Map<String, List<HtlTemplate>> {
             val htmlFile = inputData.psiFile.asHtmlFile() ?: return emptyMap()
             val filePath = inputData.file.path
-            val htlTemplates = PsiTreeUtil.findChildrenOfType(htmlFile, XmlAttribute::class.java)
+            val htlTemplates = htmlFile.getTemplates(filePath)
+            return if (htlTemplates.isNotEmpty()) mapOf(filePath to htlTemplates) else emptyMap()
+        }
+
+        private fun PsiFile.getTemplates(filePath: String): List<HtlTemplate> {
+            return PsiTreeUtil.findChildrenOfType(this, XmlAttribute::class.java)
                     .filter { it.name.startsWith("${HtlBlock.TEMPLATE.type}.") }
                     .mapNotNull { it.toHtlTemplate(filePath) }
-            return if (htlTemplates.isNotEmpty()) mapOf(filePath to htlTemplates) else emptyMap()
         }
 
         private fun XmlAttribute.toHtlTemplate(filePath: String): HtlTemplate? {
@@ -84,39 +88,46 @@ class HtlTemplatesIndex : FileBasedIndexExtension<String, List<HtlTemplate>>() {
             if (htlTemplates != null) {
                 output.writeInt(htlTemplates.size)
                 for (htlTemplate in htlTemplates) {
-                    IOUtil.writeUTF(output, htlTemplate.filePath)
-                    IOUtil.writeUTF(output, htlTemplate.name)
-                    val parameters = htlTemplate.parameters
-                    output.writeInt(parameters.size)
-                    parameters.forEach {
-                        IOUtil.writeUTF(output, it.name)
-                        if (it.defaultValue != null) {
-                            output.writeBoolean(true)
-                            IOUtil.writeUTF(output, it.defaultValue)
-                        } else {
-                            output.writeBoolean(false)
-                        }
-                    }
+                    output.writeTemplate(htlTemplate)
                 }
+            }
+        }
+
+        private fun DataOutput.writeTemplate(htlTemplate: HtlTemplate) {
+            IOUtil.writeUTF(this, htlTemplate.filePath)
+            IOUtil.writeUTF(this, htlTemplate.name)
+            val parameters = htlTemplate.parameters
+            this.writeInt(parameters.size)
+            parameters.forEach { this.writeTemplateParameter(it) }
+        }
+
+        private fun DataOutput.writeTemplateParameter(parameter: HtlTemplateParameter) {
+            IOUtil.writeUTF(this, parameter.name)
+            if (parameter.defaultValue != null) {
+                this.writeBoolean(true)
+                IOUtil.writeUTF(this, parameter.defaultValue)
+            } else {
+                this.writeBoolean(false)
             }
         }
 
         override fun read(input: DataInput): List<HtlTemplate> {
             val templatesNumber = input.readInt()
-            val templates = ArrayList<HtlTemplate>(templatesNumber)
-            for (i in 0 until templatesNumber) {
-                val templateFilePath = IOUtil.readUTF(input)
-                val templateName = IOUtil.readUTF(input)
-                val templateParametersNumber = input.readInt()
-                val templateParameters = ArrayList<HtlTemplateParameter>(templateParametersNumber)
-                for (j in 0 until templateParametersNumber) {
-                    val name = IOUtil.readUTF(input)
-                    val defaultValue = if (input.readBoolean()) IOUtil.readUTF(input) else null
-                    templateParameters.add(HtlTemplateParameter(name, defaultValue))
-                }
-                templates.add(HtlTemplate(templateFilePath, templateName, templateParameters))
-            }
-            return templates
+            return (0 until templatesNumber).map { input.readTemplate() }
+        }
+
+        private fun DataInput.readTemplate(): HtlTemplate {
+            val templateFilePath = IOUtil.readUTF(this)
+            val templateName = IOUtil.readUTF(this)
+            val templateParametersNumber = this.readInt()
+            val templateParameters = (0 until templateParametersNumber).map { this.readTemplateParameter() }
+            return HtlTemplate(templateFilePath, templateName, templateParameters)
+        }
+
+        private fun DataInput.readTemplateParameter(): HtlTemplateParameter {
+            val name = IOUtil.readUTF(this)
+            val defaultValue = if (this.readBoolean()) IOUtil.readUTF(this) else null
+            return HtlTemplateParameter(name, defaultValue)
         }
 
     }
