@@ -9,7 +9,7 @@ class HtlTemplatesFilesCompletionTest : HtlCompletionTestBase() {
 
     override fun setUp() {
         super.setUp()
-        val dummyFile = myFixture.addFileToProject("jcr_root/apps/templates-tests/dummy.html", "")
+        val dummyFile = myFixture.addFileToProject("jcr_root/dummy.html", "")
         jcrRoot = dummyFile.parent!!.virtualFile
         myFixture.project.jcrRoots.markAsJcrRoot(jcrRoot)
     }
