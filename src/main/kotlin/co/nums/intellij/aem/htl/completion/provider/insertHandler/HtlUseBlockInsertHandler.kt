@@ -20,6 +20,9 @@ object HtlUseBlockInsertHandler : AbstractHtlLiveTemplateBlockInsertHandler() {
 
 private class UseVariableNames : Expression() {
 
+    private val commonUseClassesSuffixes = arrayOf("Component", "Model", "Use")
+    private val commonUseClassesSuffixesLowerCase = commonUseClassesSuffixes.map { it.toLowerCase() }.toHashSet()
+
     override fun calculateQuickResult(context: ExpressionContext) = calculateResult(context)
 
     override fun calculateResult(context: ExpressionContext) = null
@@ -31,8 +34,12 @@ private class UseVariableNames : Expression() {
     }
 
     private fun getUseVariableNames(context: ExpressionContext): List<String>? {
-        val useObjectNameBase = getUseObjectNameBase(context) ?: return null
-        return NameUtil.getSuggestionsByName(useObjectNameBase, "", "", false, true, false).toList()
+        val useObjectNameBase = getUseObjectNameBase(context) ?: return emptyList()
+        val nameSuggestions = NameUtil.getSuggestionsByName(useObjectNameBase, "", "", false, true, false)
+                .filterNot { commonUseClassesSuffixesLowerCase.contains(it) }
+                .toList()
+        val nameSuggestionsWithoutCommonSuffix = nameSuggestions.withoutCommonSuffix()
+        return nameSuggestionsWithoutCommonSuffix + nameSuggestions
     }
 
     private fun getUseObjectNameBase(context: ExpressionContext): String? {
@@ -53,6 +60,17 @@ private class UseVariableNames : Expression() {
         return WordUtils.capitalizeFully(userFileName, charArrayOf('-', '_'))
                 .replace("-", "")
                 .replace("_", "")
+    }
+
+    private fun List<String>?.withoutCommonSuffix(): List<String> {
+        this ?: return emptyList()
+        return this.mapNotNull { it.withoutSuffixOrNull() }
+    }
+
+    private fun String.withoutSuffixOrNull(): String? {
+        return commonUseClassesSuffixes
+                .firstOrNull { this.endsWith(it) }
+                ?.let { this.removeSuffix(it) }
     }
 
 }
