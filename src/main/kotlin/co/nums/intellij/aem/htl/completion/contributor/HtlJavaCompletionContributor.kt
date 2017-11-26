@@ -7,7 +7,10 @@ import com.intellij.codeInsight.completion.*
 class HtlJavaCompletionContributor : CompletionContributor() {
 
     init {
-        extend(CompletionType.BASIC, HtlPatterns.expressionUseObjectDeclaration, HtlJavaUseApiClassesProvider)
+        extend(
+                CompletionType.BASIC,
+                HtlPatterns.expressionUseObjectDeclaration,
+                HtlJavaUseApiClassesProvider)
     }
 
 }

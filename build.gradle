@@ -101,6 +101,7 @@ dependencies {
   testRuntime "org.junit.jupiter:junit-jupiter-engine:5.0.1"
   testRuntime "org.junit.vintage:junit-vintage-engine:4.12.1"
   testCompile "org.mockito:mockito-core:2.11.0"
+  testCompile 'org.jmockit:jmockit:1.36'
   testCompile "org.assertj:assertj-core:3.8.0"
 }
 

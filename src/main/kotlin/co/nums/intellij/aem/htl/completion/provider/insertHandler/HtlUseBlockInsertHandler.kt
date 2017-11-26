@@ -47,6 +47,7 @@ private class UseVariableNames : Expression() {
     }
 
     private fun String.hasExtension(extension: String) = endsWith(".$extension", ignoreCase = true)
+
     private fun String.getUseName(): String {
         val userFileName = substringAfterLast('/').substringBeforeLast('.')
         return WordUtils.capitalizeFully(userFileName, charArrayOf('-', '_'))
