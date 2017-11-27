@@ -44,8 +44,12 @@ object HtlPatterns {
             or(propertyIdentifierInDotPropertyAccess, propertyIdentifierInBracketPropertyAccess)
 
     val simpleUseObjectDeclaration: ElementPattern<PsiElement> =
-            psiElement().inside(xmlAttributeValue().withLocalName(
-                    or(string().equalTo(HtlBlock.USE.type), string().startsWith("${HtlBlock.USE.type}."))))
+            psiElement().inside(xmlAttributeValue()
+                    .withLocalName(or(
+                            string().equalTo(HtlBlock.USE.type),
+                            string().startsWith("${HtlBlock.USE.type}."))
+                    ))
+                    .inFile(HtlFilePattern.htlFile())
 
     val expressionUseObjectDeclaration: ElementPattern<PsiElement> =
             psiElement()
