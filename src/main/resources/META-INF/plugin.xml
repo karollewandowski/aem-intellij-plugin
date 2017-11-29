@@ -121,11 +121,15 @@
                 implementationClass="co.nums.intellij.aem.htl.highlighter.HtlSyntaxHighlighterFactory"/>
         <annotator
                 language="HTL"
-                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlVariablesHighlighter"/>
+                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlIdentifiersHighlighter"/>
         <annotator
                 id="htlBlocksHighlighter"
                 language="HTML"
                 implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
+        <annotator
+                id="htlUseDeclarationsHighlighter"
+                language="HTML"
+                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlUseDeclarationsHighlighter"/>
         <additionalTextAttributes
                 scheme="Default"
                 file="colorSchemes/HtlDefault.xml"/>

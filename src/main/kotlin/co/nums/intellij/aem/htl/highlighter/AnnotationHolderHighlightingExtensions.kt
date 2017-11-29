@@ -1,12 +1,12 @@
 package co.nums.intellij.aem.htl.highlighter
 
+import com.intellij.lang.annotation.*
 import com.intellij.lang.annotation.Annotation
-import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 
-private val NO_MESSAGE = null
+private val noMessage = null
 
 fun AnnotationHolder.highlightText(start: Int, end: Int, textAttributesKey: TextAttributesKey) {
     highlightText(TextRange(start, end), textAttributesKey)
@@ -17,7 +17,7 @@ fun AnnotationHolder.highlightText(element: PsiElement, textAttributesKey: TextA
 }
 
 fun AnnotationHolder.highlightText(textRange: TextRange, textAttributesKey: TextAttributesKey) {
-    val annotation = this.createInfoAnnotation(textRange, NO_MESSAGE)
+    val annotation = this.createInfoAnnotation(textRange, noMessage)
     annotation.textAttributes = textAttributesKey
 }
 

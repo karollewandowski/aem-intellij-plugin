@@ -12,11 +12,9 @@ object HtlPsiUtil {
     /**
      * Returns outer HTML attribute quote if HTL expression is inside of
      * attribute.
-
+     *
      * @param htlElement element from expression to check
-     * *
-     * @return outer HTML attribute quote or `null` if element is not
-     * * enclosed by attribute
+     * @return outer HTML attribute quote or `null` if element is not enclosed by attribute
      */
     fun getOuterHtmlAttributeQuote(htlElement: PsiElement): Char? {
         val htlExpression = PsiTreeUtil.getParentOfType(htlElement, HtlExpression::class.java) ?: return null
@@ -36,9 +34,8 @@ object HtlPsiUtil {
 
     /**
      * Returns outer HTL block's type that the HTL element is inside of.
-
+     *
      * @param htlElement element from expression to check
-     * *
      * @return block's type or `null` if element is not in block
      */
     fun getOuterBlockType(htlElement: PsiElement): String? {

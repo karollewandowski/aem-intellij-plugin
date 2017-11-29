@@ -1,24 +1,39 @@
 <?xml version='1.0'?>
 <list>
-	<option name="BLOCK_TYPE">
-		<value>
-			<option name="FOREGROUND" value="6694B6"/>
-		</value>
-	</option>
-	<option name="BLOCK_VARIABLE">
-		<value>
-			<option name="FOREGROUND" value="9975AB"/>
-		</value>
-	</option>
-	<option name="GLOBAL_OBJECT">
-		<value>
-			<option name="FOREGROUND" value="9975AB"/>
-			<option name="FONT_TYPE" value="2"/>
-		</value>
-	</option>
-	<option name="UNREFERENCED_IDENTIFIER">
-		<value>
-			<option name="FOREGROUND" value="B73E3B"/>
-		</value>
-	</option>
+    <option name="GLOBAL_OBJECT">
+        <value>
+            <option name="FOREGROUND" value="A9B7C6"/>
+            <option name="FONT_TYPE" value="2"/>
+        </value>
+    </option>
+    <option name="BLOCK_TYPE">
+        <value>
+            <option name="FOREGROUND" value="4C98D0"/>
+        </value>
+    </option>
+    <option name="BLOCK_VARIABLE">
+        <value>
+            <option name="FOREGROUND" value="A9B7C6"/>
+        </value>
+    </option>
+    <option name="PROPERTY_ACCESS">
+        <value>
+            <option name="FOREGROUND" value="9975AB"/>
+        </value>
+    </option>
+    <option name="OPTION_NAME">
+        <value>
+            <option name="FOREGROUND" value="82B2D6"/>
+        </value>
+    </option>
+    <option name="USE_DECLARATION">
+        <value>
+            <option name="FOREGROUND" value="D4C79E"/>
+        </value>
+    </option>
+    <option name="UNREFERENCED_IDENTIFIER">
+        <value>
+            <option name="FOREGROUND" value="B73E3B"/>
+        </value>
+    </option>
 </list>
