@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.completion.provider.insertHandler
 
 import co.nums.intellij.aem.extensions.hasText
 import co.nums.intellij.aem.extensions.moveCaret
-import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
+import co.nums.intellij.aem.htl.extensions.getOuterHtmlAttributeQuote
 import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.completion.InsertHandler
 import com.intellij.codeInsight.completion.InsertionContext
@@ -38,7 +38,7 @@ object HtlExprOptionQuotesInsertHandler : InsertHandler<LookupElement> {
     private fun getQuoteToInsert(context: InsertionContext, offset: Int): Char {
         val viewProvider = context.file.viewProvider
         val currentElement = viewProvider.findElementAt(offset) ?: return '\''
-        val outerQuote = HtlPsiUtil.getOuterHtmlAttributeQuote(currentElement)
+        val outerQuote = currentElement.getOuterHtmlAttributeQuote()
         return when (outerQuote) {
             '\'' -> '"'
             else -> '\''

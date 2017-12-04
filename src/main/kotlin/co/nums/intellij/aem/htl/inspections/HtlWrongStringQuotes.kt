@@ -1,9 +1,8 @@
 package co.nums.intellij.aem.htl.inspections
 
 import co.nums.intellij.aem.extensions.canBeEdited
-import co.nums.intellij.aem.htl.extensions.isPartOfHtlString
+import co.nums.intellij.aem.htl.extensions.*
 import co.nums.intellij.aem.htl.psi.HtlStringLiteral
-import co.nums.intellij.aem.htl.psi.impl.HtlPsiUtil
 import co.nums.intellij.aem.messages.HtlInspectionsBundle.message
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.*
@@ -26,7 +25,7 @@ class HtlWrongStringQuotesAnnotator : Annotator {
 
     private fun PsiElement.hasWrongQuotes(): Boolean {
         val htlStringQuote = this.text[0]
-        val outerHtmlAttributeQuote = HtlPsiUtil.getOuterHtmlAttributeQuote(this)
+        val outerHtmlAttributeQuote = this.getOuterHtmlAttributeQuote()
         return htlStringQuote == outerHtmlAttributeQuote
     }
 

@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.inspections
 import co.nums.intellij.aem.extensions.canBeEdited
 import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.extensions.*
-import co.nums.intellij.aem.htl.highlighter.createReferenceErrorAnnotation
+import co.nums.intellij.aem.htl.highlighting.createReferenceErrorAnnotation
 import co.nums.intellij.aem.messages.HtlInspectionsBundle.message
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.lang.annotation.*

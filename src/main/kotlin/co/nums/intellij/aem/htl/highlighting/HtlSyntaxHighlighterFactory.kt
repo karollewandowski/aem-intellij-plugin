@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.highlighter
+package co.nums.intellij.aem.htl.highlighting
 
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project

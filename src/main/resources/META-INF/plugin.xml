@@ -118,18 +118,18 @@
 
         <lang.syntaxHighlighterFactory
                 language="HTL"
-                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlSyntaxHighlighterFactory"/>
+                implementationClass="co.nums.intellij.aem.htl.highlighting.HtlSyntaxHighlighterFactory"/>
         <annotator
                 language="HTL"
-                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlIdentifiersHighlighter"/>
+                implementationClass="co.nums.intellij.aem.htl.highlighting.HtlIdentifiersHighlighter"/>
         <annotator
                 id="htlBlocksHighlighter"
                 language="HTML"
-                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlBlocksHighlighter"/>
+                implementationClass="co.nums.intellij.aem.htl.highlighting.HtlBlocksHighlighter"/>
         <annotator
                 id="htlUseDeclarationsHighlighter"
                 language="HTML"
-                implementationClass="co.nums.intellij.aem.htl.highlighter.HtlUseDeclarationsHighlighter"/>
+                implementationClass="co.nums.intellij.aem.htl.highlighting.HtlUseDeclarationsHighlighter"/>
         <additionalTextAttributes
                 scheme="Default"
                 file="colorSchemes/HtlDefault.xml"/>

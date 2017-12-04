@@ -3,7 +3,7 @@
     <option name="GLOBAL_OBJECT">
         <value>
             <option name="FOREGROUND" value="A9B7C6"/>
-            <option name="FONT_TYPE" value="2"/>
+            <option name="FONT_TYPE" value="1"/>
         </value>
     </option>
     <option name="BLOCK_TYPE">
@@ -11,7 +11,7 @@
             <option name="FOREGROUND" value="4C98D0"/>
         </value>
     </option>
-    <option name="BLOCK_VARIABLE">
+    <option name="VARIABLE">
         <value>
             <option name="FOREGROUND" value="A9B7C6"/>
         </value>
@@ -23,7 +23,13 @@
     </option>
     <option name="OPTION_NAME">
         <value>
-            <option name="FOREGROUND" value="82B2D6"/>
+            <option name="FOREGROUND" value="73A9D1"/>
+        </value>
+    </option>
+    <option name="TEMPLATE_IDENTIFIER">
+        <value>
+            <option name="FOREGROUND" value="A9B7C6"/>
+            <option name="FONT_TYPE" value="2"/>
         </value>
     </option>
     <option name="USE_DECLARATION">

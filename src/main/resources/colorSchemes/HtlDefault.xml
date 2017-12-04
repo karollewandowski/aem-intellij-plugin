@@ -1,20 +1,20 @@
 <?xml version='1.0'?>
 <list>
+    <!--TODO: make expressions background grey like other tags (?)-->
     <option name="GLOBAL_OBJECT">
         <value>
-            <option name="FONT_TYPE" value="3"/>
+            <option name="FONT_TYPE" value="1"/>
         </value>
     </option>
     <option name="BLOCK_TYPE">
         <value>
             <option name="FOREGROUND" value="7F0000"/>
-            <option name="FONT_TYPE" value="1"/>
         </value>
     </option>
-    <option name="BLOCK_VARIABLE">
+    <option name="VARIABLE">
         <value>
             <option name="FOREGROUND" value="000000"/>
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FONT_TYPE" value="0"/><!--FIXME: variable is bold in declaration-->
         </value>
     </option>
     <option name="PROPERTY_ACCESS">
@@ -25,8 +25,13 @@
     </option>
     <option name="OPTION_NAME">
         <value>
-            <option name="FOREGROUND" value="4A86E8"/><!--FIXME-->
-            <option name="FONT_TYPE" value="1"/>
+            <option name="FOREGROUND" value="4A86E8"/>
+        </value>
+    </option>
+    <option name="TEMPLATE_IDENTIFIER">
+        <value>
+            <option name="FOREGROUND" value="000000"/>
+            <option name="FONT_TYPE" value="2"/>
         </value>
     </option>
     <option name="USE_DECLARATION">

@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.highlighter
+package co.nums.intellij.aem.htl.highlighting
 
 import co.nums.intellij.aem.htl.lexer.HtlLexerAdapter
 import co.nums.intellij.aem.htl.psi.HtlTypes

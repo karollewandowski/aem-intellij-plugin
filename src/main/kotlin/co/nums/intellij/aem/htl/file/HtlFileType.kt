@@ -2,7 +2,7 @@ package co.nums.intellij.aem.htl.file
 
 import co.nums.intellij.aem.extensions.*
 import co.nums.intellij.aem.htl.HtlLanguage
-import co.nums.intellij.aem.htl.highlighter.HtlTemplateHighlighter
+import co.nums.intellij.aem.htl.highlighting.HtlTemplateHighlighter
 import co.nums.intellij.aem.icons.HtlIcons
 import co.nums.intellij.aem.settings.aemSettings
 import com.intellij.openapi.fileTypes.*

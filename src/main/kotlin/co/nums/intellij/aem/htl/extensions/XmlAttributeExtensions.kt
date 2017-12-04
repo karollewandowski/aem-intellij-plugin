@@ -28,6 +28,12 @@ private fun blockHasIdentifier(blockName: String): Boolean {
     return blockIdentifier.isNotEmpty()
 }
 
+fun XmlAttribute.isHtlTemplateBlock(): Boolean {
+    val blockName = (firstChild as? XmlToken)?.text ?: return false
+    val blockType = blockName.substringBefore(".").toLowerCase()
+    return blockType == HtlBlock.TEMPLATE.type
+}
+
 fun XmlToken.isHtlBlock() = htlBlockTypes.contains(text.substringBefore(".").toLowerCase())
 
 /**

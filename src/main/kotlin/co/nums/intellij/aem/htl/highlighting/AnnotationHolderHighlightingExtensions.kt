@@ -1,4 +1,4 @@
-package co.nums.intellij.aem.htl.highlighter
+package co.nums.intellij.aem.htl.highlighting
 
 import com.intellij.lang.annotation.*
 import com.intellij.lang.annotation.Annotation
