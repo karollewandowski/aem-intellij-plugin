@@ -155,6 +155,31 @@ class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
         )
     }
 
+    fun testCallTemplateReferencedByDotPropertyAccessBlock() {
+        testHighlighting(
+                """<sly data-sly-call="$DOLLAR{lib.template @ param1, param2='Test string'}"></sly>""",
+
+                "data-sly-call".withType(HtlHighlighterColors.BLOCK_TYPE),
+                "lib".withType(HtlHighlighterColors.VARIABLE),
+                "template".withType(HtlHighlighterColors.TEMPLATE_IDENTIFIER),
+                "param1".withType(HtlHighlighterColors.OPTION_NAME),
+                "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+        )
+    }
+
+    fun testCallTemplateReferencedWithComplexExpressionByVariableBlock() {
+        testHighlighting(
+                """<sly data-sly-call="$DOLLAR{lib[testObj.templateName] @ param1, param2='Test string'}"></sly>""",
+
+                "data-sly-call".withType(HtlHighlighterColors.BLOCK_TYPE),
+                "lib".withType(HtlHighlighterColors.VARIABLE),
+                "testObj".withType(HtlHighlighterColors.VARIABLE),
+                "templateName".withType(HtlHighlighterColors.PROPERTY_ACCESS),
+                "param1".withType(HtlHighlighterColors.OPTION_NAME),
+                "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+        )
+    }
+
     fun testMixedCasesBlock() {
         testHighlighting(
                 """<div dATa-sLY-TexT="any"></div>""",
