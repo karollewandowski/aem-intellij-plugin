@@ -18,6 +18,7 @@
     </option>
     <option name="PROPERTY_ACCESS">
         <value>
+            <!--TODO: make it italic for object properties accessed with getter (like in Kotlin) once we have resolving-->
             <option name="FOREGROUND" value="9975AB"/>
         </value>
     </option>

@@ -48,7 +48,10 @@ class HtlIdentifiersHighlighter : Annotator {
     }
 
     private fun AnnotationHolder.highlightVariableProperty(element: PsiElement) {
-        val color = if (element.isTemplateReference()) HtlHighlighterColors.TEMPLATE_IDENTIFIER else HtlHighlighterColors.PROPERTY_ACCESS
+        val color = when {
+            element.isTemplateReference() -> HtlHighlighterColors.TEMPLATE_IDENTIFIER
+            else -> HtlHighlighterColors.PROPERTY_ACCESS
+        }
         val textRange = element.textRange
         highlightText(textRange.startOffset + 1, textRange.endOffset, color)
     }

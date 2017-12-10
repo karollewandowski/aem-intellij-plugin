@@ -2,9 +2,7 @@ package co.nums.intellij.aem.htl.highlighting
 
 import co.nums.intellij.aem.htl.DOLLAR
 
-class HtlHighlighterTest : HtlHighlightingTestBase() {
-
-    // TODO: what about lower-upper cases?
+class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
 
     fun testAttributeBlock() {
         testHighlighting(
@@ -154,6 +152,14 @@ class HtlHighlighterTest : HtlHighlightingTestBase() {
                 "template".withType(HtlHighlighterColors.TEMPLATE_IDENTIFIER),
                 "param1".withType(HtlHighlighterColors.OPTION_NAME),
                 "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+        )
+    }
+
+    fun testMixedCasesBlock() {
+        testHighlighting(
+                """<div dATa-sLY-TexT="any"></div>""",
+
+                "dATa-sLY-TexT".withType(HtlHighlighterColors.BLOCK_TYPE)
         )
     }
 

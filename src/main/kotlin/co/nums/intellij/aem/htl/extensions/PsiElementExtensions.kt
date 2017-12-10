@@ -102,28 +102,22 @@ private fun XmlAttribute.isIterableVariableDeclaration(variableIdentifier: Strin
 
 fun PsiElement.isTemplateBlockParam() = HtlBlock.TEMPLATE.type == this.getOuterBlockType()
 
-// TODO: simplify
-fun PsiElement.isLocalTemplateCall(): Boolean {
-    if (this.getOuterBlockType() != HtlBlock.CALL.type) return false
-    if (this.isInOption()) return false
-    val prev = PsiTreeUtil.prevVisibleLeaf(this)?.node?.elementType ?: return false
-    val next = PsiTreeUtil.nextVisibleLeaf(this)?.node?.elementType ?: return false
-    if (prev == HtlTypes.EXPR_START && (next == HtlTypes.OPTIONS_SEPARATOR || next == HtlTypes.EXPR_END)) {
-        return true
-    }
-    return false
-}
+fun PsiElement.isLocalTemplateCall() = this.isTemplateCallExpression() && isAtExpressionBoundaries(this, this)
+
+private fun PsiElement.isTemplateCallExpression() = this.getOuterBlockType() == HtlBlock.CALL.type && !this.isInOption()
 
 private fun PsiElement.isInOption() = PsiTreeUtil.getParentOfType(this, HtlOption::class.java, false) != null
 
-// TODO: simplify
 fun PsiElement.isTemplateReference(): Boolean {
-    if (this.getOuterBlockType() != HtlBlock.CALL.type) return false
-    if (this.isInOption()) return false
+    if (!this.isTemplateCallExpression()) return false
     val propertyAccess = PsiTreeUtil.getParentOfType(this, HtlPropertyAccess::class.java, false) ?: return false
     val accessedVariable = PsiTreeUtil.prevVisibleLeaf(propertyAccess) ?: return false
-    val prev = PsiTreeUtil.prevVisibleLeaf(accessedVariable)?.node?.elementType ?: return false
-    val next = PsiTreeUtil.nextVisibleLeaf(this)?.node?.elementType ?: return false
+    return isAtExpressionBoundaries(accessedVariable, this)
+}
+
+private fun isAtExpressionBoundaries(leftElement: PsiElement, rightElement: PsiElement): Boolean {
+    val prev = PsiTreeUtil.prevVisibleLeaf(leftElement)?.node?.elementType ?: return false
+    val next = PsiTreeUtil.nextVisibleLeaf(rightElement)?.node?.elementType ?: return false
     if (prev == HtlTypes.EXPR_START && (next == HtlTypes.OPTIONS_SEPARATOR || next == HtlTypes.EXPR_END)) {
         return true
     }
