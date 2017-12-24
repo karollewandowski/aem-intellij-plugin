@@ -5,7 +5,6 @@ import co.nums.intellij.aem.htl.extensions.*
 import co.nums.intellij.aem.htl.psi.*
 import com.intellij.lang.annotation.*
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.PsiTreeUtil
 
 class HtlIdentifiersHighlighter : Annotator {
 
@@ -30,21 +29,8 @@ class HtlIdentifiersHighlighter : Annotator {
     }
 
     private fun AnnotationHolder.highlightOptionName(element: PsiElement) {
-        if (element.isTemplateBlockParam()) {
-            highlightText(element, HtlHighlighterColors.VARIABLE)
-        } else {
-            highlightOption(element)
-        }
-    }
-
-    private fun AnnotationHolder.highlightOption(element: PsiElement) {
-        val nextLeaf = PsiTreeUtil.nextVisibleLeaf(element)
-        val highlightEndOffset = if (nextLeaf != null && nextLeaf.node.elementType == HtlTypes.ASSIGN) {
-            nextLeaf.textRange.endOffset
-        } else {
-            element.textRange.endOffset
-        }
-        highlightText(element.textRange.startOffset, highlightEndOffset, HtlHighlighterColors.OPTION_NAME)
+        val color = if (element.isTemplateBlockParam()) HtlHighlighterColors.VARIABLE else HtlHighlighterColors.OPTION_NAME
+        highlightText(element, color)
     }
 
     private fun AnnotationHolder.highlightVariableProperty(element: PsiElement) {
