@@ -31,8 +31,8 @@ class HtlExpressionsHighlightingTest : HtlHighlightingTestBase() {
                 """$DOLLAR{ @ option1, option2=true, option3=obj.property}""",
 
                 "option1".withType(HtlHighlighterColors.OPTION_NAME),
-                "option2=".withType(HtlHighlighterColors.OPTION_NAME),
-                "option3=".withType(HtlHighlighterColors.OPTION_NAME),
+                "option2".withType(HtlHighlighterColors.OPTION_NAME),
+                "option3".withType(HtlHighlighterColors.OPTION_NAME),
                 "obj".withType(HtlHighlighterColors.VARIABLE),
                 "property".withType(HtlHighlighterColors.PROPERTY_ACCESS)
         )

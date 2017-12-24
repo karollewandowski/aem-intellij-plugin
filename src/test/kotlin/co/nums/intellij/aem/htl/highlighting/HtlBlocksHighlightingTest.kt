@@ -120,7 +120,7 @@ class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
                 "data-sly-use".withType(HtlHighlighterColors.BLOCK_TYPE),
                 "testUse".withType(HtlHighlighterColors.VARIABLE),
                 "com.example.TestUse".withType(HtlHighlighterColors.USE_DECLARATION),
-                "param1=".withType(HtlHighlighterColors.OPTION_NAME),
+                "param1".withType(HtlHighlighterColors.OPTION_NAME),
                 "value".withType(HtlHighlighterColors.VARIABLE),
                 "param2".withType(HtlHighlighterColors.OPTION_NAME)
         )
@@ -151,7 +151,7 @@ class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
                 "data-sly-call".withType(HtlHighlighterColors.BLOCK_TYPE),
                 "template".withType(HtlHighlighterColors.TEMPLATE_IDENTIFIER),
                 "param1".withType(HtlHighlighterColors.OPTION_NAME),
-                "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+                "param2".withType(HtlHighlighterColors.OPTION_NAME)
         )
     }
 
@@ -163,7 +163,7 @@ class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
                 "lib".withType(HtlHighlighterColors.VARIABLE),
                 "template".withType(HtlHighlighterColors.TEMPLATE_IDENTIFIER),
                 "param1".withType(HtlHighlighterColors.OPTION_NAME),
-                "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+                "param2".withType(HtlHighlighterColors.OPTION_NAME)
         )
     }
 
@@ -176,7 +176,7 @@ class HtlBlocksHighlightingTest : HtlHighlightingTestBase() {
                 "testObj".withType(HtlHighlighterColors.VARIABLE),
                 "templateName".withType(HtlHighlighterColors.PROPERTY_ACCESS),
                 "param1".withType(HtlHighlighterColors.OPTION_NAME),
-                "param2=".withType(HtlHighlighterColors.OPTION_NAME)
+                "param2".withType(HtlHighlighterColors.OPTION_NAME)
         )
     }
 
