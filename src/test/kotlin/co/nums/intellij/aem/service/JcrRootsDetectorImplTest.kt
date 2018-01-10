@@ -1,6 +1,5 @@
 package co.nums.intellij.aem.service
 
-import co.nums.intellij.aem.constants.JCR_SPECIFIC_DIRECTORIES
 import co.nums.intellij.aem.test.util.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -139,9 +138,67 @@ class JcrRootsDetectorImplTest {
         assertThat(detectJcrRoots).containsOnly("/content")
     }
 
+    @Test
+    fun shouldHandleDetectionForJcrRootInDirNamedAsStandardJcrSpecificDir() {
+        val projectRoot =
+                directory("projectRoot").withChildren(
+                        directory("ui.apps").withChildren(
+                                directory("src").withChildren(
+                                        directory("main").withChildren(
+                                                directory("content").withChildren(
+                                                        directory("jcr_root").withChildren(
+                                                                directory("apps").withChildren(
+                                                                        file(".content.xml")),
+                                                                directory("etc").withChildren(
+                                                                        file(".content.xml"))))))))
+
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
+
+        assertThat(detectJcrRoots).containsOnly("/ui.apps/src/main/content/jcr_root")
+    }
+
+    @Test
+    fun shouldHandleDetectionForJcrRootNamedAsNonStandardJcrSpecificDirWithNestedJcrSpecificDir() {
+        val projectRoot =
+                directory("projectRoot").withChildren(
+                        directory("ui.apps").withChildren(
+                                directory("src").withChildren(
+                                        directory("main").withChildren(
+                                                directory("content").withChildren(
+                                                        directory("apps").withChildren(
+                                                                directory("content").withChildren(
+                                                                        file(".content.xml"))))))))
+
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
+
+        assertThat(detectJcrRoots).containsOnly("/ui.apps/src/main/content")
+    }
+
+    @Test
+    fun shouldHandleDetectionForJcrRootNamedAsContentContainingOnlyContentDir() {
+        val projectRoot =
+                directory("projectRoot").withChildren(
+                        directory("ui.apps").withChildren(
+                                directory("src").withChildren(
+                                        directory("main").withChildren(
+                                                directory("content").withChildren(
+                                                        directory("content").withChildren(
+                                                                        file(".content.xml")))))))
+
+        val detectJcrRoots = sut.detectJcrRoots(projectRoot, testBaseDir)
+
+        assertThat(detectJcrRoots).containsOnly("/ui.apps/src/main/content")
+    }
+
     companion object {
         @JvmStatic
-        fun jcrSpecificDirectories() = JCR_SPECIFIC_DIRECTORIES
+        fun jcrSpecificDirectories() = arrayOf(
+                "apps",
+                "conf",
+                "content",
+                "etc",
+                "home",
+                "libs")
     }
 
 }

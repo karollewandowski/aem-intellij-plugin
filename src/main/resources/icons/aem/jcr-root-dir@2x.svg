@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="32" height="32" viewBox="0, 0, 32, 32">
+  <g id="Background">
+    <rect x="0" y="0" width="32" height="32" fill="#000000" fill-opacity="0"/>
+  </g>
+  <g id="Layer_1">
+    <path d="M16,10 L13.393,7.423 C12.443,6.571 11.231,6.069 9.958,6 C2.046,6 2,5.943 2,6 L2,16 L30,16 L30,10 L16,10 z" fill="#9AA7B0" opacity="0.804"/>
+    <path d="M2,18 L32,18 L32,32 L2,32 z" fill="#DAA438" opacity="0.697"/>
+    <g id="JCR">
+      <g opacity="0.701">
+        <path d="M8,20 L10,20 L10,27 L8,27 L8,20 z" fill="#231F20"/>
+        <path d="M4,28 L7,28 L7,30 L4,30 L4,28 z" fill="#231F20"/>
+        <path d="M9,27 C9,28.105 8.105,29 7,29" fill-opacity="0" stroke="#231F20" stroke-width="2"/>
+      </g>
+      <g opacity="0.697">
+        <path d="M13,23 C13,21.895 13.895,21 15,21" fill-opacity="0" stroke="#231F20" stroke-width="2"/>
+        <path d="M15,29 C13.895,29 13,28.105 13,27" fill-opacity="0" stroke="#231F20" stroke-width="2"/>
+        <path d="M12,23 L14,23 L14,27 L12,27 L12,23 z" fill="#231F20"/>
+        <path d="M15,28 L18,28 L18,30 L15,30 L15,28 z" fill="#231F20"/>
+        <path d="M15,20 L18,20 L18,22 L15,22 L15,20 z" fill="#231F20"/>
+      </g>
+      <g opacity="0.702">
+        <path d="M20,20 L22,20 L22,30 L20,30 L20,20 z" fill="#231F20"/>
+        <path d="M24,21 C25.105,21 26,21.895 26,23" fill-opacity="0" stroke="#231F20" stroke-width="2"/>
+        <path d="M26,23 C26,24.105 25.105,25 24,25" fill-opacity="0" stroke="#231F20" stroke-width="2"/>
+        <path d="M22,20 L24,20 L24,22 L22,22 L22,20 z" fill="#231F20"/>
+        <path d="M22,24 L24,24 L24,26 L22,26 L22,24 z" fill="#231F20"/>
+        <path d="M22.5,24 L24.5,24 L27,30 L25,30 L22.5,24 z" fill="#231F20"/>
+      </g>
+    </g>
+  </g>
+  <g id="_Rectangle_"/>
+</svg>
