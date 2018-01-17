@@ -103,9 +103,9 @@ class HtlTemplatesIndex : FileBasedIndexExtension<String, List<HtlTemplate>>() {
 
         private fun DataOutput.writeTemplateParameter(parameter: HtlTemplateParameter) {
             IOUtil.writeUTF(this, parameter.name)
-            if (parameter.defaultValue != null) {
+            if (parameter.usageHint != null) {
                 this.writeBoolean(true)
-                IOUtil.writeUTF(this, parameter.defaultValue)
+                IOUtil.writeUTF(this, parameter.usageHint)
             } else {
                 this.writeBoolean(false)
             }
@@ -126,8 +126,8 @@ class HtlTemplatesIndex : FileBasedIndexExtension<String, List<HtlTemplate>>() {
 
         private fun DataInput.readTemplateParameter(): HtlTemplateParameter {
             val name = IOUtil.readUTF(this)
-            val defaultValue = if (this.readBoolean()) IOUtil.readUTF(this) else null
-            return HtlTemplateParameter(name, defaultValue)
+            val usageHint = if (this.readBoolean()) IOUtil.readUTF(this) else null
+            return HtlTemplateParameter(name, usageHint)
         }
 
     }

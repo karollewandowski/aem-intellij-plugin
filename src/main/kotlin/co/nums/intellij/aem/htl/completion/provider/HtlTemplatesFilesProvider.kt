@@ -6,6 +6,7 @@ import co.nums.intellij.aem.service.jcrRoots
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.*
 import com.intellij.openapi.util.Key
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.ProcessingContext
 import com.intellij.util.indexing.FileBasedIndex
 
@@ -19,13 +20,20 @@ object HtlTemplatesFilesProvider : CompletionProvider<CompletionParameters>() {
 
     private fun htlTemplatesFiles(parameters: CompletionParameters): List<LookupElement> {
         val currentFilePath = parameters.originalFile.virtualFile.path
-        val basePath = parameters.position.project.basePath ?: ""
-        val jcrRoots = parameters.position.project.jcrRoots.getAll()
+        val project = parameters.position.project
+        val basePath = project.basePath ?: ""
+        val jcrRoots = project.jcrRoots.getAll()
         val currentFileDirPath = currentFilePath.substringBeforeLast('/').normalizePath(basePath, jcrRoots)
-        return FileBasedIndex.getInstance().getAllKeys(HtlTemplatesIndex.NAME, parameters.position.project)
-                .filter { it != currentFilePath }
-                .map { it.normalizePath(basePath, jcrRoots) }
-                .map { it.toLookupElement(currentFileDirPath) }
+        return FileBasedIndex.getInstance().let { index ->
+            val projectScope = GlobalSearchScope.allScope(project)
+            index.getAllKeys(HtlTemplatesIndex.NAME, project)
+                    .filter { it != currentFilePath }
+                    .flatMap { index.getValues(HtlTemplatesIndex.NAME, it, projectScope) }
+                    .flatMap { it }
+                    .map { it.filePath }
+                    .map { it.normalizePath(basePath, jcrRoots) }
+                    .map { it.toLookupElement(currentFileDirPath) }
+        }
     }
 
     private fun String.normalizePath(basePath: String, jcrRoots: Set<String>): String {
