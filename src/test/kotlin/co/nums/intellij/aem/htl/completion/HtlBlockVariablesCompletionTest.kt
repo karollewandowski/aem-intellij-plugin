@@ -112,4 +112,81 @@ class HtlBlockVariablesCompletionTest : HtlCompletionTestBase() {
             """<div data-sly-repeat.myRepeatItem="$DOLLAR{<caret>}"></div>""",
             "myRepeatItem")
 
+    fun testShouldNotCompleteUseVariableInsideOfTemplate() = checkDoesNotContainAnyOf("""
+            <div data-sly-use.myUse="anything"></div>
+            <template data-sly-template.myTemplate>$DOLLAR{<caret>}</template>""",
+            "myUse")
+
+    fun testShouldCompleteUseVariableInsideOfTemplateWhenItIsDeclaredInTemplate() = checkContainsAll("""
+            <template data-sly-template.myTemplate>
+                <div data-sly-use.myUse="anything"></div>
+                $DOLLAR{<caret>}
+            </template>""",
+            "myUse")
+
+    fun testShouldCompleteUseVariableAfterTemplate() = checkContainsAll("""
+            <div data-sly-use.myUse="anything"></div>
+            <template data-sly-template.myTemplate></template>
+            $DOLLAR{<caret>}""",
+            "myUse")
+
+    fun testShouldNotCompleteTestVariableInsideOfTemplate() = checkDoesNotContainAnyOf("""
+            <div data-sly-test.myTest="anything"></div>
+            <template data-sly-template.myTemplate>$DOLLAR{<caret>}</template>""",
+            "myTest")
+
+    fun testShouldCompleteTestVariableInsideOfTemplateWhenItIsDeclaredInTemplate() = checkContainsAll("""
+            <template data-sly-template.myTemplate>
+                <div data-sly-test.myTest="anything"></div>
+                $DOLLAR{<caret>}
+            </template>""",
+            "myTest")
+
+    fun testShouldCompleteTestVariableAfterTemplate() = checkContainsAll("""
+            <div data-sly-test.myTest="anything"></div>
+            <template data-sly-template.myTemplate></template>
+            $DOLLAR{<caret>}""",
+            "myTest")
+
+    fun testShouldNotCompleteListVariableInsideOfTemplate() = checkDoesNotContainAnyOf("""
+            <div data-sly-list.myListItem="anything">
+                <template data-sly-template.myTemplate>$DOLLAR{<caret>}</template>
+            </div>""",
+            "myListItem")
+
+    fun testShouldCompleteListVariableInsideOfTemplateWhenItIsDeclaredInTemplate() = checkContainsAll("""
+            <template data-sly-template.myTemplate>
+                <div data-sly-list.myListItem="anything">
+                    $DOLLAR{<caret>}
+                </div>
+            </template>""",
+            "myListItem")
+
+    fun testShouldCompleteListVariableAfterTemplate() = checkContainsAll("""
+            <div data-sly-list.myListItem="anything">
+                <template data-sly-template.myTemplate></template>
+                $DOLLAR{<caret>}
+            </div>""",
+            "myListItem")
+
+    fun testShouldNotCompleteRepeatVariableInsideOfTemplate() = checkDoesNotContainAnyOf("""
+            <div data-sly-repeat.myRepeatItem="anything"></div>
+            <template data-sly-template.myTemplate>$DOLLAR{<caret>}</template>""",
+            "myRepeatItem")
+
+    fun testShouldCompleteRepeatVariableInsideOfTemplateWhenItIsDeclaredInTemplate() = checkContainsAll("""
+            <template data-sly-template.myTemplate>
+                <div data-sly-repeat.myRepeatItem="anything">
+                    $DOLLAR{<caret>}
+                </div>
+            </template>""",
+            "myRepeatItem")
+
+    fun testShouldCompleteRepeatVariableAfterTemplate() = checkContainsAll("""
+            <div data-sly-repeat.myRepeatItem="anything">
+                <template data-sly-template.myTemplate></template>
+                $DOLLAR{<caret>}
+            </div>""",
+            "myRepeatItem")
+
 }

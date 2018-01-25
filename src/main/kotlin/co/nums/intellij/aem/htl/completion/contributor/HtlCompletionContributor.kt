@@ -19,6 +19,11 @@ class HtlCompletionContributor : CompletionContributor() {
         )
         extend(
                 CompletionType.BASIC,
+                HtlPatterns.variable,
+                HtlTemplateVariablesProvider
+        )
+        extend(
+                CompletionType.BASIC,
                 HtlPatterns.propertyIdentifier,
                 HtlPredefinedPropertyCompletionProvider
         )

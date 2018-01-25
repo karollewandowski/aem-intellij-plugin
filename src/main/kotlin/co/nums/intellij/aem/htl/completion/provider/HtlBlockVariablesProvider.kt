@@ -4,11 +4,13 @@ import co.nums.intellij.aem.htl.data.blocks.HtlBlockVariable
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.ELEMENT_CHILDREN_SCOPE_VARIABLE
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.ELEMENT_SCOPE_VARIABLE
 import co.nums.intellij.aem.htl.definitions.BlockIdentifierType.GLOBAL_VARIABLE
+import co.nums.intellij.aem.htl.extensions.getTemplateDefinitionAttribute
 import co.nums.intellij.aem.htl.psi.search.HtlSearch
 import co.nums.intellij.aem.icons.HtlIcons
 import com.intellij.codeInsight.completion.*
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.StdLanguages
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.*
 import com.intellij.util.ProcessingContext
@@ -18,19 +20,23 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
     override fun addCompletions(parameters: CompletionParameters, context: ProcessingContext?, result: CompletionResultSet) {
         val htmlFile = parameters.originalFile.viewProvider.getPsi(StdLanguages.HTML)
         val currentElement = parameters.position
+        val outerTemplateRange = currentElement.getTemplateDefinitionAttribute(htmlFile)?.parent?.textRange
         val variableElements = HtlSearch.blockVariables(htmlFile)
-                .filter { it.hasApplicableScopeFor(currentElement) }
+                .filter { currentElement.isInScopeOf(it, outerTemplateRange) }
                 .map { it.toLookupElement() }
         result.addAllElements(variableElements)
     }
 
-    private fun HtlBlockVariable.hasApplicableScopeFor(currentElement: PsiElement) =
-            when (this.identifierType) {
-                GLOBAL_VARIABLE -> currentElement.isInsideOrAfterDeclarationBlockElement(this)
-                ELEMENT_SCOPE_VARIABLE -> currentElement.isInBlockElement(this)
-                ELEMENT_CHILDREN_SCOPE_VARIABLE -> currentElement.isInBlockElementChildren(this)
+    private fun PsiElement.isInScopeOf(variable: HtlBlockVariable, templateRange: TextRange?) =
+            variable.notOutOf(templateRange) && when (variable.identifierType) {
+                GLOBAL_VARIABLE -> this.isInsideOrAfterDeclarationBlockElement(variable)
+                ELEMENT_SCOPE_VARIABLE -> this.isInBlockElement(variable)
+                ELEMENT_CHILDREN_SCOPE_VARIABLE -> this.isInBlockElementChildren(variable)
                 else -> false
             }
+
+    private fun HtlBlockVariable.notOutOf(templateRange: TextRange?) =
+            templateRange?.contains(this.definer.textOffset) ?: true
 
     private fun PsiElement.isInsideOrAfterDeclarationBlockElement(variable: HtlBlockVariable): Boolean {
         val blockRangeStart = (variable.definer.context as? XmlTag)?.textRange?.startOffset ?: return false
@@ -58,8 +64,8 @@ object HtlBlockVariablesProvider : CompletionProvider<CompletionParameters>() {
 
     private fun HtlBlockVariable.toLookupElement() =
             LookupElementBuilder.create(identifier)
-                    .bold()
-                    .withTypeText(dataType)
                     .withIcon(HtlIcons.HTL_VARIABLE)
+                    .withTypeText(dataType)
+                    .bold()
 
 }

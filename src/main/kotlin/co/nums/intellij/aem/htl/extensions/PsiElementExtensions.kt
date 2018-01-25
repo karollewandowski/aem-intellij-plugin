@@ -3,7 +3,7 @@ package co.nums.intellij.aem.htl.extensions
 import co.nums.intellij.aem.htl.definitions.*
 import co.nums.intellij.aem.htl.psi.*
 import com.intellij.lang.StdLanguages
-import com.intellij.psi.PsiElement
+import com.intellij.psi.*
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.*
@@ -23,8 +23,7 @@ fun PsiElement.getOuterHtmlAttributeQuote(): Char? {
 private fun HtlExpression.getOuterXmlAttribute(): XmlAttribute? {
     val offset = this.textOffset
     if (offset > 0) {
-        val viewProvider = this.containingFile.viewProvider
-        val previousElement = viewProvider.findElementAt(offset - 1, StdLanguages.HTML) ?: return null
+        val previousElement = containingFile.viewProvider.findElementAt(offset - 1, StdLanguages.HTML) ?: return null
         return PsiTreeUtil.getParentOfType(previousElement, XmlAttribute::class.java)
     }
     return null
@@ -39,6 +38,24 @@ fun PsiElement.getOuterBlockType(): String? {
     val htlExpression = PsiTreeUtil.getParentOfType(this, HtlExpression::class.java) ?: return null
     val outerAttribute = htlExpression.getOuterXmlAttribute() ?: return null
     return outerAttribute.localName.substringBefore(".").toLowerCase()
+}
+
+fun PsiElement.getTemplateDefinitionAttribute(file: PsiFile): XmlAttribute? {
+    val htlExpression = PsiTreeUtil.getParentOfType(this, HtlExpression::class.java, false)
+            ?: return null
+    val offset = htlExpression.textOffset
+    if (offset > 0) {
+        val previousElement = file.viewProvider.findElementAt(offset - 1, StdLanguages.HTML)
+                ?: return null
+        var currentTag = PsiTreeUtil.getParentOfType(previousElement, XmlTag::class.java)
+        while (currentTag != null) {
+            currentTag.attributes
+                    .firstOrNull { it.localName.startsWith("${HtlBlock.TEMPLATE.type}.") }
+                    ?.let { return it }
+            currentTag = PsiTreeUtil.getParentOfType(currentTag, XmlTag::class.java)
+        }
+    }
+    return null
 }
 
 /**
