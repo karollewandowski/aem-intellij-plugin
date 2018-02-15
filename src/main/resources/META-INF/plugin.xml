@@ -16,10 +16,11 @@
         <br/>
         Features:<br>
         <ul>
+            <li>JCR roots auto-detection
             <li>HTL/Sightly support (HTML files under <code>jcr_root</code> directory)
                 <ul>
                     <li>syntax validation and highlighting</li>
-                    <li>autocompletion, inspections and documentation for:
+                    <li>auto-completion, inspections and documentation for:
                         <ul>
                             <li>block attributes (<code>data-sly-*</code>)</li>
                             <li>global objects (<code>properties</code>, <code>currentPage</code>, <code>wcmmode</code>, etc.)</li>
@@ -43,6 +44,7 @@
     <change-notes><![CDATA[
         Changes:
         <ul>
+            <li>added JCR roots auto-detection</li>
             <li>improved typing experience by providing more completions inspection, quick fixes, etc.</li>
             <li>improved HTL syntax highlighting</li>
             <li>parsing optimizations and improvements</li>
@@ -175,9 +177,11 @@
                 implementationClass="co.nums.intellij.aem.htl.inspections.DisallowedHtlAttributeBlockAnnotator"
                 order="after htlBlocksHighlighter"/>
 
+        <problemFileHighlightFilter
+                implementation="co.nums.intellij.aem.htl.file.HtlProblemFileHighlightFilter"/>
+
         <errorHandler
                 implementation="co.nums.intellij.aem.errorreports.GitHubErrorReportSubmitter"/>
-
     </extensions>
 
     <actions>

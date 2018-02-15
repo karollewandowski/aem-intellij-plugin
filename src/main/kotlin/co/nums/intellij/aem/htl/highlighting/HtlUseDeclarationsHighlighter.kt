@@ -23,7 +23,7 @@ class HtlUseDeclarationsHighlighter : Annotator {
         val htlFile = attributeValue.containingFile.viewProvider.getPsi(HtlLanguage) ?: return
         val htlExpressionStart = htlFile.findElementAt(valueStart) ?: return
         val elementToHighlight = findElementToHighlight(htlExpressionStart, attributeValue)
-        if (elementToHighlight != null) {
+        if (elementToHighlight != null && elementToHighlight.textRange.length >= 2) {
             holder.highlightText(
                     elementToHighlight.textRange.startOffset + 1,
                     elementToHighlight.textRange.endOffset - 1,
