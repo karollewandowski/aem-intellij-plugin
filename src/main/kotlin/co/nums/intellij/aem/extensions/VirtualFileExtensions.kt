@@ -11,6 +11,8 @@ fun VirtualFile.guessProject(): Project? = ReadAction.compute<Project?, Throwabl
 
 fun VirtualFile.isHtlFile(project: Project) = this.isHtml() && project.jcrRoots.contains(this)
 
+fun VirtualFile.isHtlFile() = this.isHtml() && this.guessProject()?.jcrRoots?.contains(this) == true
+
 fun VirtualFile.isHtml() = extension?.toLowerCase() == "html"
 
 fun VirtualFile.containsFile(predicate: (VirtualFile) -> (Boolean)): Boolean {

@@ -26,12 +26,12 @@ tasks.withType(JavaCompile) {
 
 compileKotlin {
   kotlinOptions {
-    apiVersion = "1.1"
+    apiVersion = "1.2"
   }
 }
 compileTestKotlin {
   kotlinOptions {
-    apiVersion = "1.1"
+    apiVersion = "1.2"
   }
 }
 
@@ -49,7 +49,7 @@ sourceSets {
 }
 
 intellij {
-  version = 'IC-2017.1.5'
+  version = 'IC-2017.3.4'
   updateSinceUntilBuild = false
   sandboxDirectory = project.rootDir.canonicalPath + "/.sandbox"
 }
@@ -135,7 +135,7 @@ def parserGenerationTask(project) {
     }
 
     main = 'org.intellij.grammar.Main'
-    classpath(configurations.compile + files('lib/grammar-kit-1.5.0.jar'))
+    classpath(configurations.compile + files('lib/grammar-kit-2017.1.1.jar'))
 
     args = ["$project.projectDir/src/main/gen", file(src)]
 
