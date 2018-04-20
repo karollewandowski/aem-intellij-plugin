@@ -1,13 +1,13 @@
 package co.nums.intellij.aem.extensions
 
 import co.nums.intellij.aem.service.jcrRoots
-import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.*
 import com.intellij.openapi.vfs.*
 
 fun VirtualFile.getProjectRelativePath(project: Project?) = path.removePrefix(project?.basePath ?: "")
 
-fun VirtualFile.guessProject(): Project? = ReadAction.compute<Project?, Throwable> { ProjectLocator.getInstance().guessProjectForFile(this) }
+fun VirtualFile.guessProject(): Project? = ApplicationManager.getApplication().runReadAction<Project?, Throwable> { ProjectLocator.getInstance().guessProjectForFile(this) }
 
 fun VirtualFile.isHtlFile(project: Project) = this.isHtml() && project.jcrRoots.contains(this)
 
