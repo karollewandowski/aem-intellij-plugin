@@ -81,9 +81,7 @@ option_value ::= expr_node
 
 expr_node ::= ternary_operator | logical_operation
 
-ternary_operator ::= logical_operation '?' logical_operation ':' logical_operation {
-  pin=2
-}
+ternary_operator ::= logical_operation '?' logical_operation ':' logical_operation
 
 logical_operation ::= logical_operand (logical_operator logical_operand)*
 
