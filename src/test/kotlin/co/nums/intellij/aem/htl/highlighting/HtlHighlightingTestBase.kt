@@ -6,8 +6,7 @@ import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import org.assertj.core.api.Assertions
 
-open class HtlHighlightingTestBase : HtlTestBase() {
-
+abstract class HtlHighlightingTestBase : HtlTestBase() {
 
     protected fun testHighlighting(text: String, vararg expectedHighlights: Pair<String, TextAttributesKey>) {
         myFixture.configureByText(HtlFileType, text)

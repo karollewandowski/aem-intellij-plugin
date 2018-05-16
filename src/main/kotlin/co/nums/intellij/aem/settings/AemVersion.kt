@@ -8,24 +8,29 @@ package co.nums.intellij.aem.settings
  */
 enum class AemVersion(val aem: String, val htl: String) {
 
-    AEM_60(
+    AEM_6_0(
             aem = "6.0",
             htl = "1.0"
     ),
 
-    AEM_61(
+    AEM_6_1(
             aem = "6.1",
             htl = "1.1"
     ),
 
-    AEM_62(
+    AEM_6_2(
             aem = "6.2",
             htl = "1.2"
     ),
 
-    AEM_63(
+    AEM_6_3(
             aem = "6.3",
             htl = "1.3"
+    ),
+
+    AEM_6_4(
+            aem = "6.4",
+            htl = "1.3.1"
     )
 
 }

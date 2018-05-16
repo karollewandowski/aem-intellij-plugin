@@ -26,7 +26,7 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
     constructor(project: Project) : this(project, JcrRootsDetectorImpl())
 
     // only for tests
-    internal constructor(project: Project, jcrRootsDetector: JcrRootsDetector) {
+    constructor(project: Project, jcrRootsDetector: JcrRootsDetector) {
         this.project = project
         this.jcrRootsDetector = jcrRootsDetector
         this.detectedJcrContentRoots = jcrRootsDetector.detectJcrRoots(project.baseDir, project.basePath)
