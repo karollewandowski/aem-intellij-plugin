@@ -93,9 +93,6 @@ intellij {
 
 tasks.withType(Test::class.java) {
     useJUnitPlatform()
-    testLogging {
-        events("PASSED", "FAILED", "SKIPPED")
-    }
 }
 
 tasks.withType<JacocoReport> {
