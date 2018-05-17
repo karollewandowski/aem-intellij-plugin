@@ -52,7 +52,7 @@ idea {
     }
 }
 
-task<GenerateLexer>("generateHtlLexer") {
+val generateHtlLexer = task<GenerateLexer>("generateHtlLexer") {
     group = "grammar"
     source = "src/main/grammars/htl.flex"
     targetDir = "src/main/gen/co/nums/intellij/aem/htl/lexer"
@@ -60,7 +60,7 @@ task<GenerateLexer>("generateHtlLexer") {
     purgeOldFiles = true
 }
 
-task<GenerateParser>("generateHtlParser") {
+val generateHtlParser = task<GenerateParser>("generateHtlParser") {
     group = "grammar"
     source = "src/main/grammars/htl.bnf"
     targetRoot = "src/main/gen"
@@ -69,14 +69,20 @@ task<GenerateParser>("generateHtlParser") {
     purgeOldFiles = true
 }
 
+tasks.withType<KotlinCompile> {
+    dependsOn(generateHtlLexer, generateHtlParser)
+}
+
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.languageVersion = "1.2"
+    kotlinOptions {
+        jvmTarget = "1.8"
+        languageVersion = "1.2"
+    }
 }
 
 intellij {
