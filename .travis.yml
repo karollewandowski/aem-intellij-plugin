@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew build junitPlatformJacocoReport
+  - ./gradlew build junitTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
