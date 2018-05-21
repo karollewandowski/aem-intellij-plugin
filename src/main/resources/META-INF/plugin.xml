@@ -44,8 +44,7 @@
     <change-notes><![CDATA[
         Bug fixes:
         <ul>
-            <li>No such method exception: ReadAction.compute</li>
-            <li>Invalid range specified in use declaration highlighter</li>
+            <li>Fix icon sizes</li>
         </ul>
         Full release details can be found on Github: https://github.com/karollewandowski/aem-intellij-plugin/releases/tag/v0.8.1
     ]]></change-notes>

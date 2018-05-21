@@ -1,8 +1,10 @@
 package co.nums.intellij.aem.icons
 
-object AemIcons : AbstractIcons(iconsDirectory = "aem") {
+import com.intellij.openapi.util.IconLoader
 
-    val AEM_LOGO = loadIcon("aem-logo")
-    val JCR_ROOT_DIR = loadIcon("jcr-root-dir")
+object AemIcons {
+
+    val AEM_LOGO = IconLoader.getIcon("/icons/aem/aem-logo.svg")
+    val JCR_ROOT_DIR = IconLoader.getIcon("/icons/aem/jcr-root-dir.svg")
 
 }

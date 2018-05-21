@@ -97,17 +97,12 @@ tasks.withType(Test::class.java) {
 
 tasks.withType<JacocoReport> {
     reports {
-        xml.isEnabled=true
+        xml.isEnabled = true
         xml.destination = file("$buildDir/reports/jacoco/test/jacocoTestReport.xml")
         csv.isEnabled = false
         html.isEnabled = false
     }
 }
-
-fun prop(name: String) =
-        extra.properties[name] as? String
-                ?: error("Property `$name` is not defined in gradle.properties")
-
 
 repositories {
     mavenCentral()
@@ -133,5 +128,8 @@ dependencies {
 
     testCompile("org.junit.platform:junit-platform-launcher:${prop("junit5PlatformVersion")}")
     testCompile("org.junit.platform:junit-platform-console:${prop("junit5PlatformVersion")}")
-
 }
+
+fun prop(name: String) =
+        extra.properties[name] as? String
+                ?: error("Property `$name` is not defined in gradle.properties")

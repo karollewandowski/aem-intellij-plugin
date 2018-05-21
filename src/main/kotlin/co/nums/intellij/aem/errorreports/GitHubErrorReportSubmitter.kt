@@ -13,10 +13,10 @@ import com.intellij.openapi.diagnostic.*
 import com.intellij.openapi.diagnostic.SubmittedReportInfo.SubmissionStatus
 import com.intellij.openapi.progress.*
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.SystemInfo.JAVA_VERSION
+import com.intellij.openapi.util.SystemInfo.OS_NAME
 import com.intellij.util.*
-import com.intellij.util.SystemProperties.getJavaVersion
 import com.intellij.util.SystemProperties.getJavaVmVendor
-import com.intellij.util.SystemProperties.getOsName
 import java.awt.Component
 
 class GitHubErrorReportSubmitter : ErrorReportSubmitter() {
@@ -49,7 +49,7 @@ class GitHubErrorReportSubmitter : ErrorReportSubmitter() {
                 additionalInfo,
                 IdeaLogger.ourLastActionId,
                 getRequiredService<PluginInfoProvider>().getPluginVersion(),
-                SystemInfo(getOsName(), getJavaVersion(), getJavaVmVendor()),
+                SystemInfo(OS_NAME, JAVA_VERSION, getJavaVmVendor()),
                 ApplicationNamesInfo.getInstance(),
                 ApplicationInfo.getInstance() as ApplicationInfoEx
         )
