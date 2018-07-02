@@ -2,7 +2,7 @@
 <idea-plugin url="https://github.com/karollewandowski/aem-intellij-plugin">
     <id>co.nums.intellij.aem</id>
     <name>AEM IntelliJ Plugin</name>
-    <version>0.8.2</version>
+    <version>0.8.3</version>
     <vendor url="https://github.com/karollewandowski">Karol Lewandowski</vendor>
 
     <description><![CDATA[
@@ -44,10 +44,9 @@
     <change-notes><![CDATA[
         Bug fixes:
         <ul>
-            <li>Fix ternary operator parsing</li>
-            <li>Fix icon sizes</li>
+            <li>Fix NoSuchMethodError: HtlFileViewProvider.getManager()</li>
         </ul>
-        Full release details can be found on Github: https://github.com/karollewandowski/aem-intellij-plugin/releases/tag/v0.8.2
+        Full release details can be found on Github: https://github.com/karollewandowski/aem-intellij-plugin/releases/tag/v0.8.3
     ]]></change-notes>
 
     <idea-version since-build="143"/>
