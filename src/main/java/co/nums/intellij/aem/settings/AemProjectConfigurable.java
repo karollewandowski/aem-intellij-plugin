@@ -9,6 +9,7 @@ import com.intellij.openapi.project.Project;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import java.util.Objects;
 
 public class AemProjectConfigurable implements Configurable {
 
@@ -19,7 +20,8 @@ public class AemProjectConfigurable implements Configurable {
     private final AemSettings aemSettings;
 
     public AemProjectConfigurable(Project project) {
-        aemSettings = AemSettingsKt.getAemSettings(project);
+        aemSettings = Objects.requireNonNull(AemSettingsKt.getAemSettings(project),
+                "Could not get AEM Settings object");
     }
 
     @Override

@@ -29,7 +29,7 @@ class SetAemVersionNotifier : StartupActivity {
     private fun showVersionNotification(project: Project) {
         val notification = aemPluginNotifications.createNotification(
                 AemPluginBundle.message("plugin.name"),
-                AemPluginBundle.message("notification.aem.version.text", project.aemSettings.aemVersion),
+                AemPluginBundle.message("notification.aem.version.text", project.aemSettings?.aemVersion),
                 NotificationType.INFORMATION,
                 null)
         notification

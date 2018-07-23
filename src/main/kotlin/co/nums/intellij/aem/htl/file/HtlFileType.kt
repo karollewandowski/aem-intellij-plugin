@@ -28,7 +28,7 @@ object HtlFileType : LanguageFileType(HtlLanguage), TemplateLanguageFileType, Fi
     override fun isMyFileType(file: VirtualFile): Boolean {
         if (file.isDirectory) return false
         val project = file.guessProject() ?: return false
-        return project.aemSettings.aemSupportEnabled && file.isHtlFile(project)
+        return project.aemSettings?.aemSupportEnabled == true && file.isHtlFile(project)
     }
 
 }

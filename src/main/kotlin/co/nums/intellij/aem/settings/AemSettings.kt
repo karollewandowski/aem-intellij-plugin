@@ -18,6 +18,9 @@ class AemSettings : PersistentStateComponent<AemSettings> {
 
 }
 
-val Project.aemSettings: AemSettings
-    get() = ServiceManager.getService(this, AemSettings::class.java)
-            ?: error("Failed to get ${AemSettings::class.java.name} for $this")
+val Project.aemSettings: AemSettings?
+    get() {
+        if (this.isDisposed) return null
+        return ServiceManager.getService(this, AemSettings::class.java)
+                ?: error("Failed to get ${AemSettings::class.java.name} for $this")
+    }

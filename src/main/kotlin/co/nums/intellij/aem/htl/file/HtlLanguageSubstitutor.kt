@@ -11,7 +11,7 @@ import com.intellij.psi.LanguageSubstitutor
 class HtlLanguageSubstitutor : LanguageSubstitutor() {
 
     override fun getLanguage(file: VirtualFile, project: Project): Language? =
-            if (project.aemSettings.aemSupportEnabled && file.isHtlFile(project)) HtlLanguage
+            if (project.aemSettings?.aemSupportEnabled == true && file.isHtlFile(project)) HtlLanguage
             else null
 
 }
