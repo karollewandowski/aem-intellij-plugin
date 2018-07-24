@@ -30,7 +30,7 @@ buildscript {
 
 plugins {
     idea
-    id("org.jetbrains.intellij").version("0.3.1")
+    id("org.jetbrains.intellij").version("0.3.4")
 }
 
 apply {
