@@ -9,9 +9,9 @@ fun VirtualFile.getProjectRelativePath(project: Project?) = path.removePrefix(pr
 
 fun VirtualFile.guessProject(): Project? = ApplicationManager.getApplication().runReadAction<Project?, Throwable> { ProjectLocator.getInstance().guessProjectForFile(this) }
 
-fun VirtualFile.isHtlFile(project: Project) = this.isHtml() && project.jcrRoots.contains(this)
+fun VirtualFile.isHtlFile(project: Project) = this.isHtml() && project.jcrRoots?.contains(this) ?: false
 
-fun VirtualFile.isHtlFile() = this.isHtml() && this.guessProject()?.jcrRoots?.contains(this) == true
+fun VirtualFile.isHtlFile() = this.isHtml() && this.guessProject()?.jcrRoots?.contains(this) ?: false
 
 fun VirtualFile.isHtml() = extension?.toLowerCase() == "html"
 

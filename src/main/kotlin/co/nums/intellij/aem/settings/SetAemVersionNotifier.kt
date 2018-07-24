@@ -18,7 +18,7 @@ class SetAemVersionNotifier : StartupActivity {
     private val aemPluginNotifications = NotificationGroup("AEM IntelliJ Plugin", NotificationDisplayType.STICKY_BALLOON, false)
 
     override fun runActivity(project: Project) {
-        if (!project.jcrRoots.isEmpty() && notificationNotShownYet(project)) {
+        if (project.jcrRoots?.isEmpty() != true && notificationNotShownYet(project)) {
             showVersionNotification(project)
         }
     }

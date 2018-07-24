@@ -11,11 +11,11 @@ class HtlTemplatesFilesCompletionTest : HtlCompletionTestBase() {
         super.setUp()
         val dummyFile = myFixture.addFileToProject("jcr_root/dummy.html", "")
         jcrRoot = dummyFile.parent!!.virtualFile
-        myFixture.project.jcrRoots.markAsJcrRoot(jcrRoot)
+        myFixture.project.jcrRoots!!.markAsJcrRoot(jcrRoot)
     }
 
     override fun tearDown() {
-        myFixture.project.jcrRoots.unmarkAsJcrRoot(jcrRoot)
+        myFixture.project.jcrRoots!!.unmarkAsJcrRoot(jcrRoot)
         super.tearDown()
     }
 

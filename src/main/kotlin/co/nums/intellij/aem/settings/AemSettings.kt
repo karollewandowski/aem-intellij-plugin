@@ -1,5 +1,6 @@
 package co.nums.intellij.aem.settings
 
+import co.nums.intellij.aem.extensions.getService
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -19,8 +20,4 @@ class AemSettings : PersistentStateComponent<AemSettings> {
 }
 
 val Project.aemSettings: AemSettings?
-    get() {
-        if (this.isDisposed) return null
-        return ServiceManager.getService(this, AemSettings::class.java)
-                ?: error("Failed to get ${AemSettings::class.java.name} for $this")
-    }
+    get() = getService(this)

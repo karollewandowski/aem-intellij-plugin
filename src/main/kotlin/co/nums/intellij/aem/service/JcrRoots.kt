@@ -1,6 +1,6 @@
 package co.nums.intellij.aem.service
 
-import co.nums.intellij.aem.extensions.getProjectRelativePath
+import co.nums.intellij.aem.extensions.*
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
@@ -67,6 +67,5 @@ class JcrRoots : PersistentStateComponent<JcrRoots.State> {
 
 }
 
-val Project.jcrRoots: JcrRoots
-    get() = ServiceManager.getService(this, JcrRoots::class.java)
-            ?: error("Failed to get ${JcrRoots::class.java.name} for $this")
+val Project.jcrRoots: JcrRoots?
+    get() = getService(this)

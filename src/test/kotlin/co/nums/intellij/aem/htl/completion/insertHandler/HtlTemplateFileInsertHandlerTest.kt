@@ -12,12 +12,12 @@ class HtlTemplateFileInsertHandlerTest:  HtlInsertHandlerTestBase() {
         super.setUp()
         val dummyFile = myFixture.addFileToProject("jcr_root/dummy.html", "")
         jcrRoot = dummyFile.parent!!.virtualFile
-        myFixture.project.jcrRoots.markAsJcrRoot(jcrRoot)
+        myFixture.project.jcrRoots!!.markAsJcrRoot(jcrRoot)
         HtlTemplatesIndex.rebuild()
     }
 
     override fun tearDown() {
-        myFixture.project.jcrRoots.unmarkAsJcrRoot(jcrRoot)
+        myFixture.project.jcrRoots!!.unmarkAsJcrRoot(jcrRoot)
         HtlTemplatesIndex.rebuild()
         super.tearDown()
     }

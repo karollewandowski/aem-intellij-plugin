@@ -22,7 +22,7 @@ object HtlTemplatesFilesProvider : CompletionProvider<CompletionParameters>() {
         val currentFilePath = parameters.originalFile.virtualFile.path
         val project = parameters.position.project
         val basePath = project.basePath ?: ""
-        val jcrRoots = project.jcrRoots.getAll()
+        val jcrRoots = project.jcrRoots?.getAll() ?: return emptyList()
         val currentFileDirPath = currentFilePath.substringBeforeLast('/').normalizePath(basePath, jcrRoots)
         return FileBasedIndex.getInstance().let { index ->
             val projectScope = GlobalSearchScope.allScope(project)

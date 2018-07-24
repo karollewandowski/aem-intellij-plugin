@@ -17,7 +17,7 @@ class MarkAsJcrRootAction : DumbAwareAction() {
         val dirs = event.getData(VIRTUAL_FILE_ARRAY)
         val project = event.project
         if (dirs?.isNotEmpty() == true && project != null && dirs.all { it.isDirectory }) {
-        val jcrRoots = project.jcrRoots
+        val jcrRoots = project.jcrRoots ?: return
             when {
                 dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> event.presentation.icon = AemIcons.JCR_ROOT_DIR
                 dirs.allCanBeUnmarkedAsJcrRoots(jcrRoots) -> event.presentation.text = "Unmark as JCR Root"
@@ -37,7 +37,7 @@ class MarkAsJcrRootAction : DumbAwareAction() {
         val project = event.project ?: return
         val dirs = event.getData(VIRTUAL_FILE_ARRAY) ?: return
         if (dirs.isEmpty() || !dirs.all { it.isDirectory }) return
-        val jcrRoots = project.jcrRoots
+        val jcrRoots = project.jcrRoots ?: return
         when {
             dirs.allCanBeMarkedAsJcrRoots(jcrRoots) -> doAction(project, dirs, jcrRoots::markAsJcrRoot)
             dirs.allCanBeUnmarkedAsJcrRoots(jcrRoots) -> doAction(project, dirs, jcrRoots::unmarkAsJcrRoot)
