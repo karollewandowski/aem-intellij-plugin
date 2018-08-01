@@ -9,12 +9,12 @@ import com.intellij.psi.impl.source.PsiFileImpl
 import com.intellij.psi.templateLanguages.*
 import com.intellij.util.containers.ContainerUtil
 
-class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager,
+class HtlFileViewProvider @JvmOverloads constructor(private val psiManager: PsiManager,
                                                     file: VirtualFile,
                                                     physical: Boolean,
                                                     private val baseLanguage: Language,
-                                                    private val templateDataLanguage: Language = getTemplateDataLanguage(manager, file))
-    : MultiplePsiFilesPerDocumentFileViewProvider(manager, file, physical), ConfigurableTemplateLanguageFileViewProvider {
+                                                    private val templateDataLanguage: Language = getTemplateDataLanguage(psiManager, file))
+    : MultiplePsiFilesPerDocumentFileViewProvider(psiManager, file, physical), ConfigurableTemplateLanguageFileViewProvider {
 
     companion object {
         private val HTL_FRAGMENT = HtlElementType("HTL_FRAGMENT")
@@ -30,7 +30,7 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager,
     override fun supportsIncrementalReparse(rootLanguage: Language) = false
 
     override fun cloneInner(virtualFile: VirtualFile) =
-            HtlFileViewProvider(super.getManager(), virtualFile, false, baseLanguage, templateDataLanguage)
+            HtlFileViewProvider(psiManager, virtualFile, false, baseLanguage, templateDataLanguage)
 
     override fun createFile(language: Language): PsiFile? {
         val parserDefinition = getParserDefinition(language)
@@ -67,11 +67,11 @@ class HtlFileViewProvider @JvmOverloads constructor(manager: PsiManager,
 
 }
 
-private fun getTemplateDataLanguage(manager: PsiManager, file: VirtualFile): Language {
-    var dataLanguage = TemplateDataLanguageMappings.getInstance(manager.project)?.getMapping(file)
+private fun getTemplateDataLanguage(psiManager: PsiManager, file: VirtualFile): Language {
+    var dataLanguage = TemplateDataLanguageMappings.getInstance(psiManager.project)?.getMapping(file)
             ?: HtlLanguage.getTemplateLanguageFileType().language
 
-    val substituteLanguage = LanguageSubstitutors.INSTANCE.substituteLanguage(dataLanguage, file, manager.project)
+    val substituteLanguage = LanguageSubstitutors.INSTANCE.substituteLanguage(dataLanguage, file, psiManager.project)
 
     // only use a substituted language if it's templateable
     if (TemplateDataLanguageMappings.getTemplateableLanguages().contains(substituteLanguage)) {
