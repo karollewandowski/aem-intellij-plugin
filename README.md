@@ -20,9 +20,9 @@ Go to: `Preferences` / `Plugins` / `Browse Repositories...` and search for `AEM 
 
 ## Features
 
-* HTL/Sightly support
+* HTL/Sightly (1.0 - 1.4) support
   * syntax validation and highlighting
-  * autocompletion, inspections and documentation for:
+  * autocompletion, inspections, refactoring and documentation for:
     * block attributes (`data-sly-*`)
     * global objects (`properties`, `currentPage`, `wcmmode`, etc.)
     * properties (`jcr:title`, `cq:lastModified`, `sling:resourceType`, etc.)
