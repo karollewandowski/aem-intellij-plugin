@@ -6,7 +6,7 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/9269-aem-intellij-plugin.svg)](https://plugins.jetbrains.com/plugin/9269-aem-intellij-plugin)
 
 :no_entry:
-*Plugin code in this repository is not maintained any more. **Reporting issues is still appreciated in this repository.*** :no_entry:
+*Plugin code in this repository is not maintained any more. **Reporting issues is still appreciated in this repository.***
 
 **Plugin is still developed and maintained, it is just moved to private repository.**
 
